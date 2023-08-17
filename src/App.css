@@ -18,3 +18,7 @@ html {
   min-height: 100%;
   text-align: center;
 }
+
+.App-header img {
+  width: 80px;
+}
