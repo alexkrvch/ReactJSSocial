@@ -1,5 +1,8 @@
 import './App.css';
-import logo from './logo.svg';
+import Header from './Header';
+import Nav from "./Nav";
+import Content from "./Content";
+import Footer from "./Footer";
 
 const App = () => {
     return (
@@ -14,36 +17,5 @@ const App = () => {
     );
 }
 
-const Header = () => {
-    return (
-        <header className="App-header">
-            <img srcSet={logo} alt="" />
-        </header>
-    );
-}
-
-const Nav = () => {
-    return (
-        <nav className="App-nav">
-            Text nav
-        </nav>
-    );
-}
-
-const Content = () => {
-    return (
-        <div className="App-pagecontent">
-            Content
-        </div>
-    )
-}
-
-const Footer = () => {
-    return (
-        <footer className="App-footer">
-            Footer
-        </footer>
-    );
-}
 
 export default App;
