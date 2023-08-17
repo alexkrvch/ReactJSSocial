@@ -12,6 +12,9 @@ html {
 }
 
 .App-content {
+  display: flex;
+  align-content: center;
+  justify-content: center;
   min-height: 100%;
   text-align: center;
 }
