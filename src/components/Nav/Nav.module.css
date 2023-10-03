@@ -32,12 +32,13 @@
 .menu_item a {
   color: #fff;
   text-decoration: none;
+  transition: all 0.2s;
 }
 
 .menu_item a:hover {
-  text-decoration: underline;
+  color: #aaa;
 }
 
-.menu_active a {
+.menu_item a.menu_active {
   color: #777;
 }
