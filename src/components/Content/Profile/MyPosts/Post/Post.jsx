@@ -9,7 +9,7 @@ const Post = (props) => {
             <div className={s.post_content}>
                 <h3 className={s.post_name}>{props.header}</h3>
                 <div className={s.post_body}>{props.text}</div>
-                <time>09 September 2023</time>
+                <time>{props.date}</time>
                 <div className={s.like_section}>
                     <span><span className={s.like_count}>{props.countLikes}</span> Like</span>
                 </div>
