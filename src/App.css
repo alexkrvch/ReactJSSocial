@@ -9,6 +9,8 @@ html {
   align-content: center;
   justify-content: center;
   height: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
 }
 
 .App-content {
