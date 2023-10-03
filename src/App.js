@@ -3,19 +3,22 @@ import Header from './components/Header/Header';
 import Nav from "./components/Nav/Nav";
 import Content from "./components/Content/Content";
 import Footer from "./components/Footer/Footer";
+import {BrowserRouter} from "react-router-dom";
 
 const App = () => {
     return (
-        <div className="App">
-            <div className="App-content">
-                <Header />
-                <div className="App-centerPage">
-                    <Nav />
-                    <Content />
+        <BrowserRouter>
+            <div className="App">
+                <div className="App-content">
+                    <Header />
+                    <div className="App-centerPage">
+                        <Nav />
+                        <Content />
+                    </div>
+                    <Footer />
                 </div>
-                <Footer />
             </div>
-        </div>
+        </BrowserRouter>
     );
 }
 
