@@ -12,6 +12,8 @@
 
 .post_name {
     font-size: 20px;
+    margin-bottom: 10px;
+    margin-top: 0;
 }
 
 .post_body {
