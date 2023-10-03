@@ -13,7 +13,42 @@ const Messages = () => {
                 <a href="#" className={s.user}>Poul</a>
             </div>
             <div className={s.messages_right}>
-
+                <div className={s.message_item}>
+                    <div className={s.message_img}>
+                        <img src="https://via.placeholder.com/60" alt="Messages Picture" />
+                    </div>
+                    <div className={s.message_content}>
+                        <div className={s.message_text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, velit vel bibendum bibendum, sapien sapien bibendum sapien, vel bibendum sapien sapien vel sapien.</div>
+                        <time>08 September 2023</time>
+                    </div>
+                </div>
+                <div className={s.message_item}>
+                    <div className={s.message_img}>
+                        <img src="https://via.placeholder.com/60" alt="Messages Picture" />
+                    </div>
+                    <div className={s.message_content}>
+                        <div className={s.message_text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, velit vel bibendum bibendum, sapien sapien bibendum sapien, vel bibendum sapien sapien vel sapien.</div>
+                        <time>08 September 2023</time>
+                    </div>
+                </div>
+                <div className={s.message_item}>
+                    <div className={s.message_img}>
+                        <img src="https://via.placeholder.com/60" alt="Messages Picture" />
+                    </div>
+                    <div className={s.message_content}>
+                        <div className={s.message_text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, velit vel bibendum bibendum, sapien sapien bibendum sapien, vel bibendum sapien sapien vel sapien.</div>
+                        <time>08 September 2023</time>
+                    </div>
+                </div>
+                <div className={s.message_item}>
+                    <div className={s.message_img}>
+                        <img src="https://via.placeholder.com/60" alt="Messages Picture" />
+                    </div>
+                    <div className={s.message_content}>
+                        <div className={s.message_text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, velit vel bibendum bibendum, sapien sapien bibendum sapien, vel bibendum sapien sapien vel sapien.</div>
+                        <time>08 September 2023</time>
+                    </div>
+                </div>
             </div>
         </div>
     );
