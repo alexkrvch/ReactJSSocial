@@ -1,3 +1,41 @@
 .my_posts {
     margin: 20px 0;
 }
+
+.form {
+    display: flex;
+    flex-flow: column;
+}
+
+.form textarea {
+    resize: none;
+    height: 100px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #444;
+    font-family: 'Arial', serif;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.form textarea:focus {
+    outline: none;
+}
+
+.form input {
+    align-self: end;
+    width: 10%;
+    background-color: #fff;
+    color: #000;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: 0;
+    padding: 10px 20px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.form input:focus, .form input:hover {
+    background-color: #aaa;
+    color: #333;
+}

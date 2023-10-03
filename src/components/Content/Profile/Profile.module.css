@@ -1,43 +1,4 @@
 
-.profile_header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 50px;
-}
-
-.profile_header img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 20px;
-}
-
-.profile_header h2 {
-    font-size: 36px;
-    margin-bottom: 10px;
-}
-
-.profile_header p {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
 .profile_content {
     text-align: center;
-}
-
-.profile_content p {
-    font-size: 18px;
-    line-height: 1.5;
-    margin-bottom: 20px;
-}
-
-.profile_back {
-    margin-bottom: 20px;
-}
-
-.profile_back img {
-    max-width: 100%;
 }
