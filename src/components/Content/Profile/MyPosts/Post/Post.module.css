@@ -1,0 +1,38 @@
+.post {
+    margin: 20px 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    text-align: left;
+}
+
+.post_img {
+    margin-right: 30px;
+}
+
+.post_name {
+    font-size: 20px;
+}
+
+.post_body {
+    font-size: 15px;
+}
+
+.post_content {
+    position: relative;
+    padding: 0;
+}
+
+.post_content time {
+    font-size: 11px;
+    opacity: 0.8;
+    display: block;
+    margin-top: 10px;
+}
+
+.like_section {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 11px;
+}
