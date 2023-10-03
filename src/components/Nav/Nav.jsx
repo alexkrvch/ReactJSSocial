@@ -8,6 +8,7 @@ const Nav = () => {
                 <ul className={s.sidebar_menu}>
                     <li className={`${s.menu_item} ${s.menu_active}`}><Link to="/profile">Profile</Link></li>
                     <li className={s.menu_item}><Link to="/messages">Messages</Link></li>
+                    <li className={s.menu_item}><Link to="/news">News</Link></li>
                     <li className={s.menu_item}><Link to="/music">Music</Link></li>
                     <li className={s.menu_item}><Link to="/settings">Settings</Link></li>
                 </ul>
