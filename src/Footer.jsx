@@ -12,11 +12,7 @@ const Footer = () => {
                 </div>
                 <div className="footer-section">
                     <h3>Follow Us</h3>
-                    <ul className="social-media">
-                        <li><a href="#"><i className="fab fa-facebook"></i></a></li>
-                        <li><a href="#"><i className="fab fa-twitter"></i></a></li>
-                        <li><a href="#"><i className="fab fa-instagram"></i></a></li>
-                    </ul>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod</p>
                 </div>
             </div>
             <div className="footer-bottom">

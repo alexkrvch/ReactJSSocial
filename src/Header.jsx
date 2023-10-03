@@ -4,11 +4,8 @@ const Header = () => {
     return (
         <header>
             <nav>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
+                <img alt="" className="logo" src={logo} />
+                WebArcticFox React
             </nav>
         </header>
     );

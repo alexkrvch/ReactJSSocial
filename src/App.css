@@ -28,13 +28,22 @@ header {
   background-color: #333;
   color: #fff;
   padding: 20px;
+
+  .logo {
+    max-width: 80px;
+  }
+}
+
+header nav {
+  display: flex;
+  align-items: center;
+  justify-content: start;
 }
 
 nav ul {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
 }
 
 nav li {
@@ -59,7 +68,7 @@ nav a {
 .App-centerPage nav {
   display: flex;
   align-items: stretch;
-  width: 18%;
+  width: 20%;
 }
 
 .sidebar {
@@ -67,7 +76,9 @@ nav a {
   left: 0;
   background-color: #333;
   color: #fff;
-  padding: 20px;
+  padding: 0 20px;
+  margin-right: 20px;
+  width: 100%;
 }
 
 .sidebar-header {
@@ -110,7 +121,7 @@ nav a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 0;
   width: 100%;
 }
 
@@ -149,6 +160,14 @@ nav a {
   margin-bottom: 20px;
 }
 
+.profile-back {
+  margin-bottom: 20px;
+}
+
+.profile-back img {
+  max-width: 100%;
+}
+
 
 
 /* Footer */
@@ -156,7 +175,7 @@ nav a {
 .footer {
   background-color: #333;
   color: #fff;
-  padding: 50px 0;
+  padding: 50px 0 0;
 }
 
 .footer-container {
