@@ -3,7 +3,7 @@ import Post from "./Post/Post";
 
 const MyPosts = (props) => {
 
-    let Posts = props.PostData.map(p => <Post header={p.header} text={p.text} countLikes={p.countLikes} date={p.date} />);
+    let Posts = props.PostData.map(p => <Post key={p.id} header={p.header} text={p.text} countLikes={p.countLikes} date={p.date} />);
 
     return (
         <div className={s.my_posts}>
