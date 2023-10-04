@@ -10,9 +10,10 @@ const Messages = (props) => {
     let Messages = props.state.MessageData.map(m => <Message key={m.id} text={m.text} date={m.date} img={m.img} />);
 
     let newMessageArea = React.createRef();
-    let addMessage = () => {
+
+    let changeTextNewMessage = () => {
         let text = newMessageArea.current.value;
-        alert(text)
+        props.state.changeTextNewMessage(text);
     }
 
     return (
@@ -24,8 +25,8 @@ const Messages = (props) => {
                 { Messages }
                 <hr />
                 <form className={s.form}>
-                    <textarea placeholder='New message' ref={newMessageArea} ></textarea>
-                    <input onClick={ addMessage } type='button' value='Send' />
+                    <textarea placeholder='New message' onChange={ changeTextNewMessage } value={props.state.newMessageText} ref={newMessageArea} ></textarea>
+                    <input onClick={ props.state.sendMessage } type='button' value='Send' />
                 </form>
             </div>
         </div>

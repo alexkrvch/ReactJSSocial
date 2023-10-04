@@ -8,13 +8,7 @@ const MyPosts = (props) => {
 
     let newPostArea = React.createRef();
 
-    let addPost = () => {
-        let text = newPostArea.current.value;
-        props.state.addPost(text);
-        props.state.changeTextNewPost();
-    }
-
-    let changeNewPostText = () => {
+    let changeTextNewPost = () => {
         let text = newPostArea.current.value;
         props.state.changeTextNewPost(text);
     }
@@ -23,8 +17,8 @@ const MyPosts = (props) => {
         <div className={s.my_posts}>
 
             <form className={s.form}>
-                <textarea placeholder='New post' onChange={ changeNewPostText } value={props.newPostText} ref={newPostArea}></textarea>
-                <input onClick={ addPost } type='button' value='Send' />
+                <textarea placeholder='New post' onChange={ changeTextNewPost } value={props.state.newPostText} ref={newPostArea}></textarea>
+                <input onClick={ props.state.addPost } type='button' value='Send' />
             </form>
 
             <hr />
