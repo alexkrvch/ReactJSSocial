@@ -6,13 +6,13 @@ import News from "./News/News";
 import Music from "./Music/Music";
 import Settings from "./Settings/Settings";
 
-const Content = () => {
+const Content = (props) => {
     return (
         <div className={s.content_page}>
             <Routes>
-                <Route path='/profile' element={<Profile />} />
-                <Route path='/messages'  element={<Messages />} />
-                <Route path='/messages/:dialogid'  element={<Messages />} />
+                <Route path='/profile' element={<Profile PostData={props.PostData} />} />
+                <Route path='/messages'  element={<Messages DialogData={props.DialogData} MessageData={props.MessageData} />} />
+                <Route path='/messages/:dialogid'  element={<Messages DialogData={props.DialogData} MessageData={props.MessageData} />} />
                 <Route path='/news' element={<News />} />
                 <Route path='/music' element={<Music />} />
                 <Route path='/settings' element={<Settings />} />
