@@ -1,3 +1,5 @@
+import {rerenderEntireTree} from "../render";
+
 let state = {
     ProfilePage: {
         PostData: [
@@ -5,7 +7,17 @@ let state = {
             {id: 2, header: 'Second post', text: 'Nullam euismod,2 diam vel tincidunt bibendum, velit sapien bibendum sapien, vel bibendum sapien sapien vel sapien, velit sapien bibendum sapien, vel bibendum sapien sapien vel sapien.', countLikes: 5, date: '02 September 2023'},
             {id: 3, header: 'Next post', text: 'Nullam euismod,3 diam vel tincidunt bibendum, velit sapien bibendum sapien, vel bibendum sapien sapien vel sapien, velit sapien bibendum sapien, vel bibendum sapien sapien vel sapien.', countLikes: 12, date: '28 August 2023'},
             {id: 4, header: 'New post', text: 'Nullam euismod,4 diam vel tincidunt bibendum, velit sapien bibendum sapien, vel bibendum sapien sapien vel sapien, velit sapien bibendum sapien, vel bibendum sapien sapien vel sapien.', countLikes: 2, date: '21 August 2023'},
-        ]
+        ],
+        newPostText: '',
+        addPost: (text) => {
+            let today = new Date().toLocaleDateString('en-GB');
+            let newPost = {id: 5, header: 'Def header', text: text, countLikes: 0, date: today};
+            state.ProfilePage.PostData.push(newPost);
+            rerenderEntireTree(state);
+        },
+        changeTextNewPost: (text = '') => {
+            state.ProfilePage.newPostText = text;
+        }
     },
     MessagesPage: {
         DialogData: [
@@ -33,5 +45,7 @@ let state = {
         ],
     }
 }
+
+window.state = state;
 
 export default state;
