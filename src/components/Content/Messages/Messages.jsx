@@ -28,6 +28,11 @@ const Messages = () => {
             </div>
             <div className={s.messages_right}>
                 {MessageData.map(m => <Message text={m.text} date={m.date} />)}
+                <hr />
+                <form className={s.form}>
+                    <textarea placeholder='New message' ></textarea>
+                    <input type='button' value='Send' />
+                </form>
             </div>
         </div>
     );
