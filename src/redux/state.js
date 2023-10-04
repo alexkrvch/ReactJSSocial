@@ -1,4 +1,6 @@
-import {rerenderEntireTree} from "../render";
+let rerenderEntireTree = () => {
+    console.log('State changed');
+}
 
 let state = {
     ProfilePage: {
@@ -57,8 +59,12 @@ let state = {
             {id: 2, name: 'Mike', img: 'https://via.placeholder.com/60'},
             {id: 3, name: 'Andy', img: 'https://via.placeholder.com/60'}
         ],
+    },
+    subscribe: (observer) => {
+        rerenderEntireTree = observer
     }
 }
+
 
 window.state = state;
 
