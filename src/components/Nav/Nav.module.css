@@ -42,3 +42,11 @@
 .menu_item a.menu_active {
   color: #777;
 }
+
+.sidebar_friends {
+  margin-top: 20px;
+  display: flex;
+  align-self: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}

@@ -6,7 +6,7 @@ const Messages = (props) => {
 
 
     let Dialogs = props.state.DialogData.map(u => <Dialog key={u.id} name={u.name} id={u.id} />);
-    let Messages = props.state.MessageData.map(m => <Message key={m.id} text={m.text} date={m.date} />);
+    let Messages = props.state.MessageData.map(m => <Message key={m.id} text={m.text} date={m.date} img={m.img} />);
 
     return (
         <div className={s.messages_content}>

@@ -12,7 +12,7 @@ const App = (props) => {
                 <div className="App-content">
                     <Header />
                     <div className="App-centerPage">
-                        <Nav />
+                        <Nav state={props.state.Navbar} />
                         <Content state={props.state} />
                     </div>
                     <Footer />
