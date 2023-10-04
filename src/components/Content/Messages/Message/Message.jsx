@@ -4,7 +4,7 @@ const Messages = (props) => {
     return (
         <div className={s.message_item}>
             <div className={s.message_img}>
-                <img src="https://via.placeholder.com/60" alt="Messages Picture" />
+                <img src={props.img} alt="Messages Picture" />
             </div>
             <div className={s.message_content}>
                 <div className={s.message_text}>{props.text}</div>

@@ -1,0 +1,9 @@
+.friend {
+    display: flex;
+    flex-flow: column;
+    font-size: 12px;
+}
+
+.friend img {
+    margin-bottom: 5px;
+}
