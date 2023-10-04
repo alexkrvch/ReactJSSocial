@@ -9,14 +9,16 @@ let state = {
             {id: 4, header: 'New post', text: 'Nullam euismod,4 diam vel tincidunt bibendum, velit sapien bibendum sapien, vel bibendum sapien sapien vel sapien, velit sapien bibendum sapien, vel bibendum sapien sapien vel sapien.', countLikes: 2, date: '21 August 2023'},
         ],
         newPostText: '',
-        addPost: (text) => {
+        addPost: () => {
             let today = new Date().toLocaleDateString('en-GB');
-            let newPost = {id: 5, header: 'Def header', text: text, countLikes: 0, date: today};
+            let newPost = {id: 5, header: 'Def header', text: state.ProfilePage.newPostText, countLikes: 0, date: today};
             state.ProfilePage.PostData.push(newPost);
+            state.ProfilePage.newPostText = '';
             rerenderEntireTree(state);
         },
-        changeTextNewPost: (text = '') => {
+        changeTextNewPost: (text) => {
             state.ProfilePage.newPostText = text;
+            rerenderEntireTree(state);
         }
     },
     MessagesPage: {
@@ -35,7 +37,19 @@ let state = {
             {id: 3, text: 'Im okay, but so busy, what about you?', date: '10 September 2023', img: 'https://via.placeholder.com/60x40'},
             {id: 4, text: 'Im so good, im now in usa', date: '11 September 2023', img: 'https://via.placeholder.com/60x80'},
             {id: 5, text: 'Wow, its so cool, what are you do?', date: '13 September 2023', img: 'https://via.placeholder.com/60x40'}
-        ]
+        ],
+        newMessageText: '',
+        sendMessage: () => {
+            let today = new Date().toLocaleDateString('en-GB');
+            let newMessage = {id: 6, text: state.MessagesPage.newMessageText, date: today, img: 'https://via.placeholder.com/60x80'}
+            state.MessagesPage.MessageData.push(newMessage);
+            state.MessagesPage.newMessageText = '';
+            rerenderEntireTree(state);
+        },
+        changeTextNewMessage: (text) => {
+            state.MessagesPage.newMessageText = text;
+            rerenderEntireTree(state);
+        }
     },
     Navbar: {
         Friends: [
