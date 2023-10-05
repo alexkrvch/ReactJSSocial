@@ -2,7 +2,7 @@ let rerenderEntireTree = () => {
     console.log('State changed');
 }
 
-let state = {
+let store = {
     ProfilePage: {
         PostData: [
             {id: 1, header: 'First post', text: 'Nullam euismod,1 diam vel tincidunt bibendum, velit sapien bibendum sapien, vel bibendum sapien sapien vel sapien, velit sapien bibendum sapien, vel bibendum sapien sapien vel sapien.', countLikes: 3, date: '09 September 2023'},
@@ -13,14 +13,14 @@ let state = {
         newPostText: '',
         addPost: () => {
             let today = new Date().toLocaleDateString('en-GB');
-            let newPost = {id: 5, header: 'Def header', text: state.ProfilePage.newPostText, countLikes: 0, date: today};
-            state.ProfilePage.PostData.push(newPost);
-            state.ProfilePage.newPostText = '';
-            rerenderEntireTree(state);
+            let newPost = {id: 5, header: 'Def header', text: store.ProfilePage.newPostText, countLikes: 0, date: today};
+            store.ProfilePage.PostData.push(newPost);
+            store.ProfilePage.newPostText = '';
+            rerenderEntireTree(store);
         },
         changeTextNewPost: (text) => {
-            state.ProfilePage.newPostText = text;
-            rerenderEntireTree(state);
+            store.ProfilePage.newPostText = text;
+            rerenderEntireTree(store);
         }
     },
     MessagesPage: {
@@ -43,14 +43,14 @@ let state = {
         newMessageText: '',
         sendMessage: () => {
             let today = new Date().toLocaleDateString('en-GB');
-            let newMessage = {id: 6, text: state.MessagesPage.newMessageText, date: today, img: 'https://via.placeholder.com/60x80'}
-            state.MessagesPage.MessageData.push(newMessage);
-            state.MessagesPage.newMessageText = '';
-            rerenderEntireTree(state);
+            let newMessage = {id: 6, text: store.MessagesPage.newMessageText, date: today, img: 'https://via.placeholder.com/60x80'}
+            store.MessagesPage.MessageData.push(newMessage);
+            store.MessagesPage.newMessageText = '';
+            rerenderEntireTree(store);
         },
         changeTextNewMessage: (text) => {
-            state.MessagesPage.newMessageText = text;
-            rerenderEntireTree(state);
+            store.MessagesPage.newMessageText = text;
+            rerenderEntireTree(store);
         }
     },
     Navbar: {
@@ -66,6 +66,6 @@ let state = {
 }
 
 
-window.state = state;
+window.store = store;
 
-export default state;
+export default store;
