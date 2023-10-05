@@ -1,7 +1,3 @@
-let _callsubscriber = () => {
-    console.log('State changed');
-}
-
 let store = {
     _state: {
         ProfilePage: {
@@ -41,31 +37,34 @@ let store = {
         },
     },
 
+    _callsubscriber() {
+        console.log('State changed');
+    },
     addPost() {
         let today = new Date().toLocaleDateString('en-GB');
         let newPost = {id: 5, header: 'Def header', text: this._state.ProfilePage.newPostText, countLikes: 0, date: today};
         this._state.ProfilePage.PostData.push(newPost);
         this._state.ProfilePage.newPostText = '';
-        _callsubscriber(this);
+        this._callsubscriber(this);
     },
     changeTextNewPost(text) {
         this._state.ProfilePage.newPostText = text;
-        _callsubscriber(this);
+        this._callsubscriber(this);
     },
     sendMessage() {
         let today = new Date().toLocaleDateString('en-GB');
         let newMessage = {id: 6, text: this._state.MessagesPage.newMessageText, date: today, img: 'https://via.placeholder.com/60x80'}
         this._state.MessagesPage.MessageData.push(newMessage);
         this._state.MessagesPage.newMessageText = '';
-        _callsubscriber(this);
+        this._callsubscriber(this);
     },
     changeTextNewMessage(text) {
         this._state.MessagesPage.newMessageText = text;
-        _callsubscriber(this);
+        this._callsubscriber(this);
     },
 
     subscribe(observer) {
-        _callsubscriber = observer
+        this._callsubscriber = observer
     },
     getState() {
         return this._state;
