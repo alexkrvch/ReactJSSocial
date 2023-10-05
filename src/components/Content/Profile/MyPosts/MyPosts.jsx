@@ -10,7 +10,7 @@ const MyPosts = (props) => {
 
     let changeTextNewPost = () => {
         let text = newPostArea.current.value;
-        props.state.changeTextNewPost(text);
+        props.changeTextNewPost(text);
     }
 
     return (
@@ -18,7 +18,7 @@ const MyPosts = (props) => {
 
             <form className={s.form}>
                 <textarea placeholder='New post' onChange={ changeTextNewPost } value={props.state.newPostText} ref={newPostArea}></textarea>
-                <input onClick={ props.state.addPost } type='button' value='Send' />
+                <input onClick={ props.addPost } type='button' value='Send' />
             </form>
 
             <hr />
