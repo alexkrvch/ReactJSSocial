@@ -43,11 +43,11 @@ let store = {
         },
     },
 
-    _callsubscriber() {
+    _callSubscriber() {
         console.log('State changed');
     },
     subscribe(observer) {
-        this._callsubscriber = observer
+        this._callSubscriber = observer
     },
     getState() {
         return this._state;
@@ -56,20 +56,20 @@ let store = {
     dispatch (action) {
         let today = new Date().toLocaleDateString('en-GB');
         switch (action.type){
-            case 'ADD-POST':
+            case ADD_POST:
                 let newPost = {id: 5, header: 'Def header', text: this._state.ProfilePage.newPostText, countLikes: 0, date: today};
                 this._state.ProfilePage.PostData.push(newPost);
                 this._state.ProfilePage.newPostText = '';
                 break;
-            case 'CHANGE-NEW-POST-TEXT':
+            case CHANGE_NEW_POST_TEXT:
                 this._state.ProfilePage.newPostText = action.text;
                 break;
-            case 'SEND-MESSAGE':
+            case SEND_MESSAGE:
                 let newMessage = {id: 6, text: this._state.MessagesPage.newMessageText, date: today, img: 'https://via.placeholder.com/60x80'}
                 this._state.MessagesPage.MessageData.push(newMessage);
                 this._state.MessagesPage.newMessageText = '';
                 break;
-            case 'CHANGE-NEW-MESSAGE-TEXT':
+            case CHANGE_NEW_MESSAGE_TEXT:
                 this._state.MessagesPage.newMessageText = action.text;
                 break;
             default:
@@ -77,7 +77,7 @@ let store = {
                 break;
         }
 
-        this._callsubscriber(this);
+        this._callSubscriber(this);
     }
 }
 
