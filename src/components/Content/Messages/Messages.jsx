@@ -10,10 +10,8 @@ const Messages = (props) => {
     let Dialogs = props.state.DialogData.map(u => <Dialog key={u.id} name={u.name} id={u.id} />);
     let Messages = props.state.MessageData.map(m => <Message key={m.id} text={m.text} date={m.date} img={m.img} />);
 
-    let newMessageArea = React.createRef();
-
-    let changeTextNewMessage = () => {
-        let text = newMessageArea.current.value;
+    let changeTextNewMessage = (e) => {
+        let text = e.target.value;
         props.dispatch(updateNewMessageTextActionCreator(text));
     }
 
@@ -30,7 +28,7 @@ const Messages = (props) => {
                 { Messages }
                 <hr />
                 <form className={s.form}>
-                    <textarea placeholder='New message' onChange={ changeTextNewMessage } value={props.state.newMessageText} ref={newMessageArea} ></textarea>
+                    <textarea placeholder='New message' onChange={ changeTextNewMessage } value={props.state.newMessageText}></textarea>
                     <input onClick={ sendMessage } type='button' value='Send' />
                 </form>
             </div>
