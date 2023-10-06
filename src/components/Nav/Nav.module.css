@@ -20,8 +20,8 @@
   padding: 0;
   display: flex;
   flex-flow: column;
-  align-content: start;
-  justify-content: start;
+  align-content: flex-start;
+  justify-content: flex-start;
 }
 
 .menu_item {
