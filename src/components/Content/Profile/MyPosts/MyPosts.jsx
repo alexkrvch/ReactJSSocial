@@ -10,7 +10,11 @@ const MyPosts = (props) => {
 
     let changeTextNewPost = () => {
         let text = newPostArea.current.value;
-        props.changeTextNewPost(text);
+        props.dispatch({type: 'CHANGE-NEW-POST-TEXT', text: text});
+    }
+
+    let addPost = () => {
+        props.dispatch({type: 'ADD-POST'})
     }
 
     return (
@@ -18,7 +22,7 @@ const MyPosts = (props) => {
 
             <form className={s.form}>
                 <textarea placeholder='New post' onChange={ changeTextNewPost } value={props.state.newPostText} ref={newPostArea}></textarea>
-                <input onClick={ props.addPost } type='button' value='Send' />
+                <input onClick={ addPost } type='button' value='Send' />
             </form>
 
             <hr />

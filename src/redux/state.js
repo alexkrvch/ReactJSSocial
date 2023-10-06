@@ -40,34 +40,38 @@ let store = {
     _callsubscriber() {
         console.log('State changed');
     },
-    addPost() {
-        let today = new Date().toLocaleDateString('en-GB');
-        let newPost = {id: 5, header: 'Def header', text: this._state.ProfilePage.newPostText, countLikes: 0, date: today};
-        this._state.ProfilePage.PostData.push(newPost);
-        this._state.ProfilePage.newPostText = '';
-        this._callsubscriber(this);
-    },
-    changeTextNewPost(text) {
-        this._state.ProfilePage.newPostText = text;
-        this._callsubscriber(this);
-    },
-    sendMessage() {
-        let today = new Date().toLocaleDateString('en-GB');
-        let newMessage = {id: 6, text: this._state.MessagesPage.newMessageText, date: today, img: 'https://via.placeholder.com/60x80'}
-        this._state.MessagesPage.MessageData.push(newMessage);
-        this._state.MessagesPage.newMessageText = '';
-        this._callsubscriber(this);
-    },
-    changeTextNewMessage(text) {
-        this._state.MessagesPage.newMessageText = text;
-        this._callsubscriber(this);
-    },
-
     subscribe(observer) {
         this._callsubscriber = observer
     },
     getState() {
         return this._state;
+    },
+
+    dispatch (action) {
+        let today = new Date().toLocaleDateString('en-GB');
+        switch (action.type){
+            case 'ADD-POST':
+                let newPost = {id: 5, header: 'Def header', text: this._state.ProfilePage.newPostText, countLikes: 0, date: today};
+                this._state.ProfilePage.PostData.push(newPost);
+                this._state.ProfilePage.newPostText = '';
+                break;
+            case 'CHANGE-NEW-POST-TEXT':
+                this._state.ProfilePage.newPostText = action.text;
+                break;
+            case 'SEND-MESSAGE':
+                let newMessage = {id: 6, text: this._state.MessagesPage.newMessageText, date: today, img: 'https://via.placeholder.com/60x80'}
+                this._state.MessagesPage.MessageData.push(newMessage);
+                this._state.MessagesPage.newMessageText = '';
+                break;
+            case 'CHANGE-NEW-MESSAGE-TEXT':
+                this._state.MessagesPage.newMessageText = action.text;
+                break;
+            default:
+                alert('Default case');
+                break;
+        }
+
+        this._callsubscriber(this);
     }
 }
 

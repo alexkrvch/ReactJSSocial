@@ -13,7 +13,11 @@ const Messages = (props) => {
 
     let changeTextNewMessage = () => {
         let text = newMessageArea.current.value;
-        props.changeTextNewMessage(text);
+        props.dispatch({type: 'CHANGE-NEW-MESSAGE-TEXT', text: text});
+    }
+
+    let sendMessage = () => {
+        props.dispatch({type: 'SEND-MESSAGE'});
     }
 
     return (
@@ -26,7 +30,7 @@ const Messages = (props) => {
                 <hr />
                 <form className={s.form}>
                     <textarea placeholder='New message' onChange={ changeTextNewMessage } value={props.state.newMessageText} ref={newMessageArea} ></textarea>
-                    <input onClick={ props.sendMessage } type='button' value='Send' />
+                    <input onClick={ sendMessage } type='button' value='Send' />
                 </form>
             </div>
         </div>
