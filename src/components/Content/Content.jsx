@@ -10,9 +10,9 @@ const Content = (props) => {
     return (
         <div className={s.content_page}>
             <Routes>
-                <Route path='/profile' element={<Profile store={props.store} state={props.state.ProfilePage} dispatch={props.dispatch} />} />
-                <Route path='/messages'  element={<MessagesContainer store={props.store} state={props.state.MessagesPage} dispatch={props.dispatch} />} />
-                <Route path='/messages/:dialogid'  element={<MessagesContainer store={props.store} state={props.state.MessagesPage} dispatch={props.dispatch} />} />
+                <Route path='/profile' element={<Profile />} />
+                <Route path='/messages' element={<MessagesContainer />} />
+                <Route path='/messages/:dialogid' element={<MessagesContainer />} />
                 <Route path='/news' element={<News />} />
                 <Route path='/music' element={<Music />} />
                 <Route path='/settings' element={<Settings />} />

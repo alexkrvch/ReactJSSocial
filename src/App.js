@@ -12,8 +12,8 @@ const App = (props) => {
                 <div className="App-content">
                     <Header />
                     <div className="App-centerPage">
-                        <Nav state={props.state.Navbar} />
-                        <Content store={props.store} state={props.state} dispatch={props.dispatch} />
+                        <Nav />
+                        <Content />
                     </div>
                     <Footer />
                 </div>
