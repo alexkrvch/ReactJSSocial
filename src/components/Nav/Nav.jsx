@@ -6,8 +6,6 @@ const Nav = (props) => {
     let FriendsList = {};
     // let Friends = FriendsList.map( f => <Friend key={f.id} name={f.name} id={f.id} img={f.img} />)
 
-
-
     return (
         <nav className={s.sidebar_nav}>
             <div className={s.sidebar}>
