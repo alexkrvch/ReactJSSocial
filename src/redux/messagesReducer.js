@@ -22,21 +22,18 @@ let initialState = {
 }
 
 const messagesReducer = (state = initialState, action) => {
+    let stateCopy = { ...state, MessageData: [...state.MessageData] };
 
     switch (action.type){
-        case SEND_MESSAGE: {
-            let stateCopy = {...state, MessageData: [...state.MessageData]}
+        case SEND_MESSAGE:
             let today = new Date().toLocaleDateString('en-GB');
             let newMessage = {id: 6, text: stateCopy.newMessageText, date: today, img: 'https://via.placeholder.com/60x80'}
             stateCopy.MessageData.push(newMessage);
             stateCopy.newMessageText = '';
             return stateCopy
-        }
-        case CHANGE_NEW_MESSAGE_TEXT: {
-            let stateCopy = {...state}
+        case CHANGE_NEW_MESSAGE_TEXT:
             stateCopy.newMessageText = action.text;
             return stateCopy
-        }
         default:
             return state
     }
