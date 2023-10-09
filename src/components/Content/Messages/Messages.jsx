@@ -5,7 +5,6 @@ import React from "react";
 
 const Messages = (props) => {
 
-    debugger
     let dialogsElements = props.dialogsData.map(u => <Dialog key={u.id} name={u.name} id={u.id} />);
     let messagesElements = props.messagesData.map(m => <Message key={m.id} text={m.text} date={m.date} img={m.img} />);
 
