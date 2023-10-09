@@ -1,0 +1,12 @@
+.user {
+    width: 100%;
+    display: flex;
+    border: 1px solid;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+.img {
+    margin-right: 10px;
+}
