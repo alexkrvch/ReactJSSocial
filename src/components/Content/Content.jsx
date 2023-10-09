@@ -5,12 +5,14 @@ import News from "./News/News";
 import Music from "./Music/Music";
 import Settings from "./Settings/Settings";
 import MessagesContainer from "./Messages/MessagesContainer";
+import UsersContainer from "./Users/UsersContainer";
 
 const Content = (props) => {
     return (
         <div className={s.content_page}>
             <Routes>
                 <Route path='/profile' element={<Profile />} />
+                <Route path='/users' element={<UsersContainer />} />
                 <Route path='/messages' element={<MessagesContainer />} />
                 <Route path='/messages/:dialogid' element={<MessagesContainer />} />
                 <Route path='/news' element={<News />} />
