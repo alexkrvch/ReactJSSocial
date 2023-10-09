@@ -1,9 +1,10 @@
 import './App.css';
 import Header from './components/Header/Header';
-import Nav from "./components/Nav/Nav";
+import NavContainer from "./components/Nav/NavContainer";
 import Content from "./components/Content/Content";
 import Footer from "./components/Footer/Footer";
 import {BrowserRouter} from "react-router-dom";
+
 
 const App = (props) => {
     return (
@@ -12,7 +13,7 @@ const App = (props) => {
                 <div className="App-content">
                     <Header />
                     <div className="App-centerPage">
-                        <Nav />
+                        <NavContainer />
                         <Content />
                     </div>
                     <Footer />

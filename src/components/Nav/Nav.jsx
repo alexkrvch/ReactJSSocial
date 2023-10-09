@@ -3,8 +3,7 @@ import {NavLink} from "react-router-dom";
 import Friend from "./Friend/Friend";
 
 const Nav = (props) => {
-    let FriendsList = {};
-    // let Friends = FriendsList.map( f => <Friend key={f.id} name={f.name} id={f.id} img={f.img} />)
+    let friends = props.friends.map( f => <Friend key={f.id} name={f.name} id={f.id} img={f.img} />)
 
     return (
         <nav className={s.sidebar_nav}>
@@ -20,7 +19,7 @@ const Nav = (props) => {
                 <hr />
 
                 <div className={s.sidebar_friends}>
-                    {/*{ Friends }*/}
+                    { friends }
                 </div>
             </div>
         </nav>
