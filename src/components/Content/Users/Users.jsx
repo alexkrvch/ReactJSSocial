@@ -1,17 +1,20 @@
 import s from './Users.module.css'
 import User from "./User/User";
+import axios from "axios";
 
 const Users = (props) => {
 
-    let users = props.users.map(u => <User key={u.id} id={u.id} name={u.name} img={u.img} city={u.location.city} country={u.location.country} status={u.status} followed={u.followed} follow={props.follow} unFollow={props.unFollow} />)
+    let users = props.users.map(u => <User key={u.id} id={u.id} name={u.name} photos={u.photos} status={u.status} followed={u.followed} follow={props.follow} unFollow={props.unFollow} />)
 
-    let usersList = [{id: 1, name: 'Alex', status: 'My status', location: {country: 'Belarus', city: 'Polost'}, img: 'https://via.placeholder.com/60', followed: false},
-        {id: 2, name: 'Mike', status: 'Dumb status', location: {country: 'Germany', city: 'Berlin'}, img: 'https://via.placeholder.com/60', followed: true},
-        {id: 3, name: 'Andy', status: 'Im stupid', location: {country: 'Belarus', city: 'Misnk'}, img: 'https://via.placeholder.com/60', followed: false}];
+    const getUsers = () => {
+        axios.get('https://social-network.samuraijs.com/api/1.0/users?page=650').then( data => {
+            props.setUsers(data.data.items)
+        })
+    }
 
     return(
         <div className={s.users}>
-            { users.length ? users : <button onClick={ () => { props.setUsers(usersList) }} >Download users</button> }
+            { users.length ? users : <button onClick={ getUsers } >Download users</button> }
         </div>
     )
 }
