@@ -14,7 +14,7 @@ const Users = (props) => {
 
     return(
         <div className={s.users}>
-            { users.length ? users : <button onClick={ getUsers } >Download users</button> }
+            { users.length ? users : <button onClick={ getUsers } >Get users</button> }
         </div>
     )
 }
