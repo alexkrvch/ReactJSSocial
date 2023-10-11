@@ -5,3 +5,31 @@
     flex-flow: column;
     width: 100%;
 }
+
+.navigation {
+    display: flex;
+    flex-flow: wrap;
+    width: 100%;
+    justify-content: center;
+    margin: 0 0 25px;
+}
+
+.navigation span {
+    padding: 8px;
+    margin: 5px;
+    border: 1px solid rgba(255,255,255,0.5);
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.navigation span:hover {
+    border: 1px solid rgba(255,255,255,0.8);
+    background-color: rgba(255,255,255,0.8);
+    color: #333;
+}
+
+.navigation span.selNavigation {
+    background: #fff;
+    border: 1px solid #ffffff;
+    color: #000;
+}
