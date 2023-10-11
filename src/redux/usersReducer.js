@@ -2,12 +2,14 @@ const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+const CHANGE_FETCHING = 'CHANGE_FETCHING';
 
 let initialState = {
     UsersList: [],
     pageSize: 100,
     totalCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: true
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -43,6 +45,11 @@ const usersReducer = (state = initialState, action) => {
                 ...state,
                 currentPage: action.page
             }
+        case CHANGE_FETCHING:
+            return {
+                ...state,
+                isFetching: action.state
+            }
         default:
             return state
     }
@@ -52,5 +59,6 @@ export const followAC = (userId) => ({type: FOLLOW, userId})
 export const unFollowAC = (userId) => ({type: UNFOLLOW, userId})
 export const setUsersAC = (data) => ({type: SET_USERS, data})
 export const setCurrentPageAC = (page) => ({type: SET_CURRENT_PAGE, page})
+export const changeIsFetchingAC = (state) => ({type: CHANGE_FETCHING, state})
 
 export default usersReducer
