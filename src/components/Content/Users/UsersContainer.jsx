@@ -1,6 +1,5 @@
 import {connect} from "react-redux";
 import Users from "./Users";
-import {addPostActionCreator} from "../../../redux/profileReducer";
 import {followAC, setUsersAC, unFollowAC} from "../../../redux/usersReducer";
 
 let mapStateToProps = (state) => {

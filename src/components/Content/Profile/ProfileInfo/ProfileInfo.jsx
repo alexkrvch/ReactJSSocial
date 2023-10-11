@@ -4,10 +4,10 @@ const Profile = () => {
     return (
         <div>
             <div className={s.profile_back}>
-                <img src="https://via.placeholder.com/1456x200" alt="Messages Picture" />
+                <img src="https://via.placeholder.com/1456x200" alt="" />
             </div>
             <div className={s.profile_header}>
-                <img src="https://via.placeholder.com/150" alt="Messages Picture" />
+                <img src="https://via.placeholder.com/150" alt="" />
                 <h2>John Doe</h2>
                 <p>Web Developer</p>
             </div>
