@@ -4,7 +4,7 @@ const Post = (props) => {
     return (
         <div className={s.post}>
             <div className={s.post_img}>
-                <img src="https://via.placeholder.com/80" alt="Post Picture" />
+                <img src="https://via.placeholder.com/80" alt="" />
             </div>
             <div className={s.post_content}>
                 <h3 className={s.post_name}>{props.header}</h3>
