@@ -5,9 +5,13 @@
 
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
 }
 
 .logo {
     max-width: 80px;
+}
+
+.auth_section {
+    align-self: flex-end;
 }

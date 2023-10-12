@@ -8,7 +8,8 @@ import WithRouter from "../../Common/WithRouter/WithRouter";
 class ProfileContainer extends React.Component {
 
     componentDidMount() {
-        let userId = !this.props.params.userId ? 2 : this.props.params.userId
+        let userId = !this.props.params.userId ? this.props.userId : this.props.params.userId
+        userId = !userId ? '13315' : userId
         this.props.setUserId(userId)
         this.props.setUserProfile(null);
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then( data => {
@@ -27,7 +28,8 @@ class ProfileContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => ({
-    profile: state.ProfilePage.profile
+    profile: state.ProfilePage.profile,
+    userId: state.Auth.userId
 })
 
 let withUrlDataContainerComponent = WithRouter(ProfileContainer)
