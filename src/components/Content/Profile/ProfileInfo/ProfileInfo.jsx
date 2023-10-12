@@ -1,19 +1,33 @@
 import s from './ProfileInfo.module.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFacebook, faGithub, faInstagram, faTwitter, faVk } from '@fortawesome/free-brands-svg-icons';
 
-const Profile = () => {
+
+const Profile = (props) => {
+    console.log(props.profile)
     return (
         <div>
             <div className={s.profile_back}>
                 <img src="https://via.placeholder.com/1456x200" alt="" />
             </div>
             <div className={s.profile_header}>
-                <img src="https://via.placeholder.com/150" alt="" />
-                <h2>John Doe</h2>
-                <p>Web Developer</p>
+                <img src={props.profile.photos.small!=null ? props.profile.photos.small : 'https://via.placeholder.com/150'} alt="" />
+                <h2>{props.profile.fullName}</h2>
+                <p>{props.profile.aboutMe}</p>
             </div>
             <div className={s.profile_content}>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam vel tincidunt bibendum, velit sapien bibendum sapien, vel bibendum sapien sapien vel sapien.</p>
-                <p>Nullam euismod, diam vel tincidunt bibendum, velit sapien bibendum sapien, vel bibendum sapien sapien vel sapien, velit sapien bibendum sapien, vel bibendum sapien sapien vel sapien.</p>
+                <p>{ props.profile.lookingForAJob ? 'В поиске' : 'Не ищу работу' }</p>
+
+                <div className={s.social_block}>
+
+                    { props.profile.contacts.facebook ? <a href={props.profile.contacts.facebook} target="_blank" className="facebook"><FontAwesomeIcon icon={faFacebook} size='2x'/></a> : ''}
+                    { props.profile.contacts.github ? <a href={props.profile.contacts.github} target="_blank" className="github"><FontAwesomeIcon icon={faGithub} size='2x' /></a> : '' }
+                    { props.profile.contacts.instagram ? <a href={props.profile.contacts.instagram} target="_blank" className="instagram"><FontAwesomeIcon icon={faInstagram} size='2x' /></a> : '' }
+                    { props.profile.contacts.twitter ? <a href={props.profile.contacts.twitter} target="_blank" className="twitter"><FontAwesomeIcon icon={faTwitter} size='2x' /></a> : '' }
+                    { props.profile.contacts.vk ? <a href={props.profile.contacts.vk} target="_blank" className="vk"><FontAwesomeIcon icon={faVk} size='2x' /></a> : '' }
+
+
+                </div>
             </div>
         </div>
     );
