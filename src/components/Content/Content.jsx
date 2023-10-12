@@ -12,7 +12,7 @@ const Content = (props) => {
         <div className={s.content_page}>
             <Routes>
                 <Route path='/profile' element={<ProfileContainer />} />
-                <Route path='/profile/:userid' element={<ProfileContainer />} />
+                <Route path='/profile/:userId' element={<ProfileContainer />} />
                 <Route path='/users' element={<UsersContainer />} />
                 <Route path='/messages' element={<MessagesContainer />} />
                 <Route path='/messages/:dialogid' element={<MessagesContainer />} />
