@@ -37,3 +37,42 @@
 .profile_back img {
     max-width: 100%;
 }
+
+.social_block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.social_block a {
+    display: inline-block;
+    margin: 0 10px;
+    color: #333;
+    font-size: 24px;
+    transition: all 0.3s ease;
+}
+
+.social_block a:hover {
+    color: #007bff;
+}
+
+.facebook {
+    color: #1877F2;
+}
+
+.github {
+    color: #24292e;
+}
+
+.instagram {
+    color: #E4405F;
+}
+
+.twitter {
+    color: #1DA1F2;
+}
+
+.vk {
+    color: #4680C2;
+}

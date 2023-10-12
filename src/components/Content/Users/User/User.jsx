@@ -1,9 +1,12 @@
 import s from './User.module.css'
+import {NavLink} from "react-router-dom";
 
 const User = (props) => {
     return(
         <div className={s.user}>
-            <img className={s.img} src={props.photos.small!=null ? props.photos.small : 'https://via.placeholder.com/100'}  alt=''/>
+            <NavLink to={`/profile/${props.id}`}>
+                <img className={s.img} src={props.photos.small!=null ? props.photos.small : 'https://via.placeholder.com/100'}  alt=''/>
+            </NavLink>
             <div className={s.info_center}>
                 <div className={s.name}>
                     { props.name }
