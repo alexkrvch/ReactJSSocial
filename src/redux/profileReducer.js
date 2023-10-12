@@ -1,6 +1,7 @@
 const ADD_POST = 'ADD-POST';
 const CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const SET_USER_ID = 'SET_USER_ID';
 
 let initialState = {
     PostData: [
@@ -10,6 +11,7 @@ let initialState = {
         {id: 4, header: 'New post', text: 'Nullam euismod,4 diam vel tincidunt bibendum, velit sapien bibendum sapien, vel bibendum sapien sapien vel sapien, velit sapien bibendum sapien, vel bibendum sapien sapien vel sapien.', countLikes: 2, date: '21 August 2023'},
     ],
     profile: null,
+    profileId: 1,
     newPostText: ''
 }
 
@@ -32,6 +34,11 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 profile: action.profile
             }
+        case SET_USER_ID:
+            return {
+                ...state,
+                profileId: action.id
+            }
         default:
             return state;
     }
@@ -40,5 +47,6 @@ const profileReducer = (state = initialState, action) => {
 export const addPost = () => ({type: ADD_POST})
 export const updateNewPostText = (text) => ({type: CHANGE_NEW_POST_TEXT, text: text})
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
+export const setUserId = (id) => ({type: SET_USER_ID, id})
 
 export default profileReducer

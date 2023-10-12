@@ -4,7 +4,6 @@ import { faFacebook, faGithub, faInstagram, faTwitter, faVk } from '@fortawesome
 
 
 const Profile = (props) => {
-    console.log(props.profile)
     return (
         <div>
             <div className={s.profile_back}>
