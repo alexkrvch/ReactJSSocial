@@ -9,6 +9,7 @@ const MyPosts = (props) => {
 
     return (
         <div className={s.my_posts}>
+            <hr />
 
             <form className={s.form}>
                 <textarea placeholder='New post' onChange={ props.onPostChange } value={ props.newPostText }></textarea>

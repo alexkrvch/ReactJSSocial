@@ -8,11 +8,11 @@ import WithRouter from "../../Common/WithRouter/WithRouter";
 class ProfileContainer extends React.Component {
 
     componentDidMount() {
-        let userId = !this.props.params.userId ? this.props.userId : this.props.params.userId
-        userId = !userId ? '13315' : userId
-        this.props.setUserId(userId)
+        this.userId = !this.props.params.userId ? this.props.userId : this.props.params.userId
+        this.userId = !this.userId ? '13315' : this.userId
+        this.props.setUserId(this.userId)
         this.props.setUserProfile(null);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then( data => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${this.userId}`).then( data => {
             this.props.setUserProfile(data.data)
         })
     }
@@ -20,7 +20,7 @@ class ProfileContainer extends React.Component {
     render() {
         return (
             <div>
-                <Profile {...this.props} />
+                <Profile {...this.props} userId={this.userId} />
             </div>
         )
     }
