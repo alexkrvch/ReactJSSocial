@@ -10,8 +10,8 @@ const Profile = (props) => {
     return (
         <div>
             <ProfileInfo profile={props.profile} />
-            <hr />
-            <MyPostsContainer />
+
+            { props.userId === 13315 ? <MyPostsContainer /> : ''}
         </div>
     );
 }
