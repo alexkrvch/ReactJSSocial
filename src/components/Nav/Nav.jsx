@@ -16,9 +16,7 @@ const Nav = (props) => {
                     <li className={s.menu_item}><NavLink to="/music" className={({ isActive }) => isActive ? s.menu_active : ""}>Music</NavLink></li>
                     <li className={s.menu_item}><NavLink to="/settings" className={({ isActive }) => isActive ? s.menu_active : ""}>Settings</NavLink></li>
                 </ul>
-
                 <hr />
-
                 <div className={s.sidebar_friends}>
                     { friends }
                 </div>
