@@ -3,7 +3,8 @@ import Nav from "./Nav";
 
 let mapStateToProps = (state) => {
     return {
-        friends: state.Navbar.Friends
+        friends: state.Navbar.Friends,
+        menu: state.Menu.navItems
     }
 }
 
