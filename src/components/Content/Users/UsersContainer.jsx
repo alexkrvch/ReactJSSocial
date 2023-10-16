@@ -1,5 +1,11 @@
 import {connect} from "react-redux";
-import {changeIsFetching, follow, setCurrentPage, setUsers, unFollow} from "../../../redux/usersReducer";
+import {
+    changeIsFetching,
+    follow,
+    setCurrentPage,
+    setUsers, startFollowing, stopFollowing,
+    unFollow
+} from "../../../redux/usersReducer";
 import React from "react";
 import Users from "./Users";
 import Preloader from "../../Common/Preloader/Preloader";
@@ -16,7 +22,9 @@ class UsersContainer extends React.Component {
     }
 
     followServer = (id) => {
+        this.props.startFollowing(id)
         followAPI.follow(id).then( data => {
+            this.props.stopFollowing(id)
             if(data.resultCode===0) {
                 this.props.follow(id)
             }
@@ -24,7 +32,9 @@ class UsersContainer extends React.Component {
     }
 
     unFollowServer = (id) => {
+        this.props.startFollowing(id)
         followAPI.unFollow(id).then( data => {
+            this.props.stopFollowing(id)
             if(data.resultCode===0) {
                 this.props.unFollow(id)
             }
@@ -43,6 +53,7 @@ class UsersContainer extends React.Component {
     render = () => {
         return (<>
             { this.props.isFetching ? <Preloader /> : <Users
+                isFollowing={this.props.isFollowing}
                 users={this.props.users}
                 totalCount={this.props.totalCount}
                 pageSize={this.props.pageSize}
@@ -60,8 +71,9 @@ let mapStateToProps = (state) => {
         pageSize: state.Users.pageSize,
         totalCount: state.Users.totalCount,
         currentPage: state.Users.currentPage,
-        isFetching: state.Users.isFetching
+        isFetching: state.Users.isFetching,
+        isFollowing: state.Users.followingInProgress
     }
 }
 
-export default connect(mapStateToProps, {follow, unFollow, setUsers, setCurrentPage, changeIsFetching})(UsersContainer);
+export default connect(mapStateToProps, {follow, unFollow, setUsers, setCurrentPage, changeIsFetching, startFollowing, stopFollowing})(UsersContainer);
