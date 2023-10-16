@@ -1,43 +1,31 @@
 import {connect} from "react-redux";
 import {changeIsFetching, follow, setCurrentPage, setUsers, unFollow} from "../../../redux/usersReducer";
 import React from "react";
-import axios from "axios";
 import Users from "./Users";
 import Preloader from "../../Common/Preloader/Preloader";
+import {followAPI, usersAPI} from "../../../api/api";
 
 
 class UsersContainer extends React.Component {
     componentDidMount() {
         this.props.changeIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-            withCredentials: true,
-            headers: {
-                "API-KEY": '9698416d-3981-4d08-944f-5e79cc4c07cc'
-            }
-        }).then( data => {
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then( data => {
             this.props.changeIsFetching(false)
-            this.props.setUsers(data.data)
+            this.props.setUsers(data)
         })
     }
 
     followServer = (id) => {
-        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {}, {
-            withCredentials: true
-        }).then( data => {
-            if(data.data.resultCode===0) {
+        followAPI.follow(id).then( data => {
+            if(data.resultCode===0) {
                 this.props.follow(id)
             }
         })
     }
 
     unFollowServer = (id) => {
-        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {
-            withCredentials: true,
-            headers: {
-                "API-KEY": '9698416d-3981-4d08-944f-5e79cc4c07cc'
-            }
-        }).then( data => {
-            if(data.data.resultCode===0) {
+        followAPI.unFollow(id).then( data => {
+            if(data.resultCode===0) {
                 this.props.unFollow(id)
             }
         })
@@ -45,14 +33,9 @@ class UsersContainer extends React.Component {
 
     onChangePage = (p) => {
         this.props.changeIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`,{
-            withCredentials: true,
-            headers: {
-                "API-KEY": '9698416d-3981-4d08-944f-5e79cc4c07cc'
-            }
-        }).then( data => {
+        usersAPI.getUsers(p, this.props.pageSize).then( data => {
             this.props.changeIsFetching(false)
-            this.props.setUsers(data.data)
+            this.props.setUsers(data)
         })
         this.props.setCurrentPage(p)
     }
