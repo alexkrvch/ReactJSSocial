@@ -19,7 +19,7 @@ const User = (props) => {
                 {/*</div>*/}
             </div>
             <div className={s.info_right}>
-                { props.followed ? <button onClick={ () => { props.unFollow(props.id) } }>UnFollow</button> : <button onClick={ () => { props.follow(props.id) } }>Follow</button> }
+                { props.followed ? <button disabled={props.isFollowing.some(id => id === props.id)} onClick={ () => { props.unFollow(props.id) } }>UnFollow</button> : <button disabled={props.isFollowing.some(id => id === props.id)} onClick={ () => { props.follow(props.id) } }>Follow</button> }
             </div>
         </div>
     )

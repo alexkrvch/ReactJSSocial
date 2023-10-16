@@ -10,7 +10,7 @@ const Users = (props) => {
         pages.push(i);
     }
 
-    let users = props.users.map(u => <User key={u.id} id={u.id} name={u.name} photos={u.photos} status={u.status} followed={u.followed} follow={props.follow} unFollow={props.unFollow} />)
+    let users = props.users.map(u => <User key={u.id} id={u.id} name={u.name} photos={u.photos} status={u.status} followed={u.followed} follow={props.follow} unFollow={props.unFollow} isFollowing={props.isFollowing} />)
     return(
         <div className={s.users}>
 
