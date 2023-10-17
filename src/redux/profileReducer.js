@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const ADD_POST = 'ADD-POST';
 const CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -49,4 +51,13 @@ export const updateNewPostText = (text) => ({type: CHANGE_NEW_POST_TEXT, text: t
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
 export const setUserId = (id) => ({type: SET_USER_ID, id})
 
+export const getProfile = (userId) => {
+    return (dispatch) => {
+        dispatch(setUserId(userId))
+        dispatch(setUserProfile(null))
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then( data => {
+            dispatch(setUserProfile(data.data))
+        })
+    }
+}
 export default profileReducer

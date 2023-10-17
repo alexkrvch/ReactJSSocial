@@ -12,11 +12,11 @@ class UsersContainer extends React.Component {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
-    followServer = (id) => {
+    follow = (id) => {
         this.props.followUser(id)
     }
 
-    unFollowServer = (id) => {
+    unFollow = (id) => {
         this.props.unFollowUser(id)
     }
 
@@ -31,8 +31,8 @@ class UsersContainer extends React.Component {
                 users={this.props.users}
                 totalCount={this.props.totalCount}
                 pageSize={this.props.pageSize}
-                follow={this.followServer}
-                unFollow={this.unFollowServer}
+                follow={this.follow}
+                unFollow={this.unFollow}
                 currentPage={this.props.currentPage}
                 onChangePage={this.onChangePage} />}</>)
     }
