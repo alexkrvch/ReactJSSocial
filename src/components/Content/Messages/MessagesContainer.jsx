@@ -6,7 +6,8 @@ let mapStateToProps = (state) => {
     return {
         dialogsData: state.MessagesPage.DialogData,
         messagesData: state.MessagesPage.MessageData,
-        newMessageText: state.MessagesPage.newMessageText
+        newMessageText: state.MessagesPage.newMessageText,
+        isAuth: state.Auth.isAuth
     }
 }
 
