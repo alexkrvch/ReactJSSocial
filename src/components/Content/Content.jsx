@@ -6,6 +6,7 @@ import Settings from "./Settings/Settings";
 import MessagesContainer from "./Messages/MessagesContainer";
 import UsersContainer from "./Users/UsersContainer";
 import ProfileContainer from "./Profile/ProfileContainer";
+import Login from "./Login/Login";
 
 const Content = (props) => {
     return (
@@ -19,6 +20,7 @@ const Content = (props) => {
                 <Route path='/news' element={<News />} />
                 <Route path='/music' element={<Music />} />
                 <Route path='/settings' element={<Settings />} />
+                <Route path='/login' element={<Login />} />
             </Routes>
         </div>
     );
