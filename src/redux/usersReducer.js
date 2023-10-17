@@ -1,3 +1,5 @@
+import {followAPI, usersAPI} from "../api/api";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
@@ -78,5 +80,40 @@ export const changeIsFetching = (state) => ({type: CHANGE_FETCHING, state})
 export const startFollowing = (id) => ({type: START_FOLLOWING, id})
 export const stopFollowing = (id) => ({type: STOP_FOLLOWING, id})
 
+
+export const getUsers = (currentPage, pageSize) => {
+    return (dispatch) => {
+        dispatch(changeIsFetching(true));
+        usersAPI.getUsers(currentPage, pageSize).then( data => {
+            dispatch(changeIsFetching(false))
+            dispatch(setUsers(data))
+            dispatch(setCurrentPage(currentPage))
+        })
+    }
+}
+
+export const followUser = (userId) => {
+    return (dispatch) => {
+        dispatch(startFollowing(userId))
+        followAPI.follow(userId).then( data => {
+            dispatch(stopFollowing(userId))
+            if(data.resultCode===0) {
+                dispatch(follow(userId))
+            }
+        })
+    }
+}
+
+export const unFollowUser = (userId) => {
+    return (dispatch) => {
+        dispatch(startFollowing(userId))
+        followAPI.unFollow(userId).then( data => {
+            dispatch(stopFollowing(userId))
+            if(data.resultCode===0) {
+                dispatch(unFollow(userId))
+            }
+        })
+    }
+}
 
 export default usersReducer

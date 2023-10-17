@@ -1,53 +1,27 @@
 import {connect} from "react-redux";
 import {
-    changeIsFetching,
-    follow,
-    setCurrentPage,
-    setUsers, startFollowing, stopFollowing,
-    unFollow
+    followUser, getUsers,unFollowUser
 } from "../../../redux/usersReducer";
 import React from "react";
 import Users from "./Users";
 import Preloader from "../../Common/Preloader/Preloader";
-import {followAPI, usersAPI} from "../../../api/api";
 
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.changeIsFetching(true)
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then( data => {
-            this.props.changeIsFetching(false)
-            this.props.setUsers(data)
-        })
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     followServer = (id) => {
-        this.props.startFollowing(id)
-        followAPI.follow(id).then( data => {
-            this.props.stopFollowing(id)
-            if(data.resultCode===0) {
-                this.props.follow(id)
-            }
-        })
+        this.props.followUser(id)
     }
 
     unFollowServer = (id) => {
-        this.props.startFollowing(id)
-        followAPI.unFollow(id).then( data => {
-            this.props.stopFollowing(id)
-            if(data.resultCode===0) {
-                this.props.unFollow(id)
-            }
-        })
+        this.props.unFollowUser(id)
     }
 
     onChangePage = (p) => {
-        this.props.changeIsFetching(true)
-        usersAPI.getUsers(p, this.props.pageSize).then( data => {
-            this.props.changeIsFetching(false)
-            this.props.setUsers(data)
-        })
-        this.props.setCurrentPage(p)
+        this.props.getUsers(p, this.props.pageSize)
     }
 
     render = () => {
@@ -76,4 +50,4 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {follow, unFollow, setUsers, setCurrentPage, changeIsFetching, startFollowing, stopFollowing})(UsersContainer);
+export default connect(mapStateToProps, {getUsers, unFollowUser, followUser})(UsersContainer);
