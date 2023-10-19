@@ -1,4 +1,5 @@
 import axios from "axios";
+import {setUserProfile} from "../redux/profileReducer";
 
 const instance = axios.create({
     withCredentials: true,
@@ -26,5 +27,19 @@ export const followAPI = {
 export const accountAPI = {
     my() {
         return instance.get(`auth/me`).then(response => response.data)
+    }
+}
+
+export const profileAPI = {
+    getProfile(userId) {
+        return instance.get(`profile/${userId}`).then( response => response.data)
+    },
+    getStatus(userId) {
+        return instance.get(`profile/status/${userId}`).then( response => response.data)
+    },
+    setProfileStatus(status) {
+        return instance.put(`profile/status`, {
+            status: status
+        })
     }
 }
