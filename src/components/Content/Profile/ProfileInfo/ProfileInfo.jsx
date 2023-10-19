@@ -20,11 +20,11 @@ const Profile = (props) => {
 
                 <div className={s.social_block}>
 
-                    { props.profile.contacts.facebook ? <a href={props.profile.contacts.facebook} target="_blank" className="facebook"><FontAwesomeIcon icon={faFacebook} size='2x'/></a> : ''}
-                    { props.profile.contacts.github ? <a href={props.profile.contacts.github} target="_blank" className="github"><FontAwesomeIcon icon={faGithub} size='2x' /></a> : '' }
-                    { props.profile.contacts.instagram ? <a href={props.profile.contacts.instagram} target="_blank" className="instagram"><FontAwesomeIcon icon={faInstagram} size='2x' /></a> : '' }
-                    { props.profile.contacts.twitter ? <a href={props.profile.contacts.twitter} target="_blank" className="twitter"><FontAwesomeIcon icon={faTwitter} size='2x' /></a> : '' }
-                    { props.profile.contacts.vk ? <a href={props.profile.contacts.vk} target="_blank" className="vk"><FontAwesomeIcon icon={faVk} size='2x' /></a> : '' }
+                    { props.profile.contacts.facebook ? <a href={props.profile.contacts.facebook} target="_blank" rel="noreferrer"  className="facebook"><FontAwesomeIcon icon={faFacebook} size='2x'/></a> : ''}
+                    { props.profile.contacts.github ? <a href={props.profile.contacts.github} target="_blank" rel="noreferrer"  className="github"><FontAwesomeIcon icon={faGithub} size='2x' /></a> : '' }
+                    { props.profile.contacts.instagram ? <a href={props.profile.contacts.instagram} target="_blank" rel="noreferrer"  className="instagram"><FontAwesomeIcon icon={faInstagram} size='2x' /></a> : '' }
+                    { props.profile.contacts.twitter ? <a href={props.profile.contacts.twitter} target="_blank" rel="noreferrer"  className="twitter"><FontAwesomeIcon icon={faTwitter} size='2x' /></a> : '' }
+                    { props.profile.contacts.vk ? <a href={props.profile.contacts.vk} target="_blank" rel="noreferrer"  className="vk"><FontAwesomeIcon icon={faVk} size='2x' /></a> : '' }
 
 
                 </div>
