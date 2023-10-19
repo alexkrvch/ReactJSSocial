@@ -1,6 +1,7 @@
 import s from './ProfileInfo.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faGithub, faInstagram, faTwitter, faVk } from '@fortawesome/free-brands-svg-icons';
+import ProfileStatus from "./ProfileStatus/ProfileStatus";
 
 
 const Profile = (props) => {
@@ -12,7 +13,7 @@ const Profile = (props) => {
             <div className={s.profile_header}>
                 <img src={props.profile.photos.small!=null ? props.profile.photos.small : 'https://via.placeholder.com/150'} alt="" />
                 <h2>{props.profile.fullName}</h2>
-                <p>{props.profile.aboutMe}</p>
+                <ProfileStatus status='Default status' />
             </div>
             <div className={s.profile_content}>
                 <p>{ props.profile.lookingForAJob ? 'В поиске' : 'Не ищу работу' }</p>
