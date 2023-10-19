@@ -1,9 +1,11 @@
 import axios from "axios";
+import {profileAPI} from "../api/api";
 
 const ADD_POST = 'ADD-POST';
 const CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_USER_ID = 'SET_USER_ID';
+const SET_STATUS = 'SET_STATUS';
 
 let initialState = {
     PostData: [
@@ -14,7 +16,8 @@ let initialState = {
     ],
     profile: null,
     profileId: 1,
-    newPostText: ''
+    newPostText: '',
+    status: ''
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -41,6 +44,11 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 profileId: action.id
             }
+        case SET_STATUS:
+            return {
+                ...state,
+                status: action.status
+            }
         default:
             return state;
     }
@@ -50,14 +58,34 @@ export const addPost = () => ({type: ADD_POST})
 export const updateNewPostText = (text) => ({type: CHANGE_NEW_POST_TEXT, text: text})
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
 export const setUserId = (id) => ({type: SET_USER_ID, id})
+export const setStatus = (status) => ({ type: SET_STATUS, status})
 
 export const getProfile = (userId) => {
     return (dispatch) => {
         dispatch(setUserId(userId))
         dispatch(setUserProfile(null))
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then( data => {
-            dispatch(setUserProfile(data.data))
+        profileAPI.getProfile(userId).then(data => {
+            dispatch(setUserProfile(data))
         })
     }
 }
+
+export const getProfileStatus = (userId) => {
+    return (dispatch) => {
+        profileAPI.getStatus(userId).then(response => {
+            dispatch(setStatus(response))
+        })
+    }
+}
+
+export const setProfileStatus = (status) => {
+    return (dispatch) => {
+        profileAPI.setProfileStatus(status).then( response => {
+            if(response.data.resultCode === 0) {
+                dispatch(setStatus(status))
+            }
+        } )
+    }
+}
+
 export default profileReducer

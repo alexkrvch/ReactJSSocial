@@ -13,7 +13,7 @@ const Profile = (props) => {
             <div className={s.profile_header}>
                 <img src={props.profile.photos.small!=null ? props.profile.photos.small : 'https://via.placeholder.com/150'} alt="" />
                 <h2>{props.profile.fullName}</h2>
-                <ProfileStatus status='Default status' />
+                <ProfileStatus status={props.status} setProfileStatus={props.setProfileStatus} />
             </div>
             <div className={s.profile_content}>
                 <p>{ props.profile.lookingForAJob ? 'В поиске' : 'Не ищу работу' }</p>
