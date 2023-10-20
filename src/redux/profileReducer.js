@@ -16,7 +16,6 @@ let initialState = {
     ],
     profile: null,
     profileId: 1,
-    newPostText: '',
     status: ''
 }
 
@@ -26,13 +25,7 @@ const profileReducer = (state = initialState, action) => {
             let today = new Date().toLocaleDateString('en-GB');
             return {
                 ...state,
-                PostData: [...state.PostData, {id: 5, header: 'Def header', text: state.newPostText, countLikes: 0, date: today}],
-                newPostText: ''
-            };
-        case CHANGE_NEW_POST_TEXT:
-            return {
-                ...state,
-                newPostText: action.text
+                PostData: [...state.PostData, {id: 5, header: 'Def header', text: action.newPostText, countLikes: 0, date: today}],
             };
         case SET_USER_PROFILE:
             return {
@@ -54,8 +47,7 @@ const profileReducer = (state = initialState, action) => {
     }
 }
 
-export const addPost = () => ({type: ADD_POST})
-export const updateNewPostText = (text) => ({type: CHANGE_NEW_POST_TEXT, text: text})
+export const addPost = (newPostText) => ({type: ADD_POST, newPostText})
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
 export const setUserId = (id) => ({type: SET_USER_ID, id})
 export const setStatus = (status) => ({ type: SET_STATUS, status})
