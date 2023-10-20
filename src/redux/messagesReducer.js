@@ -17,8 +17,7 @@ let initialState = {
         {id: 3, text: 'Im okay, but so busy, what about you?', date: '10 September 2023', img: 'https://via.placeholder.com/60x40'},
         {id: 4, text: 'Im so good, im now in usa', date: '11 September 2023', img: 'https://via.placeholder.com/60x80'},
         {id: 5, text: 'Wow, its so cool, what are you do?', date: '13 September 2023', img: 'https://via.placeholder.com/60x40'}
-    ],
-    newMessageText: ''
+    ]
 }
 
 const messagesReducer = (state = initialState, action) => {
@@ -27,13 +26,7 @@ const messagesReducer = (state = initialState, action) => {
             let today = new Date().toLocaleDateString('en-GB');
             return {
                 ...state,
-                MessageData: [...state.MessageData, {id: 6, text: state.newMessageText, date: today, img: 'https://via.placeholder.com/60x80'}],
-                newMessageText: ''
-            }
-        case CHANGE_NEW_MESSAGE_TEXT:
-            return {
-                ...state,
-                newMessageText: action.text
+                MessageData: [...state.MessageData, {id: 6, text: action.newMessageText, date: today, img: 'https://via.placeholder.com/60x80'}]
             }
         default:
             return state
@@ -41,7 +34,6 @@ const messagesReducer = (state = initialState, action) => {
 
 }
 
-export const sendMessageActionCreator = () => ({type: SEND_MESSAGE})
-export const updateNewMessageTextActionCreator = (text) => ({type: CHANGE_NEW_MESSAGE_TEXT, text: text})
+export const sendMessageActionCreator = (newMessageText) => ({type: SEND_MESSAGE, newMessageText})
 
 export default messagesReducer

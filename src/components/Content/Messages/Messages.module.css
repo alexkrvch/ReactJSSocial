@@ -47,7 +47,7 @@
     outline: none;
 }
 
-.form input {
+.form button {
     align-self: end;
     width: 10%;
     background-color: #fff;
@@ -60,7 +60,7 @@
     margin-bottom: 5px;
 }
 
-.form input:focus, .form input:hover {
+.form button:focus, .form button:hover {
     background-color: #aaa;
     color: #333;
 }
