@@ -1,0 +1,12 @@
+.form_control {
+    color: #000;
+}
+
+.error input, .error textarea {
+    border: 1px solid #E4405F;
+}
+
+.form_control.error span {
+    display: block;
+    color: #E4405F;
+}
