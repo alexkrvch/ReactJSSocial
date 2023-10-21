@@ -1,3 +1,9 @@
+.preloaderContainer {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+}
+
 .preloader {
     width: 200px;
     margin: 50px;
