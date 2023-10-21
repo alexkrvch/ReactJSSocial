@@ -1,10 +1,10 @@
 import s from './FormsControls.module.css'
 
-const FormControl = ({input, meta, child, ...props}) => {
+const FormControl = ({input, meta, ...props}) => {
     const hasError = meta.touched && meta.error;
     return (
         <div className={s.form_control + " " + (hasError ? s.error : '') }>
-            { props.child }
+            { props.children }
             { hasError  && <span>{meta.error}</span> }
         </div>
     )
@@ -20,7 +20,7 @@ export const Textarea = (props) => {
 export const Input = (props) => {
     const {input, meta, ...restProps} = props
     return (
-        <FormControl {...props}><input {...input} placeholder={props.placeholder} type={props.type} /></FormControl>
+        <FormControl {...props}><input {...input} {...restProps} /></FormControl>
     )
     // const hasError = meta.touched && meta.error;
     // return (
