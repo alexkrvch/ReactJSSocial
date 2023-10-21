@@ -7,7 +7,8 @@ let initialState = {
     email: null,
     login: null,
     isAuth: false,
-    isFetching: false
+    isFetching: false,
+    error: ''
 }
 
 const authReducer = (state = initialState, action) => {
@@ -15,22 +16,42 @@ const authReducer = (state = initialState, action) => {
         case SET_USER_DATA:
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.payload
             };
         default:
             return state;
     }
 }
 
-export const setUserData = (userId, email, login) => ({type: SET_USER_DATA, data: {userId, email, login}})
+export const setUserData = (userId, email, login, isAuth) => ({type: SET_USER_DATA, payload:
+        {userId, email, login, isAuth}})
 
 export const auth = () => {
     return (dispatch) => {
         accountAPI.my().then( data => {
             if(data.resultCode === 0){
                 let {id, email, login} = data.data
-                dispatch(setUserData(id, email, login))
+                dispatch(setUserData(id, email, login, true))
+            }
+        })
+    }
+}
+
+export const login = (email, password, rememberMe) => {
+    return (dispatch) => {
+        accountAPI.login(email, password, rememberMe).then( data => {
+            if(data.resultCode === 0){
+                dispatch(auth())
+            }
+        })
+    }
+}
+
+export const logout = () => {
+    return (dispatch) => {
+        accountAPI.logout().then( data => {
+            if(data.resultCode === 0){
+                dispatch(setUserData(null, null, null, false))
             }
         })
     }
