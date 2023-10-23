@@ -81,7 +81,7 @@ export const startFollowing = (id) => ({type: START_FOLLOWING, id})
 export const stopFollowing = (id) => ({type: STOP_FOLLOWING, id})
 
 
-export const getUsers = (currentPage, pageSize) => {
+export const requestUsers = (currentPage, pageSize) => {
     return (dispatch) => {
         dispatch(changeIsFetching(true));
         usersAPI.getUsers(currentPage, pageSize).then( data => {
