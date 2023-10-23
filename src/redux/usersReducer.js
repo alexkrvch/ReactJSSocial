@@ -9,7 +9,6 @@ const START_FOLLOWING = 'START_FOLLOWING';
 const STOP_FOLLOWING = 'STOP_FOLLOWING';
 
 let initialState = {
-    fake: 0,
     UsersList: [],
     pageSize: 100,
     totalCount: 0,
