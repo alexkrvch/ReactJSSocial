@@ -5,7 +5,6 @@ import Footer from "./components/Footer/Footer";
 import {BrowserRouter} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {Component} from "react";
-import {auth} from "./redux/authReducer";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/appReducer";
