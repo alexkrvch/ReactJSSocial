@@ -1,4 +1,4 @@
-import profileReducer, {addPost} from "./profileReducer";
+import profileReducer, {addPost, deletePost} from "./profileReducer";
 
 let state = {
     PostData: [
@@ -24,7 +24,7 @@ it('new post should be added', () => {
 })
 
 
-it('text for new post', () => {
+it(`test text in the new post text`, () => {
     // 1. test data
     let action = addPost('Hi test');
 
@@ -33,4 +33,26 @@ it('text for new post', () => {
 
     // 3. expectation
     expect(newState.PostData[4].text).toBe('Hi test')
+})
+
+it('delete post', () => {
+    // 1. test data
+    let action = deletePost(1);
+
+    // 2. action
+    let newState = profileReducer(state,action);
+
+    // 3. expectation
+    expect(newState.PostData.length).toBe(3)
+})
+
+it('after delete post dont change after incorrect ID', () => {
+    // 1. test data
+    let action = deletePost(200);
+
+    // 2. action
+    let newState = profileReducer(state,action);
+
+    // 3. expectation
+    expect(newState.PostData.length).toBe(4)
 })
