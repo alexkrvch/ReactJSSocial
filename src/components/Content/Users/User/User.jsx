@@ -1,22 +1,24 @@
 import s from './User.module.css'
 import {NavLink} from "react-router-dom";
 
-const User = (props) => {
+const User = ({id, photos, name, followed, follow, isFollowing, unFollow, status}) => {
     return(
-        <div key={props.id} className={s.user}>
-            <NavLink to={`/profile/${props.id}`}>
-                <img className={s.img} src={props.photos.small!=null ? props.photos.small : 'https://via.placeholder.com/100'}  alt=''/>
+        <div className={s.user}>
+            <NavLink to={`/profile/${id}`}>
+                <img className={s.img} src={photos.small!=null ? photos.small : 'https://via.placeholder.com/100'}  alt=''/>
             </NavLink>
             <div className={s.info_center}>
                 <div className={s.name}>
-                    { props.name }
+                    { name }
                 </div>
                 <div className={s.status}>
-                    { props.status }
+                    { status }
                 </div>
             </div>
             <div className={s.info_right}>
-                { props.followed ? <button disabled={props.isFollowing.some(id => id === props.id)} onClick={ () => { props.unFollow(props.id) } }>UnFollow</button> : <button disabled={props.isFollowing.some(id => id === props.id)} onClick={ () => { props.follow(props.id) } }>Follow</button> }
+                { followed ?
+                    <button disabled={isFollowing.some(ids => ids === id)} onClick={ () => { unFollow(id) } }>UnFollow</button> :
+                    <button disabled={isFollowing.some(ids => ids === id)} onClick={ () => { follow(id) } }>Follow</button> }
             </div>
         </div>
     )

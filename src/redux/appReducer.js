@@ -1,6 +1,6 @@
 import {auth} from "./authReducer";
 
-const SET_INITIALIZED = 'SET_INITIALIZED';
+const SET_INITIALIZED = 'initApp/SET_INITIALIZED';
 
 let initialState = {
     initialized: false
@@ -20,15 +20,14 @@ const appReducer = (state = initialState, action) => {
 
 export const initialProject = () => ({type: SET_INITIALIZED})
 
-export const initializeApp = () => {
-    return (dispatch) => {
-        let authPromise = dispatch(auth());
+export const initializeApp = () => async (dispatch) => {
+    let authPromise = dispatch(auth());
 
-        Promise.all([authPromise]).then( () => {
-            dispatch(initialProject())
-        })
-    }
+    Promise.all([authPromise]).then( () => {
+        dispatch(initialProject())
+    })
 }
+
 
 
 export default appReducer

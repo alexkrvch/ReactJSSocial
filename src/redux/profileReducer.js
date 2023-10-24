@@ -1,10 +1,10 @@
 import {profileAPI} from "../api/api";
 
-const ADD_POST = 'ADD-POST';
-const SET_USER_PROFILE = 'SET_USER_PROFILE';
-const SET_USER_ID = 'SET_USER_ID';
-const SET_STATUS = 'SET_STATUS';
-const DELETE_POST = 'DELETE_POST';
+const ADD_POST = 'profile/ADD-POST';
+const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
+const SET_USER_ID = 'profile/SET_USER_ID';
+const SET_STATUS = 'profile/SET_STATUS';
+const DELETE_POST = 'profile/DELETE_POST';
 
 let initialState = {
     PostData: [
@@ -57,31 +57,24 @@ export const setUserId = (id) => ({type: SET_USER_ID, id})
 export const setStatus = (status) => ({ type: SET_STATUS, status})
 export const deletePost = (id) => ({ type: DELETE_POST, id })
 
-export const getProfile = (userId) => {
-    return (dispatch) => {
-        dispatch(setUserId(userId))
-        dispatch(setUserProfile(null))
-        profileAPI.getProfile(userId).then(data => {
-            dispatch(setUserProfile(data))
-        })
-    }
+export const getProfile = (userId) => async (dispatch) => {
+    dispatch(setUserId(userId))
+    dispatch(setUserProfile(null))
+    let response = await profileAPI.getProfile(userId)
+    dispatch(setUserProfile(response))
 }
 
-export const getProfileStatus = (userId) => {
-    return (dispatch) => {
-        profileAPI.getStatus(userId).then(response => {
-            dispatch(setStatus(response))
-        })
-    }
+
+export const getProfileStatus = (userId) => async (dispatch) => {
+    let response = await profileAPI.getStatus(userId)
+    dispatch(setStatus(response))
 }
 
-export const setProfileStatus = (status) => {
-    return (dispatch) => {
-        profileAPI.setProfileStatus(status).then( response => {
-            if(response.data.resultCode === 0) {
-                dispatch(setStatus(status))
-            }
-        } )
+
+export const setProfileStatus = (status) => async (dispatch) => {
+    let response = await profileAPI.setProfileStatus(status)
+    if(response.data.resultCode === 0) {
+        dispatch(setStatus(status))
     }
 }
 

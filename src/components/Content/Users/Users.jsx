@@ -1,24 +1,16 @@
 import User from "./User/User";
 import s from "./Users.module.css";
 import React from "react";
+import Pagination from "../../Common/Pagination/Paginator";
 
-const Users = (props) => {
-    let pagesCount = Math.ceil(props.totalCount / props.pageSize);
-
-    let pages = [];
-    for (let i=1; i<=pagesCount; i++) {
-        pages.push(i);
-    }
-
-    let users = props.users.map(u => <User id={u.id} name={u.name} photos={u.photos} status={u.status} followed={u.followed} follow={props.follow} unFollow={props.unFollow} isFollowing={props.isFollowing} />)
+const Users = ({currentPage, onChangePage, totalCount, pageSize, users, follow, unFollow, isFollowing}) => {
+    let usersMap = users.map(u => <User
+        key={u.id} id={u.id} name={u.name} photos={u.photos} status={u.status}
+        followed={u.followed} follow={follow} unFollow={unFollow} isFollowing={isFollowing} />)
     return(
         <div className={s.users}>
-
-            <div className={s.navigation}>
-                { pages.map(p => <span onClick={ () => {props.onChangePage(p)}} className={ p === props.currentPage ? s.selNavigation : ''}>{p}</span>) }
-            </div>
-
-            {users.length ? users : 'Empty list'}
+            <Pagination currentPage={currentPage} totalCount={totalCount} pageSize={pageSize} onChangePage={onChangePage} />
+            {usersMap.length ? usersMap : 'Empty list'}
         </div>
     )
 }

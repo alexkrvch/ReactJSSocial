@@ -1,7 +1,7 @@
 import {followAPI, usersAPI} from "../api/api";
+import {updateObjectInArray} from "../utils/object-helpers";
 
-const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW';
+const FOLLOW_UNFOLLOW = 'FOLLOW_UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const CHANGE_FETCHING = 'CHANGE_FETCHING';
@@ -19,25 +19,10 @@ let initialState = {
 
 const usersReducer = (state = initialState, action) => {
     switch (action.type){
-        case FOLLOW:
+        case FOLLOW_UNFOLLOW:
             return {
                 ...state,
-                UsersList: state.UsersList.map( u => {
-                    if(u.id === action.userId) {
-                        return {...u, followed: true}
-                    }
-                    return u
-                })
-            }
-        case UNFOLLOW:
-            return {
-                ...state,
-                UsersList: state.UsersList.map( u => {
-                    if(u.id === action.userId) {
-                        return {...u, followed: false}
-                    }
-                    return u
-                })
+                UsersList: updateObjectInArray(state.UsersList, action.userId, 'id', {followed: action.status})
             }
         case SET_USERS:
             return {
@@ -72,8 +57,7 @@ const usersReducer = (state = initialState, action) => {
     }
 }
 
-export const follow = (userId) => ({type: FOLLOW, userId})
-export const unFollow = (userId) => ({type: UNFOLLOW, userId})
+export const followUnfollow = (userId, status) => ({type: FOLLOW_UNFOLLOW, userId, status})
 export const setUsers = (data) => ({type: SET_USERS, data})
 export const setCurrentPage = (page) => ({type: SET_CURRENT_PAGE, page})
 export const changeIsFetching = (state) => ({type: CHANGE_FETCHING, state})
@@ -81,39 +65,32 @@ export const startFollowing = (id) => ({type: START_FOLLOWING, id})
 export const stopFollowing = (id) => ({type: STOP_FOLLOWING, id})
 
 
-export const requestUsers = (currentPage, pageSize) => {
-    return (dispatch) => {
-        dispatch(changeIsFetching(true));
-        usersAPI.getUsers(currentPage, pageSize).then( data => {
-            dispatch(changeIsFetching(false))
-            dispatch(setUsers(data))
-            dispatch(setCurrentPage(currentPage))
-        })
+export const requestUsers = (currentPage, pageSize) => async (dispatch) => {
+    dispatch(changeIsFetching(true));
+    const response = await usersAPI.getUsers(currentPage, pageSize)
+    dispatch(changeIsFetching(false))
+    dispatch(setUsers(response))
+    dispatch(setCurrentPage(currentPage))
+}
+
+export const followUnfollowFlow = async (dispatch, userId, apiMethod, status) => {
+    dispatch(startFollowing(userId))
+    const response = await apiMethod(userId)
+    dispatch(stopFollowing(userId))
+    if(response.resultCode===0) {
+        dispatch(followUnfollow(userId, status))
     }
 }
 
-export const followUser = (userId) => {
-    return (dispatch) => {
-        dispatch(startFollowing(userId))
-        followAPI.follow(userId).then( data => {
-            dispatch(stopFollowing(userId))
-            if(data.resultCode===0) {
-                dispatch(follow(userId))
-            }
-        })
-    }
+
+export const followUser = (userId) => (dispatch) => {
+    followUnfollowFlow(dispatch, userId, followAPI.follow.bind(usersAPI), true)
 }
 
-export const unFollowUser = (userId) => {
-    return (dispatch) => {
-        dispatch(startFollowing(userId))
-        followAPI.unFollow(userId).then( data => {
-            dispatch(stopFollowing(userId))
-            if(data.resultCode===0) {
-                dispatch(unFollow(userId))
-            }
-        })
-    }
+
+export const unFollowUser = (userId) => (dispatch) => {
+    followUnfollowFlow(dispatch, userId, followAPI.unFollow.bind(usersAPI), false)
 }
+
 
 export default usersReducer
