@@ -29,15 +29,8 @@ const composeEnhancers =
 
 const enhancer = composeEnhancers(
     applyMiddleware(thunkMiddleware),
-    // other store enhancers if any
 );
 const store = createStore(reducers, enhancer);
-
-
-//
-// const store = createStore(reducers, applyMiddleware(thunkMiddleware));
-//
-// let store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 window.store = store;
 
