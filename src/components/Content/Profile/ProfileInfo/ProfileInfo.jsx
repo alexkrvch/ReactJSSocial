@@ -1,17 +1,30 @@
 import s from './ProfileInfo.module.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebook, faGithub, faInstagram, faTwitter, faVk } from '@fortawesome/free-brands-svg-icons';
 import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
+import {useState} from "react";
+import ProfileReduxForm from "./ProfileDataForm/ProfileDataForm";
+import ProfileData from "./ProfileData/ProfileData";
 
 
+const Profile = ({ profile: {photos, fullName, lookingForAJob, contacts, lookingForAJobDescription, aboutMe}, status, owner, setProfileStatus, savePhoto, saveProfile, userId}) => {
 
+    let [editMode, setEditMode] = useState(false);
 
-const Profile = ({ profile: {photos, fullName, lookingForAJob, contacts}, status, owner, setProfileStatus, savePhoto}) => {
+    const onEditForm = (value) => {
+        setEditMode(value);
+    }
 
     const onMainPhotoSel = (e) => {
         if( e.target.files.length ) {
             savePhoto(e.target.files[0]);
         }
+    }
+
+    const onSubmit = (formData) => {
+        saveProfile(formData, userId).then(data => {
+            if(data!==1) {
+                setEditMode(false)
+            }
+        })
     }
 
     return (
@@ -25,20 +38,11 @@ const Profile = ({ profile: {photos, fullName, lookingForAJob, contacts}, status
                 <h2>{fullName}</h2>
                 <ProfileStatusWithHooks status={status} setProfileStatus={setProfileStatus} />
             </div>
-            <div className={s.profile_content}>
-                <p>{ lookingForAJob ? 'В поиске' : 'Не ищу работу' }</p>
 
-                <div className={s.social_block}>
-
-                    { contacts.facebook ? <a href={contacts.facebook} target="_blank" rel="noreferrer"  className="facebook"><FontAwesomeIcon icon={faFacebook} size='2x'/></a> : ''}
-                    { contacts.github ? <a href={contacts.github} target="_blank" rel="noreferrer"  className="github"><FontAwesomeIcon icon={faGithub} size='2x' /></a> : '' }
-                    { contacts.instagram ? <a href={contacts.instagram} target="_blank" rel="noreferrer"  className="instagram"><FontAwesomeIcon icon={faInstagram} size='2x' /></a> : '' }
-                    { contacts.twitter ? <a href={contacts.twitter} target="_blank" rel="noreferrer"  className="twitter"><FontAwesomeIcon icon={faTwitter} size='2x' /></a> : '' }
-                    { contacts.vk ? <a href={contacts.vk} target="_blank" rel="noreferrer"  className="vk"><FontAwesomeIcon icon={faVk} size='2x' /></a> : '' }
-
-
-                </div>
-            </div>
+            { !editMode ?
+                <ProfileData onEditForm={onEditForm} owner={owner} fullName={fullName} lookingForAJob={lookingForAJob} contacts={contacts} lookingForAJobDescription={lookingForAJobDescription} aboutMe={aboutMe} /> :
+                <ProfileReduxForm onSubmit={onSubmit} onEditForm={onEditForm} owner={owner} fullName={fullName} lookingForAJob={lookingForAJob} contacts={contacts} lookingForAJobDescription={lookingForAJobDescription} aboutMe={aboutMe} />
+            }
         </div>
     );
 }
