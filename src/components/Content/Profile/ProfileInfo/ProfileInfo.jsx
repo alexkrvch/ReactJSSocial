@@ -4,12 +4,22 @@ import { faFacebook, faGithub, faInstagram, faTwitter, faVk } from '@fortawesome
 import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
 
 
-const Profile = ({ profile: {photos, fullName, lookingForAJob, contacts}, status, setProfileStatus}) => {
+
+
+const Profile = ({ profile: {photos, fullName, lookingForAJob, contacts}, status, owner, setProfileStatus, savePhoto}) => {
+
+    const onMainPhotoSel = (e) => {
+        if( e.target.files.length ) {
+            savePhoto(e.target.files[0]);
+        }
+    }
+
     return (
         <div>
             <div className={s.profile_back}>
                 <img src="https://via.placeholder.com/1456x200" alt="" />
             </div>
+            { owner && <input type={'file'} onChange={ onMainPhotoSel } /> }
             <div className={s.profile_header}>
                 <img src={photos.large!=null ? photos.large : 'https://via.placeholder.com/150'} alt="" />
                 <h2>{fullName}</h2>
