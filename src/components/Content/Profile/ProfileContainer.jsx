@@ -1,7 +1,13 @@
 import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {getProfile, getProfileStatus, savePhoto, saveProfile, setProfileStatus} from "../../../redux/profileReducer";
+import {
+    getProfile,
+    getProfileStatus,
+    savePhoto,
+    saveProfile,
+    setProfileStatus
+} from "../../../redux/profileReducer";
 import WithRouter from "../../Common/WithRouter/WithRouter";
 import {compose} from "redux";
 
@@ -42,7 +48,8 @@ let mapStateToProps = (state) => ({
     profile: state.ProfilePage.profile,
     userId: state.Auth.userId,
     isAuth: state.Auth.isAuth,
-    status: state.ProfilePage.status
+    status: state.ProfilePage.status,
+    profileUpSt: state.ProfilePage.profileUpdateStatus
 })
 
 export default compose(
