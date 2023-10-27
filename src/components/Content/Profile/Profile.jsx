@@ -9,7 +9,7 @@ const Profile = (props) => {
 
     return (
         <div>
-            <ProfileInfo profile={props.profile} status={props.status} setProfileStatus={props.setProfileStatus} />
+            <ProfileInfo profile={props.profile} status={props.status} savePhoto={props.savePhoto} setProfileStatus={props.setProfileStatus} owner={props.owner} />
 
             { props.userId === 13315 ? <MyPostsContainer /> : ''}
         </div>
