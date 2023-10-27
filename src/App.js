@@ -21,7 +21,7 @@ class App extends Component {
             return <Preloader />
         }
         return (
-            <BrowserRouter>
+            <BrowserRouter basename={process.env.PUBLIC_URL}>
                 <div className="App">
                     <div className="App-content">
                         <HeaderContainer/>

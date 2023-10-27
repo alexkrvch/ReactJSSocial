@@ -11,7 +11,7 @@ const Profile = ({ profile: {photos, fullName, lookingForAJob, contacts}, status
                 <img src="https://via.placeholder.com/1456x200" alt="" />
             </div>
             <div className={s.profile_header}>
-                <img src={photos.small!=null ? photos.small : 'https://via.placeholder.com/150'} alt="" />
+                <img src={photos.large!=null ? photos.large : 'https://via.placeholder.com/150'} alt="" />
                 <h2>{fullName}</h2>
                 <ProfileStatusWithHooks status={status} setProfileStatus={setProfileStatus} />
             </div>
