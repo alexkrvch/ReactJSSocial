@@ -1,17 +1,23 @@
 import s from './ProfileInfo.module.css'
 import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import ProfileReduxForm from "./ProfileDataForm/ProfileDataForm";
 import ProfileData from "./ProfileData/ProfileData";
 
 
-const Profile = ({ profile: {photos, fullName, lookingForAJob, contacts, lookingForAJobDescription, aboutMe}, status, owner, setProfileStatus, savePhoto, saveProfile, userId}) => {
+const Profile = ({ profile: {photos, fullName, lookingForAJob, contacts, lookingForAJobDescription, aboutMe}, status, owner, setProfileStatus, savePhoto, saveProfile, userId, profileUpSt}) => {
 
     let [editMode, setEditMode] = useState(false);
 
     const onEditForm = (value) => {
         setEditMode(value);
     }
+
+    useEffect(() => {
+        if(profileUpSt===1) {
+            setEditMode(false)
+        }
+    }, [profileUpSt]);
 
     const onMainPhotoSel = (e) => {
         if( e.target.files.length ) {
@@ -20,11 +26,7 @@ const Profile = ({ profile: {photos, fullName, lookingForAJob, contacts, looking
     }
 
     const onSubmit = (formData) => {
-        saveProfile(formData, userId).then(data => {
-            if(data!==1) {
-                setEditMode(false)
-            }
-        })
+        saveProfile(formData, userId)
     }
 
     return (
