@@ -1,6 +1,7 @@
 {
   "name": "reactjs",
   "version": "0.1.0",
+  "homepage": "https://alexkrvch.github.io/ReactJS-social-demo",
   "private": true,
   "dependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
@@ -10,6 +11,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.5.1",
     "babel-preset-react-app": "^10.0.1",
+    "classname": "^0.0.0",
     "nth-check": "^2.1.1",
     "postcss": "^8.4.31",
     "react": "^18.2.0",
@@ -28,7 +30,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -53,6 +57,7 @@
     "@babel/preset-env": "^7.23.2",
     "@babel/preset-react": "^7.22.15",
     "@babel/preset-typescript": "^7.23.2",
+    "gh-pages": "^6.0.0",
     "jest-esm-transformer": "^1.0.0",
     "react-test-renderer": "^18.2.0"
   },
