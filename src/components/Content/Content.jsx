@@ -1,12 +1,17 @@
+import React from "react";
 import s from './Content.module.css'
 import {Route, Routes} from "react-router-dom";
 import News from "./News/News";
 import Music from "./Music/Music";
 import Settings from "./Settings/Settings";
-import MessagesContainer from "./Messages/MessagesContainer";
 import UsersContainer from "./Users/UsersContainer";
-import ProfileContainer from "./Profile/ProfileContainer";
+
 import Login from "./Login/Login";
+import {withSuspense} from "../../hoc/withSuspense";
+
+const ProfileContainer = withSuspense(React.lazy(()=> import("./Profile/ProfileContainer")))
+const MessagesContainer = withSuspense(React.lazy(()=> import("./Messages/MessagesContainer")))
+
 
 const Content = (props) => {
     return (
