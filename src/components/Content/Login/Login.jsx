@@ -1,4 +1,4 @@
-import {reduxForm} from "redux-form";
+import {Field, reduxForm} from "redux-form";
 import {createField, Input} from "../../Common/FormControls/FormsControls";
 import {required} from "../../../utils/validators/validators";
 import {connect} from "react-redux";
@@ -7,12 +7,15 @@ import {Navigate} from "react-router-dom";
 import s from "./Login.module.css"
 import React from "react";
 
-const LoginForm = ({handleSubmit, error}) => {
+const LoginForm = ({handleSubmit, error, captcha}) => {
     return (
         <form onSubmit={ handleSubmit }>
             {createField('Email', 'email', [required], Input, {type:'text'})}
             {createField('Password', 'password', [required], Input, {type:'password'})}
             {createField('rememberMe', 'rememberMe', '', Input, {type:'checkbox'}, 'Remember Me')}
+
+            { captcha && <div><img src={captcha} alt={'captcha'} title={'captcha'} /><Field component={'input'} name={'captcha'} validate={[required]} /> </div> }
+
             { error && <div className={s.form_error}>{ error }</div> }
             <button>Login</button>
         </form>
@@ -25,7 +28,11 @@ const LoginReduxForm = reduxForm({
 
 const Login = (props) => {
     const onSubmit = (formData) => {
-        props.login(formData.email, formData.password, formData.rememberMe)
+        if(!formData.captcha) {
+            props.login(formData.email, formData.password, formData.rememberMe)
+        } else {
+            props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
+        }
     }
 
     if(props.isAuth) {
@@ -35,14 +42,15 @@ const Login = (props) => {
     return (
         <>
             <div>Login</div>
-            <LoginReduxForm onSubmit={onSubmit} />
+            <LoginReduxForm captcha={props.captcha} onSubmit={onSubmit} />
         </>
     )
 }
 
 
 const mapStateToProps = (state) => ({
-    isAuth: state.Auth.isAuth
+    isAuth: state.Auth.isAuth,
+    captcha: state.Auth.captcha
 })
 
 
