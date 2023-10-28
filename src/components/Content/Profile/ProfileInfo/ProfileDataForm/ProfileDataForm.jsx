@@ -25,7 +25,7 @@ const ProfileForm = ({handleSubmit, lookingForAJob, contacts, lookingForAJobDesc
             "FullName": fullName
         }
         initialize(data)
-    }, [lookingForAJob, contacts, lookingForAJobDescription, aboutMe, owner, fullName]);
+    }, [lookingForAJob, contacts, lookingForAJobDescription, aboutMe, owner, fullName, initialize]);
 
     let errorsList
     if(error) {
