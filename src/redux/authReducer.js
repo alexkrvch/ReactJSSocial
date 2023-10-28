@@ -46,15 +46,14 @@ export const auth = () => async (dispatch) => {
 
 export const login = (email, password, rememberMe, captcha) => async (dispatch) => {
     let response = await accountAPI.login(email, password, rememberMe, captcha)
-    console.log(response)
     if(response.resultCode === 0){
         dispatch(auth())
     }else{
-        dispatch(stopSubmit('login', {_error: response.messages}))
         if(response.resultCode === 10) {
             let captcha = await securityAPI.getCaptcha()
             dispatch(setCaptcha(captcha.url));
         }
+        dispatch(stopSubmit('login', {_error: response.messages}))
     }
 }
 
