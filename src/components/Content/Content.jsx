@@ -1,6 +1,6 @@
 import {lazy} from "react";
 import s from './Content.module.css'
-import {Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import News from "./News/News";
 import Music from "./Music/Music";
 import Settings from "./Settings/Settings";
@@ -16,6 +16,7 @@ const Content = (props) => {
     return (
         <div className={s.content_page}>
             <Routes>
+                <Route path='/' element={<Navigate to={'/profile'} />} />
                 <Route path='/profile' element={<ProfileContainer />} />
                 <Route path='/profile/:userId' element={<ProfileContainer />} />
                 <Route path='/users' element={<UsersContainer />} />
@@ -25,6 +26,7 @@ const Content = (props) => {
                 <Route path='/music' element={<Music />} />
                 <Route path='/settings' element={<Settings />} />
                 <Route path='/login' element={<Login />} />
+                <Route path='*' element={<div>Error 404</div>} />
             </Routes>
         </div>
     );

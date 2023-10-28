@@ -25,7 +25,6 @@ const Messages = (props) => {
     let messagesElements = props.messagesData.map(m => <Message key={m.id} text={m.text} date={m.date} img={m.img} />);
 
     let sendMessage = (data) => {
-        console.log(data)
         props.onSendMessage(data.newMessageText)
     }
 
