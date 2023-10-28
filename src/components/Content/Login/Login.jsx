@@ -14,7 +14,8 @@ const LoginForm = ({handleSubmit, error, captcha}) => {
             {createField('Password', 'password', [required], Input, {type:'password'})}
             {createField('rememberMe', 'rememberMe', '', Input, {type:'checkbox'}, 'Remember Me')}
 
-            { captcha && <div><img src={captcha} alt={'captcha'} title={'captcha'} /><Field component={'input'} name={'captcha'} validate={[required]} /> </div> }
+            { captcha && <div><img src={captcha} alt={'captcha'} title={'captcha'} /> </div> }
+            { captcha && createField('captcha', 'captcha', [required], Input, {type:'text'}) }
 
             { error && <div className={s.form_error}>{ error }</div> }
             <button>Login</button>
