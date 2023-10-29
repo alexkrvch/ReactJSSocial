@@ -11,7 +11,7 @@ const Profile = (props) => {
         <div>
             <ProfileInfo profile={props.profile} status={props.status} savePhoto={props.savePhoto} setProfileStatus={props.setProfileStatus} owner={props.owner} saveProfile={props.saveProfile} userId={props.userId} profileUpSt={props.profileUpSt} />
 
-            { props.userId === 13315 ? <MyPostsContainer /> : ''}
+            { props.owner ? <MyPostsContainer /> : ''}
         </div>
     );
 }
