@@ -2,7 +2,7 @@ import {auth} from "./authReducer";
 
 const SET_INITIALIZED = 'initApp/SET_INITIALIZED';
 
-let initialState = {
+let initialState: {initialized: boolean}  = {
     initialized: false
 }
 
