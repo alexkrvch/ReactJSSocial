@@ -1,12 +1,19 @@
 import {auth} from "./authReducer";
 
-const SET_INITIALIZED:string = 'initApp/SET_INITIALIZED';
+const SET_INITIALIZED = 'initApp/SET_INITIALIZED';
 
-let initialState: {initialized: boolean}  = {
-    initialized: false
+
+export type initialStateType = {
+    initialized: boolean,
+    globalError: null | string
 }
 
-const appReducer = (state: {initialized: boolean} = initialState, action: {type: string}) => {
+let initialState:initialStateType = {
+    initialized: false,
+    globalError: null
+}
+
+const appReducer = (state:initialStateType = initialState, action: any): initialStateType => {
     switch (action.type){
         case SET_INITIALIZED:
             return {
@@ -18,12 +25,14 @@ const appReducer = (state: {initialized: boolean} = initialState, action: {type:
     }
 }
 
-export const initialProject = ():{type: string} => ({type: SET_INITIALIZED})
+type initialProjectActionType = {type: typeof SET_INITIALIZED}
 
-export const initializeApp = () => async (dispatch:Function) => {
+export const initialProject = ():initialProjectActionType => ({type: SET_INITIALIZED})
+
+export const initializeApp = () => async (dispatch:any) => {
     let authPromise = dispatch(auth());
 
-    Promise.all([authPromise]).then( ():void => {
+    Promise.all([authPromise]).then( () => {
         dispatch(initialProject())
     })
 }
