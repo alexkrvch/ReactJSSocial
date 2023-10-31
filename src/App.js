@@ -1,4 +1,5 @@
 import './App.css';
+import React from "react";
 import NavContainer from "./components/Nav/NavContainer";
 import Content from "./components/Content/Content";
 import Footer from "./components/Footer/Footer";
@@ -7,7 +8,7 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import {Component} from "react";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import {initializeApp} from "./redux/appReducer";
+import {initializeApp} from "./redux/appReducer.ts";
 import Preloader from "./components/Common/Preloader/Preloader";
 
 class App extends Component {
