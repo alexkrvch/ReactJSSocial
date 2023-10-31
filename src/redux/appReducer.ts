@@ -29,10 +29,10 @@ type initialProjectActionType = {type: typeof SET_INITIALIZED}
 
 export const initialProject = ():initialProjectActionType => ({type: SET_INITIALIZED})
 
-export const initializeApp = () => async (dispatch:any) => {
+export const initializeApp = () => async (dispatch:any):Promise<void> => {
     let authPromise = dispatch(auth());
 
-    Promise.all([authPromise]).then( () => {
+    Promise.all([authPromise]).then( ():void => {
         dispatch(initialProject())
     })
 }
