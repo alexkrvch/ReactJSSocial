@@ -4,7 +4,18 @@ import {stopSubmit} from "redux-form";
 const SET_USER_DATA = 'auth/SET_USER_DATA';
 const SET_CAPTCHA = 'security/SET_CAPTCHA';
 
-let initialState = {
+type initialStateType = {
+    userId: null | number,
+    email: null | string,
+    login: null | string,
+    isAuth: boolean,
+    isFetching: boolean,
+    captcha: null | string,
+    error: string
+}
+
+
+let initialState: initialStateType = {
     userId: null,
     email: null,
     login: null,
@@ -14,7 +25,7 @@ let initialState = {
     error: ''
 }
 
-const authReducer = (state = initialState, action) => {
+const authReducer = (state: initialStateType = initialState, action:any):initialStateType  => {
     switch (action.type){
         case SET_USER_DATA:
             return {
@@ -31,11 +42,12 @@ const authReducer = (state = initialState, action) => {
     }
 }
 
-export const setUserData = (userId, email, login, isAuth) => ({type: SET_USER_DATA, payload:
+export const setUserData = (userId: null | number, email: null | string, login: null | string, isAuth: boolean):
+    {type: typeof SET_USER_DATA, payload: {userId: number, email: string, login: string, isAuth: boolean}} => ({type: SET_USER_DATA, payload:
         {userId, email, login, isAuth}})
-export const setCaptcha = (url) => ({type: SET_CAPTCHA, url})
+export const setCaptcha = (url:string):{type: typeof SET_CAPTCHA, url: string} => ({type: SET_CAPTCHA, url})
 
-export const auth = () => async (dispatch) => {
+export const auth = () => async (dispatch:any):Promise<void> => {
     let response = await accountAPI.my()
     if(response.resultCode === 0){
         let {id, email, login} = response.data
@@ -44,7 +56,7 @@ export const auth = () => async (dispatch) => {
 }
 
 
-export const login = (email, password, rememberMe, captcha) => async (dispatch) => {
+export const login = (email: string, password: string, rememberMe: boolean, captcha:string) => async (dispatch:any) :Promise<void> => {
     let response = await accountAPI.login(email, password, rememberMe, captcha)
     if(response.resultCode === 0){
         dispatch(auth())
