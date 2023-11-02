@@ -1,4 +1,13 @@
-let initialState = {
+
+type initialStateType = {
+    navItems:{
+        id: number,
+        link: string,
+        text: string
+    }[]
+}
+
+let initialState:initialStateType = {
     navItems: [
         {'id': 1, 'link': 'profile', 'text': 'Profile'},
         {'id': 2, 'link': 'users', 'text': 'Users'},
@@ -9,7 +18,7 @@ let initialState = {
     ]
 }
 
-const menuReducer = (state = initialState, action) => {
+const menuReducer = (state:initialStateType = initialState, action:any):initialStateType => {
     switch (action.type){
         default:
             return state;
