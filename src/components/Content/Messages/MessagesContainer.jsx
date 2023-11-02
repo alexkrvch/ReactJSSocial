@@ -1,4 +1,4 @@
-import {sendMessageActionCreator} from "../../../redux/messagesReducer";
+import {sendMessageActionCreator} from "../../../redux/messagesReducer.ts";
 import Messages from "./Messages";
 import {connect} from "react-redux";
 import {withAuthRedirect} from "../../../hoc/withAuthRedirect";

@@ -9,7 +9,28 @@ const DELETE_POST = 'profile/DELETE_POST';
 const SET_PHOTO = 'profile/SET_PHOTO';
 const PROFILE_UPDATE_STATUS = 'profile/PROFILE_UPDATE_STATUS'
 
-let initialState = {
+type initialStateType = {
+    PostData: {
+        id: number;
+        header: string;
+        text: string;
+        countLikes: number;
+        date: string;
+    }[];
+    profile: {
+        id: number;
+        name: string;
+        age: number;
+        city: string;
+        status: string;
+        avatar: string;
+    } | null;
+    profileId: number;
+    status: string;
+    profileUpdateStatus: number;
+}
+
+let initialState:initialStateType = {
     PostData: [
         {id: 1, header: 'First post', text: 'Nullam euismod,1 diam vel tincidunt bibendum, velit sapien bibendum sapien, vel bibendum sapien sapien vel sapien, velit sapien bibendum sapien, vel bibendum sapien sapien vel sapien.', countLikes: 3, date: '09 September 2023'},
         {id: 2, header: 'Second post', text: 'Nullam euismod,2 diam vel tincidunt bibendum, velit sapien bibendum sapien, vel bibendum sapien sapien vel sapien, velit sapien bibendum sapien, vel bibendum sapien sapien vel sapien.', countLikes: 5, date: '02 September 2023'},
@@ -22,7 +43,7 @@ let initialState = {
     profileUpdateStatus: 0
 }
 
-const profileReducer = (state = initialState, action) => {
+const profileReducer = (state:initialStateType = initialState, action):initialStateType => {
     switch (action.type){
         case ADD_POST:
             let today = new Date().toLocaleDateString('en-GB');
@@ -73,7 +94,7 @@ export const deletePost = (id) => ({ type: DELETE_POST, id })
 export const savePhotoSuccess = (photos) => ({ type: SET_PHOTO, photos })
 export const profileUpdateStatus = (status) => ({ type: PROFILE_UPDATE_STATUS, status})
 
-export const getProfile = (userId) => async (dispatch) => {
+export const getProfile = (userId:number) => async (dispatch:Function):Promise<void> => {
     dispatch(setUserId(userId))
     dispatch(setUserProfile(null))
     let response = await profileAPI.getProfile(userId)

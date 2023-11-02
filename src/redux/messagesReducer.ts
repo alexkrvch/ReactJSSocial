@@ -1,6 +1,19 @@
 const SEND_MESSAGE = 'message/SEND-MESSAGE';
 
-let initialState = {
+type initialStateType = {
+    DialogData: {
+        id: number;
+        name: string;
+    }[];
+    MessageData: {
+        id: number;
+        text: string;
+        date: string;
+        img: string;
+    }[];
+}
+
+let initialState:initialStateType = {
     DialogData: [
         {id: 1, name: 'Alex'},
         {id: 2, name: 'Nast'},
@@ -19,10 +32,10 @@ let initialState = {
     ]
 }
 
-const messagesReducer = (state = initialState, action) => {
+const messagesReducer = (state:initialStateType = initialState, action:any):initialStateType => {
     switch (action.type){
         case SEND_MESSAGE:
-            let today = new Date().toLocaleDateString('en-GB');
+            let today:string = new Date().toLocaleDateString('en-GB');
             return {
                 ...state,
                 MessageData: [...state.MessageData, {id: 6, text: action.newMessageText, date: today, img: 'https://via.placeholder.com/60x80'}]
@@ -33,6 +46,6 @@ const messagesReducer = (state = initialState, action) => {
 
 }
 
-export const sendMessageActionCreator = (newMessageText) => ({type: SEND_MESSAGE, newMessageText})
+export const sendMessageActionCreator = (newMessageText):{type: typeof SEND_MESSAGE, newMessageText: string} => ({type: SEND_MESSAGE, newMessageText})
 
 export default messagesReducer
