@@ -4,7 +4,7 @@ import messagesReducer from "./messagesReducer";
 import navbarReducer from "./navbarReducer";
 import usersReducer from "./usersReducer";
 import authReducer from "./authReducer.ts";
-import menuReducer from "./menuReducer";
+import menuReducer from "./menuReducer.ts";
 import thunkMiddleware from "redux-thunk";
 import { reducer as formReducer } from "redux-form"
 import appReducer from "./appReducer.ts";
