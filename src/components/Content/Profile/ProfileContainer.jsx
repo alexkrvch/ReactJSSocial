@@ -7,7 +7,7 @@ import {
     savePhoto,
     saveProfile,
     setProfileStatus
-} from "../../../redux/profileReducer";
+} from "../../../redux/profileReducer.ts";
 import WithRouter from "../../Common/WithRouter/WithRouter";
 import {compose} from "redux";
 

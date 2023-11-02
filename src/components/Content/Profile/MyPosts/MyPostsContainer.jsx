@@ -1,4 +1,4 @@
-import {addPost} from "../../../../redux/profileReducer";
+import {addPost} from "../../../../redux/profileReducer.ts";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 
