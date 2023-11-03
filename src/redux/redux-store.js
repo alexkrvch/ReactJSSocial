@@ -2,7 +2,7 @@ import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import profileReducer from "./profileReducer.ts";
 import messagesReducer from "./messagesReducer.ts";
 import navbarReducer from "./navbarReducer.ts";
-import usersReducer from "./usersReducer";
+import usersReducer from "./usersReducer.ts";
 import authReducer from "./authReducer.ts";
 import menuReducer from "./menuReducer.ts";
 import thunkMiddleware from "redux-thunk";
