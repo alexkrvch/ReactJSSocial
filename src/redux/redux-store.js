@@ -1,7 +1,7 @@
 import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import profileReducer from "./profileReducer.ts";
 import messagesReducer from "./messagesReducer.ts";
-import navbarReducer from "./navbarReducer";
+import navbarReducer from "./navbarReducer.ts";
 import usersReducer from "./usersReducer";
 import authReducer from "./authReducer.ts";
 import menuReducer from "./menuReducer.ts";
