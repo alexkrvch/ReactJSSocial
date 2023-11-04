@@ -43,7 +43,7 @@ const authReducer = (state: initialStateType = initialState, action:any):initial
 }
 
 export const setUserData = (userId: null | number, email: null | string, login: null | string, isAuth: boolean):
-    {type: typeof SET_USER_DATA, payload: {userId: number, email: string, login: string, isAuth: boolean}} => ({type: SET_USER_DATA, payload:
+    {type: typeof SET_USER_DATA, payload: {userId: number | null, email: string | null, login: string | null, isAuth: boolean}} => ({type: SET_USER_DATA, payload:
         {userId, email, login, isAuth}})
 export const setCaptcha = (url:string):{type: typeof SET_CAPTCHA, url: string} => ({type: SET_CAPTCHA, url})
 
