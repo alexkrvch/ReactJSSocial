@@ -1,11 +1,12 @@
 import s from './Footer.module.css'
+import React from 'react';
 
-const Footer = () => {
+const Footer = (): JSX.Element => {
     return (
         <footer className={s.footer}>
             <div className={s.footer_container}>
                 <div className={s.footer_section}>
-                    <h3>About Us</h3>
+                    <h1>About Us</h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam vel tincidunt bibendum, velit sapien bibendum sapien, vel bibendum sapien sapien vel sapien.</p>
                 </div>
                 <div className={s.footer_section}>

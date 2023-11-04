@@ -1,7 +1,7 @@
 import s from "./Preloader.module.css";
 import React from "react";
 
-const Preloader: JSX.Element = () => {
+const Preloader:Function = ():JSX.Element => {
     return (
         <div className={s.preloaderContainer}>
             <svg width="300" height="300" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" stroke="#fff">

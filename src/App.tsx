@@ -7,8 +7,9 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import {Component} from "react";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import {initializeApp} from "./redux/appReducer.ts";
-import Preloader from "./components/Common/Preloader/Preloader.tsx";
+import {initializeApp} from "./redux/appReducer";
+import Preloader from "./components/Common/Preloader/Preloader";
+import React from 'react';
 
 class App extends Component<{}, { props:any  }> {
     catchAllUnhandledErrors = (error:any):void => {
