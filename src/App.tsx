@@ -1,5 +1,4 @@
 import './App.css';
-import React from "react";
 import NavContainer from "./components/Nav/NavContainer";
 import Content from "./components/Content/Content";
 import Footer from "./components/Footer/Footer";
@@ -11,21 +10,21 @@ import {compose} from "redux";
 import {initializeApp} from "./redux/appReducer.ts";
 import Preloader from "./components/Common/Preloader/Preloader";
 
-class App extends Component {
-    catchAllUnhandledErrors = (error) => {
+class App extends Component<{}, { props:any  }> {
+    catchAllUnhandledErrors = (error:any):void => {
         alert('some error');
     }
 
-    componentDidMount() {
-        this.props.initializeApp();
+    componentDidMount():void {
+        this.props.initializeApp()
         window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
     }
 
-    componentWillUnmount() {
+    componentWillUnmount():void {
         window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors)
     }
 
-    render() {
+    render():JSX.Element {
         if(!this.props.initialized) {
             return <Preloader />
         }
@@ -47,7 +46,7 @@ class App extends Component {
 }
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state:any):{initialized:any} => ({
     initialized: state.App.initialized
 })
 

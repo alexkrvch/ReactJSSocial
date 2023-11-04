@@ -70,7 +70,7 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
 }
 
 
-export const logout = () => async (dispatch) => {
+export const logout = () => async (dispatch:Function):Promise<void> => {
     let response = await accountAPI.logout()
     if(response.resultCode === 0){
         dispatch(setUserData(null, null, null, false))
