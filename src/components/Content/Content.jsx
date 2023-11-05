@@ -19,7 +19,7 @@ const Content = (props) => {
                 <Route path='/' element={<Navigate to={'/profile'} />} />
                 <Route path='/profile' element={<ProfileContainer />} />
                 <Route path='/profile/:userId' element={<ProfileContainer />} />
-                <Route path='/users' element={<UsersContainer />} />
+                <Route path='/users' element={<UsersContainer pageTitle={'Самураи'} />} />
                 <Route path='/messages' element={<MessagesContainer />} />
                 <Route path='/messages/:dialogid' element={<MessagesContainer />} />
                 <Route path='/news' element={<News />} />

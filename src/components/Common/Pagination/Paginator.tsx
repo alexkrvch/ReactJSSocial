@@ -18,7 +18,7 @@ const Pagination: React.FC<PropsType> = React.memo(({totalCount, pageSize, onCha
     }
 
     let partCount:number = Math.ceil(pagesCount / partSize)
-    let [partCurrent, setPartCurrent] = useState(Math.floor(currentPage/partSize)+1);
+    let [partCurrent, setPartCurrent]:[number, Function] = useState<number>(Math.floor(currentPage/partSize)+1);
 
     let leftPartPageNumber:number = (partCurrent - 1) * partSize +1;
     let rightPartPageNumber:number = partCurrent * partSize;
