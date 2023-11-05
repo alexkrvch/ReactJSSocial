@@ -1,5 +1,6 @@
-import {followAPI, usersAPI} from "../api/api.ts";
+import {followAPI, usersAPI} from "../api/api";
 import {updateObjectInArray} from "../utils/object-helpers";
+import {userType} from "@/redux/types.ts";
 
 const FOLLOW_UNFOLLOW = 'FOLLOW_UNFOLLOW';
 const SET_USERS = 'SET_USERS';
@@ -8,8 +9,10 @@ const CHANGE_FETCHING = 'CHANGE_FETCHING';
 const START_FOLLOWING = 'START_FOLLOWING';
 const STOP_FOLLOWING = 'STOP_FOLLOWING';
 
+
+
 type initialStateType = {
-    UsersList: [];
+    UsersList: userType[];
     pageSize: number;
     totalCount: number;
     currentPage: number;
@@ -68,12 +71,18 @@ const usersReducer = (state:initialStateType = initialState, action:any):initial
     }
 }
 
-export const followUnfollow = (userId:number, status:boolean):{type: typeof FOLLOW_UNFOLLOW, userId: number, status:boolean} => ({type: FOLLOW_UNFOLLOW, userId, status})
-export const setUsers = (data:any):{type: typeof SET_USERS, data:any} => ({type: SET_USERS, data})
-export const setCurrentPage = (page:number):{type: typeof SET_CURRENT_PAGE, page: number} => ({type: SET_CURRENT_PAGE, page})
-export const changeIsFetching = (state:boolean):{type: typeof CHANGE_FETCHING, state: boolean} => ({type: CHANGE_FETCHING, state})
-export const startFollowing = (id:number):{type: typeof START_FOLLOWING, id: number} => ({type: START_FOLLOWING, id})
-export const stopFollowing = (id:number):{type: typeof STOP_FOLLOWING, id: number} => ({type: STOP_FOLLOWING, id})
+type followUnfollowType = {type: typeof FOLLOW_UNFOLLOW, userId: number, status:boolean}
+type setUsersType = {type: typeof SET_USERS, data:userType[]}
+type setCurrentPage = {type: typeof SET_CURRENT_PAGE, page: number}
+type changeIsFetchingType = {type: typeof CHANGE_FETCHING, state: boolean}
+type startFollowingType = {type: typeof START_FOLLOWING, id: number}
+type stopFollowingType = {type: typeof STOP_FOLLOWING, id: number}
+export const followUnfollow = (userId:number, status:boolean):followUnfollowType => ({type: FOLLOW_UNFOLLOW, userId, status})
+export const setUsers = (data:userType[]):setUsersType => ({type: SET_USERS, data})
+export const setCurrentPage = (page:number):setCurrentPage => ({type: SET_CURRENT_PAGE, page})
+export const changeIsFetching = (state:boolean):changeIsFetchingType => ({type: CHANGE_FETCHING, state})
+export const startFollowing = (id:number):startFollowingType => ({type: START_FOLLOWING, id})
+export const stopFollowing = (id:number):stopFollowingType => ({type: STOP_FOLLOWING, id})
 
 
 export const requestUsers = (currentPage:number, pageSize:number) => async (dispatch:Function):Promise<void> => {

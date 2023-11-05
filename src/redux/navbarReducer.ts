@@ -1,10 +1,12 @@
 
+type FriendType = {
+    id: number;
+    name: string;
+    img: string;
+}
+
 type initialStateType = {
-    Friends:{
-        id: number;
-        name: string;
-        img: string;
-    }[]
+    Friends:FriendType[]
 }
 
 let initialState:initialStateType = {

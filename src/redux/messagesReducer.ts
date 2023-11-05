@@ -1,16 +1,18 @@
 const SEND_MESSAGE = 'message/SEND-MESSAGE';
 
+type DialogDataType = {
+    id: number;
+    name: string;
+}
+type MessageDataType = {
+    id: number;
+    text: string;
+    date: string;
+    img: string;
+}
 type initialStateType = {
-    DialogData: {
-        id: number;
-        name: string;
-    }[];
-    MessageData: {
-        id: number;
-        text: string;
-        date: string;
-        img: string;
-    }[];
+    DialogData: DialogDataType[];
+    MessageData: MessageDataType[];
 }
 
 let initialState:initialStateType = {
@@ -46,6 +48,7 @@ const messagesReducer = (state:initialStateType = initialState, action:any):init
 
 }
 
-export const sendMessageActionCreator = (newMessageText):{type: typeof SEND_MESSAGE, newMessageText: string} => ({type: SEND_MESSAGE, newMessageText})
+type sendMessageActionCreatorType = {type: typeof SEND_MESSAGE, newMessageText: string}
+export const sendMessageActionCreator = (newMessageText:string):sendMessageActionCreatorType => ({type: SEND_MESSAGE, newMessageText})
 
 export default messagesReducer

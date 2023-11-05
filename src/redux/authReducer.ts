@@ -42,10 +42,13 @@ const authReducer = (state: initialStateType = initialState, action:any):initial
     }
 }
 
-export const setUserData = (userId: null | number, email: null | string, login: null | string, isAuth: boolean):
-    {type: typeof SET_USER_DATA, payload: {userId: number | null, email: string | null, login: string | null, isAuth: boolean}} => ({type: SET_USER_DATA, payload:
-        {userId, email, login, isAuth}})
-export const setCaptcha = (url:string):{type: typeof SET_CAPTCHA, url: string} => ({type: SET_CAPTCHA, url})
+
+type SetUserPayloadType = {userId: number | null, email: string | null, login: string | null, isAuth: boolean};
+type SetUserDataType = {type: typeof SET_USER_DATA, payload: SetUserPayloadType};
+type SetCaptchaType = {type: typeof SET_CAPTCHA, url: string}
+export const setUserData = (userId: null | number, email: null | string, login: null | string, isAuth: boolean):SetUserDataType => (
+    {type: SET_USER_DATA, payload: {userId, email, login, isAuth}})
+export const setCaptcha = (url:string):SetCaptchaType => ({type: SET_CAPTCHA, url})
 
 export const auth = () => async (dispatch:any):Promise<void> => {
     let response = await accountAPI.my()
