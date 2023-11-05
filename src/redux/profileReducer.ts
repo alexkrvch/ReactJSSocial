@@ -64,6 +64,7 @@ const profileReducer = (state:initialStateType = initialState, action:any):initi
         case SET_PHOTO:
             return {
                 ...state,
+                // @ts-ignore
                 profile: {...state.profile, photos: action.photos}
             }
         case PROFILE_UPDATE_STATUS:

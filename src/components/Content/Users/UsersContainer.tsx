@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {followUser, requestUsers, unFollowUser} from "../../../redux/usersReducer.ts";
+import {followUser, requestUsers, unFollowUser} from "@/redux/usersReducer.ts";
 import React from "react";
 import Users from "./Users";
 import Preloader from "../../Common/Preloader/Preloader";
@@ -11,24 +11,40 @@ import {
     getPageSize, getPartSize,
     getTotalCount,
     getUsers
-} from "../../../redux/usersSelectors";
+} from "@/redux/usersSelectors.ts";
+import {userType} from "@/redux/types";
+import {AppStateType} from "@/redux/redux-store";
 
 
-class UsersContainer extends React.Component {
+type PropsType = {
+    users: userType[],
+    pageSize: number,
+    totalCount: number,
+    currentPage: number,
+    isFetching: boolean,
+    isFollowing: number[],
+    partSize: number,
+
+    requestUsers: (currentPage: number, pageSize: number) => void,
+    unFollowUser: (id:number) => void,
+    followUser: (id: number) => void
+}
+
+class UsersContainer extends React.Component<PropsType> {
     componentDidMount() {
         let {currentPage, pageSize} = this.props
         this.props.requestUsers(currentPage, pageSize)
     }
 
-    follow = (id) => {
+    follow = (id:number):void => {
         this.props.followUser(id)
     }
 
-    unFollow = (id) => {
+    unFollow = (id:number):void => {
         this.props.unFollowUser(id)
     }
 
-    onChangePage = (p) => {
+    onChangePage = (p:number):void => {
         this.props.requestUsers(p, this.props.pageSize)
     }
 
@@ -47,7 +63,7 @@ class UsersContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: AppStateType) => {
     return {
         users: getUsers(state),
         pageSize: getPageSize(state),

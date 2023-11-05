@@ -1,18 +1,27 @@
 import s from "./Pagination.module.css";
 import React, {useState} from "react";
 
-const Pagination = React.memo(({totalCount, pageSize, onChangePage, currentPage, partSize = 10}) => {
-    let pagesCount = Math.ceil(totalCount / pageSize);
-    let pages = [];
-    for (let i=1; i<=pagesCount; i++) {
+type PropsType = {
+    totalCount: number,
+    pageSize: number,
+    onChangePage: (p:number) => void,
+    currentPage: number,
+    partSize: number
+}
+
+
+const Pagination: React.FC<PropsType> = React.memo(({totalCount, pageSize, onChangePage, currentPage, partSize}) => {
+    let pagesCount:number = Math.ceil(totalCount / pageSize);
+    let pages:number[] = [];
+    for (let i:number=1; i<=pagesCount; i++) {
         pages.push(i);
     }
 
-    let partCount = Math.ceil(pagesCount / partSize)
+    let partCount:number = Math.ceil(pagesCount / partSize)
     let [partCurrent, setPartCurrent] = useState(Math.floor(currentPage/partSize)+1);
 
-    let leftPartPageNumber = (partCurrent - 1) * partSize +1;
-    let rightPartPageNumber = partCurrent * partSize;
+    let leftPartPageNumber:number = (partCurrent - 1) * partSize +1;
+    let rightPartPageNumber:number = partCurrent * partSize;
 
     return(
         <div className={s.navigation}>
