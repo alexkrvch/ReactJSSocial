@@ -1,13 +1,18 @@
-import {reduxForm} from "redux-form";
+import {InjectedFormProps, reduxForm} from "redux-form";
 import {createField, Input} from "../../Common/FormControls/FormsControls";
 import {required} from "../../../utils/validators/validators";
 import {connect} from "react-redux";
-import {login} from "../../../redux/authReducer.ts";
+import {login} from "../../../redux/authReducer";
 import {Navigate} from "react-router-dom";
 import s from "./Login.module.css"
 import React from "react";
+import {AppStateType} from "@/redux/redux-store";
 
-const LoginForm = ({handleSubmit, error, captcha}) => {
+type MyFormProps = {
+    captcha: string | null
+}
+
+const LoginForm:React.FC<InjectedFormProps<LoginFormValuesType, MyFormProps> & MyFormProps> = ({handleSubmit, error, captcha}) => {
     return (
         <form onSubmit={ handleSubmit }>
             {createField('Email', 'email', [required], Input, {type:'text'})}
@@ -23,14 +28,30 @@ const LoginForm = ({handleSubmit, error, captcha}) => {
     )
 }
 
-const LoginReduxForm = reduxForm({
+const LoginReduxForm = reduxForm<LoginFormValuesType, MyFormProps>({
     form: 'login'
 })(LoginForm)
 
-const Login = (props) => {
-    const onSubmit = (formData) => {
+type MapStatePropsType = {
+    isAuth: boolean
+    captcha: string | null
+}
+
+type MapDispatchPropsType = {
+    login: (email: string, password: string, rememberMe: boolean, captcha:string) => void
+}
+
+type LoginFormValuesType = {
+    email: string,
+    password: string,
+    rememberMe: boolean,
+    captcha: string | null
+}
+
+const Login:React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
+    const onSubmit = (formData: LoginFormValuesType) => {
         if(!formData.captcha) {
-            props.login(formData.email, formData.password, formData.rememberMe)
+            props.login(formData.email, formData.password, formData.rememberMe, '')
         } else {
             props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
         }
@@ -49,7 +70,7 @@ const Login = (props) => {
 }
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state:AppStateType): MapStatePropsType => ({
     isAuth: state.Auth.isAuth,
     captcha: state.Auth.captcha
 })
