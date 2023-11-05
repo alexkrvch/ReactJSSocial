@@ -1,5 +1,7 @@
 import {accountAPI, securityAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
+import {AppStateType} from "@/redux/redux-store";
+import {ThunkAction} from "redux-thunk";
 
 const SET_USER_DATA = 'auth/SET_USER_DATA';
 const SET_CAPTCHA = 'security/SET_CAPTCHA';
@@ -25,7 +27,7 @@ let initialState: initialStateType = {
     error: ''
 }
 
-const authReducer = (state: initialStateType = initialState, action:any):initialStateType  => {
+const authReducer = (state: initialStateType = initialState, action:ActionsTypes):initialStateType  => {
     switch (action.type){
         case SET_USER_DATA:
             return {
@@ -42,6 +44,9 @@ const authReducer = (state: initialStateType = initialState, action:any):initial
     }
 }
 
+// @ts-ignore
+type ActionsTypes  = SetUserDataType | SetCaptchaType | stopSubmit;
+
 
 type SetUserPayloadType = {userId: number | null, email: string | null, login: string | null, isAuth: boolean};
 type SetUserDataType = {type: typeof SET_USER_DATA, payload: SetUserPayloadType};
@@ -49,6 +54,8 @@ type SetCaptchaType = {type: typeof SET_CAPTCHA, url: string}
 export const setUserData = (userId: null | number, email: null | string, login: null | string, isAuth: boolean):SetUserDataType => (
     {type: SET_USER_DATA, payload: {userId, email, login, isAuth}})
 export const setCaptcha = (url:string):SetCaptchaType => ({type: SET_CAPTCHA, url})
+
+type ThunkType = ThunkAction<Promise<void>, AppStateType, null, ActionsTypes>
 
 export const auth = () => async (dispatch:any):Promise<void> => {
     let response = await accountAPI.my()
@@ -59,8 +66,9 @@ export const auth = () => async (dispatch:any):Promise<void> => {
 }
 
 
-export const login = (email: string, password: string, rememberMe: boolean, captcha:string) => async (dispatch:any) :Promise<void> => {
+export const login = (email: string, password: string, rememberMe: boolean, captcha:string):ThunkType => async (dispatch) => {
     let response = await accountAPI.login(email, password, rememberMe, captcha)
+
     if(response.resultCode === 0){
         dispatch(auth())
     }else{
@@ -73,7 +81,7 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
 }
 
 
-export const logout = () => async (dispatch:Function):Promise<void> => {
+export const logout = ():ThunkType => async (dispatch)=> {
     let response = await accountAPI.logout()
     if(response.resultCode === 0){
         dispatch(setUserData(null, null, null, false))
