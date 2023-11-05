@@ -3,7 +3,6 @@
     "target": "es5",
     "module": "esnext",
     "jsx": "react",
-    "outDir": "dist",
     "strict": true,
     "allowImportingTsExtensions": true,
     "jsxImportSource": "@emotion/react",

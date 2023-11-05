@@ -1,4 +1,4 @@
-import {auth} from "./authReducer.ts";
+import {auth} from "./authReducer";
 
 const SET_INITIALIZED = 'initApp/SET_INITIALIZED';
 
