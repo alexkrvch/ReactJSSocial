@@ -1,4 +1,4 @@
-import {accountAPI, securityAPI} from "../api/api";
+import {accountAPI, ResultCodeForCaptcha, ResultCodesEnum, securityAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 import {AppStateType} from "@/redux/redux-store";
 import {ThunkAction} from "redux-thunk";
@@ -59,7 +59,7 @@ type ThunkType = ThunkAction<Promise<void>, AppStateType, null, ActionsTypes>
 
 export const auth = () => async (dispatch:any):Promise<void> => {
     let response = await accountAPI.my()
-    if(response.resultCode === 0){
+    if(response.resultCode === ResultCodesEnum.Success){
         let {id, email, login} = response.data
         dispatch(setUserData(id, email, login, true))
     }
@@ -69,10 +69,10 @@ export const auth = () => async (dispatch:any):Promise<void> => {
 export const login = (email: string, password: string, rememberMe: boolean, captcha:string):ThunkType => async (dispatch) => {
     let response = await accountAPI.login(email, password, rememberMe, captcha)
 
-    if(response.resultCode === 0){
+    if(response.resultCode === ResultCodesEnum.Success){
         dispatch(auth())
     }else{
-        if(response.resultCode === 10) {
+        if(response.resultCode === ResultCodeForCaptcha.Captcha) {
             let captcha = await securityAPI.getCaptcha()
             dispatch(setCaptcha(captcha.url));
         }
