@@ -92,7 +92,6 @@ export const stopFollowing = (id:number):stopFollowingType => ({type: STOP_FOLLO
 
 type GetStateType = () => AppStateType
 type DispatchType = Dispatch<ActionsTypes>
-
 type ThunkType = ThunkAction<Promise<void>, AppStateType, null, ActionsTypes>
 
 export const requestUsers = (currentPage:number, pageSize:number): ThunkType => {
@@ -100,7 +99,7 @@ export const requestUsers = (currentPage:number, pageSize:number): ThunkType => 
         dispatch(changeIsFetching(true));
         const response = await usersAPI.getUsers(currentPage, pageSize)
         dispatch(changeIsFetching(false))
-        dispatch(setUsers(response.data.users, response.data.totalCount))
+        dispatch(setUsers(response.items, response.totalCount))
         dispatch(setCurrentPage(currentPage))
     }
 }
