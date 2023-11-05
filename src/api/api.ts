@@ -1,4 +1,5 @@
-import axios, {AxiosInstance} from "axios";
+import axios, {AxiosInstance, AxiosResponse} from "axios";
+import {profileType} from "@/redux/types.ts";
 
 type axiosType = {
     withCredentials: true;
@@ -18,6 +19,7 @@ let configAxios: axiosType = {
 
 const instance:AxiosInstance = axios.create(configAxios)
 
+
 export const usersAPI = {
     getUsers(currentPage:number, pageSize:number):Promise<any> {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`).then(response => response.data);
@@ -33,17 +35,48 @@ export const followAPI = {
     }
 }
 
+export enum ResultCodesEnum {
+    Success = 0,
+    Error = 1
+}
+export enum ResultCodeForCaptcha {
+    Captcha = 10
+}
+
+
+type MyType = {
+    data: {
+        id: number;
+        login: string;
+        email: string
+    }
+    messages: string[];
+    fieldsErrors: any[];
+    resultCode: ResultCodesEnum
+}
+
+type LoginType = {
+    data: {
+        id: number;
+    }
+    messages: string[];
+    resultCode: ResultCodesEnum | ResultCodeForCaptcha
+}
+
+
+
 export const accountAPI = {
-    my():Promise<any> {
-        return instance.get(`auth/me`).then(response => response.data)
+    my() {
+        return instance.get<MyType>(`auth/me`).then(response => response.data)
     },
-    login(email:string, password:string, rememberMe:boolean = false, captcha:string = ''):Promise<any> {
-        return instance.post(`auth/login`, {email, password, rememberMe, captcha}).then(response => response.data)
+    login(email:string, password:string, rememberMe:boolean = false, captcha:string = '') {
+        return instance.post<LoginType>(`auth/login`, {email, password, rememberMe, captcha}).then(response => response.data)
     },
     logout():Promise<any> {
         return instance.delete(`auth/login`).then(response => response.data);
     }
 }
+
 
 export const securityAPI = {
     getCaptcha():Promise<any> {
@@ -72,7 +105,7 @@ export const profileAPI = {
             }
         })
     },
-    saveProfile(data:any):Promise<any> {
+    saveProfile(data: profileType):Promise<any> {
         return instance.put(`profile`, {
             ...data
         })
