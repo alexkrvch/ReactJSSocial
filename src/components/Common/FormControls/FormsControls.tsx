@@ -32,11 +32,33 @@ export const Input:React.FC<WrappedFieldProps> = (props) => {
     )
 }
 
-export const createField = (placeholder: string | undefined,
-                            name: string,
+export type LoginFormValuesType = {
+    email: string,
+    password: string,
+    rememberMe: boolean,
+    captcha: string | null
+}
+
+type LoginFormPropertiesTypeKeys = keyof LoginFormValuesType
+
+
+export function createField<FormKeysType = string>(placeholder: string | undefined,
+                            name: FormKeysType,
                             validators: FieldValidatorType[] | string,
                             component: React.FC<WrappedFieldProps>,
                             props:any,
-                            text = '') => (<div>
-    <Field component={component} name={name} {...props} placeholder={placeholder} validate={validators} /> {text}
-</div>)
+                            text = '') {
+    return <div>
+        <Field component={component} name={name} {...props} placeholder={placeholder} validate={validators} /> {text}
+    </div>
+}
+
+
+// export const createField = (placeholder: string | undefined,
+//                             name: LoginFormPropertiesTypeKeys,
+//                             validators: FieldValidatorType[] | string,
+//                             component: React.FC<WrappedFieldProps>,
+//                             props:any,
+//                             text = '') => (<div>
+//     <Field component={component} name={name} {...props} placeholder={placeholder} validate={validators} /> {text}
+// </div>)
