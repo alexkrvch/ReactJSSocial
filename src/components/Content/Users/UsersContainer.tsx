@@ -12,7 +12,7 @@ import {
     getTotalCount,
     getUsers
 } from "../../../redux/usersSelectors";
-import {userType} from "@/redux/types.ts";
+import {userType} from "@/types/types.ts";
 import {AppStateType} from "@/redux/redux-store.ts";
 
 type MapStatePropsType = {

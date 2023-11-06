@@ -1,6 +1,7 @@
-import {followAPI, usersAPI} from "../api/api";
+import {followAPI} from "../api/follow-api";
+import {usersAPI} from "../api/users-api"
 import {updateObjectInArray} from "../utils/object-helpers";
-import {userType} from "@/redux/types.ts";
+import {userType} from "@/types/types.ts";
 import {AppStateType, InferActionsTypes} from "@/redux/redux-store.ts";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";

@@ -1,6 +1,7 @@
-import {profileAPI} from "../api/api";
+import {profileAPI} from "../api/profile-api";
 import {stopSubmit} from "redux-form";
-import {photosType, postDataType, profileType} from "@/redux/types.ts";
+import {photosType, postDataType, profileType} from "@/types/types.ts";
+import {ResultCodesEnum} from "../api/api";
 
 const ADD_POST = 'profile/ADD-POST';
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
@@ -94,7 +95,7 @@ export const deletePost = (id:number):deletePostType => ({ type: DELETE_POST, id
 export const savePhotoSuccess = (photos:photosType):savePhotoSuccessType => ({ type: SET_PHOTO, photos })
 export const profileUpdateStatus = (status:number):profileUpdateStatusType => ({ type: PROFILE_UPDATE_STATUS, status})
 
-export const getProfile = (userId:number) => async (dispatch:Function):Promise<void> => {
+export const getProfile = (userId:number) => async (dispatch: any) => {
     dispatch(setUserId(userId))
     dispatch(setUserProfile(null))
     let response = await profileAPI.getProfile(userId)
@@ -108,10 +109,10 @@ export const getProfileStatus = (userId:number) => async (dispatch:Function):Pro
 }
 
 
-export const setProfileStatus = (status:string) => async (dispatch:Function):Promise<void> => {
+export const setProfileStatus = (status:string) => async (dispatch:any) => {
     try {
         let response = await profileAPI.setProfileStatus(status)
-        if (response.data.resultCode === 0) {
+        if (response.resultCode === 0) {
             dispatch(setStatus(status))
         }
     }catch(error) {
@@ -119,22 +120,22 @@ export const setProfileStatus = (status:string) => async (dispatch:Function):Pro
     }
 }
 
-export const savePhoto = (photo:any) => async (dispatch:Function):Promise<void> => {
+export const savePhoto = (photo:string) => async (dispatch:Function):Promise<void> => {
     let response = await profileAPI.setPhoto(photo)
-    if(response.data.resultCode === 0) {
-        dispatch(savePhotoSuccess(response.data.data.photos))
+    if(response.resultCode === ResultCodesEnum.Success) {
+        dispatch(savePhotoSuccess(response.data.photos))
     }
 }
 
 export const saveProfile = (data: profileType, userId:number) => async (dispatch:Function):Promise<void>=> {
     dispatch(profileUpdateStatus(0));
     let response = await profileAPI.saveProfile(data)
-    if(response.data.resultCode === 0) {
+    if(response.resultCode === ResultCodesEnum.Success) {
         let responseProfile = await profileAPI.getProfile(userId)
-        dispatch(setUserProfile(responseProfile))
+        dispatch(setUserProfile(responseProfile.data))
         dispatch(profileUpdateStatus(1));
     }else{
-        dispatch(stopSubmit('profile', {_error: response.data.messages}))
+        dispatch(stopSubmit('profile', {_error: response.messages}))
         dispatch(profileUpdateStatus(2));
     }
 }
