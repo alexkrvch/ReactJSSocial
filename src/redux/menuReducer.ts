@@ -1,10 +1,7 @@
+import {NavType} from "@/types/types.ts";
 
 type initialStateType = {
-    navItems:{
-        id: number,
-        link: string,
-        text: string
-    }[]
+    navItems:NavType[]
 }
 
 let initialState:initialStateType = {

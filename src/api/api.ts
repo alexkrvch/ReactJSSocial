@@ -1,6 +1,6 @@
 import axios, {AxiosInstance, AxiosResponse} from "axios";
 import {profileType, userType} from "@/types/types.ts";
-import User from "@/components/Content/Users/User/User.jsx";
+import User from "@/components/Content/Users/User/User.js";
 
 type axiosType = {
     withCredentials: true;
