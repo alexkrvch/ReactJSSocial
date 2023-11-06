@@ -1,6 +1,5 @@
 import {auth} from "./authReducer";
-
-const SET_INITIALIZED = 'initApp/SET_INITIALIZED';
+import {InferActionsTypes} from "@/redux/redux-store.ts";
 
 
 export type initialStateType = {
@@ -13,9 +12,9 @@ let initialState:initialStateType = {
     globalError: null
 }
 
-const appReducer = (state:initialStateType = initialState, action: any): initialStateType => {
+const appReducer = (state:initialStateType = initialState, action: ActionsTypes): initialStateType => {
     switch (action.type){
-        case SET_INITIALIZED:
+        case 'initApp/SET_INITIALIZED':
             return {
                 ...state,
                 initialized: true
@@ -25,18 +24,17 @@ const appReducer = (state:initialStateType = initialState, action: any): initial
     }
 }
 
-type initialProjectActionType = {type: typeof SET_INITIALIZED}
-
-export const initialProject = ():initialProjectActionType => ({type: SET_INITIALIZED})
+type ActionsTypes = InferActionsTypes<typeof actions>
+export const actions = {
+    initialProject: () => ({type: 'initApp/SET_INITIALIZED'})
+}
 
 export const initializeApp = () => async (dispatch:any):Promise<void> => {
     let authPromise = dispatch(auth());
 
     Promise.all([authPromise]).then( ():void => {
-        dispatch(initialProject())
+        dispatch(actions.initialProject())
     })
 }
-
-
 
 export default appReducer

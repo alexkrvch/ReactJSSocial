@@ -1,4 +1,5 @@
-import profileReducer, {addPost, deletePost} from "./profileReducer";
+import profileReducer, {actions} from "./profileReducer";
+import {profileType} from "../types/types";
 
 let state = {
     PostData: [
@@ -7,14 +8,15 @@ let state = {
         {id: 3, header: 'Next post', text: 'Nullam euismod,3 diam vel tincidunt bibendum, velit sapien bibendum sapien, vel bibendum sapien sapien vel sapien, velit sapien bibendum sapien, vel bibendum sapien sapien vel sapien.', countLikes: 12, date: '28 August 2023'},
         {id: 4, header: 'New post', text: 'Nullam euismod,4 diam vel tincidunt bibendum, velit sapien bibendum sapien, vel bibendum sapien sapien vel sapien, velit sapien bibendum sapien, vel bibendum sapien sapien vel sapien.', countLikes: 2, date: '21 August 2023'},
     ],
-    profile: null,
+    profile: null as profileType | null,
     profileId: 1,
-    status: ''
+    status: '',
+    profileUpdateStatus: 0
 }
 
 it('new post should be added', () => {
     // 1. test data
-    let action = addPost('Hi test');
+    let action = actions.addPost('Hi test');
 
     // 2. action
     let newState = profileReducer(state,action);
@@ -26,7 +28,7 @@ it('new post should be added', () => {
 
 it(`test text in the new post text`, () => {
     // 1. test data
-    let action = addPost('Hi test');
+    let action = actions.addPost('Hi test');
 
     // 2. action
     let newState = profileReducer(state,action);
@@ -37,7 +39,7 @@ it(`test text in the new post text`, () => {
 
 it('delete post', () => {
     // 1. test data
-    let action = deletePost(1);
+    let action = actions.deletePost(1);
 
     // 2. action
     let newState = profileReducer(state,action);
@@ -48,7 +50,7 @@ it('delete post', () => {
 
 it('after delete post dont change after incorrect ID', () => {
     // 1. test data
-    let action = deletePost(200);
+    let action = actions.deletePost(200);
 
     // 2. action
     let newState = profileReducer(state,action);

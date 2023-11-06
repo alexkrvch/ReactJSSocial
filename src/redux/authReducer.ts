@@ -2,11 +2,8 @@ import {ResultCodesEnum} from "../api/api";
 import {accountAPI, ResultCodeForCaptcha} from "../api/account-api";
 import {securityAPI} from "../api/secure-api"
 import {stopSubmit} from "redux-form";
-import {AppStateType} from "@/redux/redux-store";
-import {ThunkAction} from "redux-thunk";
+import {CommonThunkType, InferActionsTypes} from "@/redux/redux-store";
 
-const SET_USER_DATA = 'auth/SET_USER_DATA';
-const SET_CAPTCHA = 'security/SET_CAPTCHA';
 
 type initialStateType = {
     userId: null | number,
@@ -29,14 +26,14 @@ let initialState: initialStateType = {
     error: ''
 }
 
-const authReducer = (state: initialStateType = initialState, action:ActionsTypes):initialStateType  => {
+const authReducer = (state:initialStateType = initialState, action:ActionsTypes):initialStateType  => {
     switch (action.type){
-        case SET_USER_DATA:
+        case 'SET_USER_DATA':
             return {
                 ...state,
                 ...action.payload
             };
-        case SET_CAPTCHA:
+        case 'SET_CAPTCHA':
             return {
                 ...state,
                 captcha: action.url
@@ -47,28 +44,23 @@ const authReducer = (state: initialStateType = initialState, action:ActionsTypes
 }
 
 // @ts-ignore
-type ActionsTypes  = SetUserDataType | SetCaptchaType | stopSubmit;
 
 
-type SetUserPayloadType = {userId: number | null, email: string | null, login: string | null, isAuth: boolean};
-type SetUserDataType = {type: typeof SET_USER_DATA, payload: SetUserPayloadType};
-type SetCaptchaType = {type: typeof SET_CAPTCHA, url: string}
-export const setUserData = (userId: null | number, email: null | string, login: null | string, isAuth: boolean):SetUserDataType => (
-    {type: SET_USER_DATA, payload: {userId, email, login, isAuth}})
-export const setCaptcha = (url:string):SetCaptchaType => ({type: SET_CAPTCHA, url})
+const actions = {
+    setUserData: (userId: null | number, email: null | string, login: null | string, isAuth: boolean) => (
+        {type: 'SET_USER_DATA', payload: {userId, email, login, isAuth}} as const),
+    setCaptcha: (url:string) => ({type: 'SET_CAPTCHA', url} as const)
+}
 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, null, ActionsTypes>
-
-export const auth = () => async (dispatch:any):Promise<void> => {
+export const auth = ():ThunkType => async (dispatch) => {
     let response = await accountAPI.my()
     if(response.resultCode === ResultCodesEnum.Success){
         let {id, email, login} = response.data
-        dispatch(setUserData(id, email, login, true))
+        dispatch(actions.setUserData(id, email, login, true))
     }
 }
 
-
-export const login = (email: string, password: string, rememberMe: boolean, captcha:string):ThunkType => async (dispatch) => {
+export const login = (email: string, password: string, rememberMe: boolean, captcha:string):ThunkTypeWithSubmit => async (dispatch) => {
     let response = await accountAPI.login(email, password, rememberMe, captcha)
 
     if(response.resultCode === ResultCodesEnum.Success){
@@ -76,7 +68,7 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
     }else{
         if(response.resultCode === ResultCodeForCaptcha.Captcha) {
             let captcha = await securityAPI.getCaptcha()
-            dispatch(setCaptcha(captcha.url));
+            dispatch(actions.setCaptcha(captcha.url));
         }
         dispatch(stopSubmit('login', {_error: response.messages}))
     }
@@ -86,9 +78,12 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
 export const logout = ():ThunkType => async (dispatch)=> {
     let response = await accountAPI.logout()
     if(response.resultCode === 0){
-        dispatch(setUserData(null, null, null, false))
+        dispatch(actions.setUserData(null, null, null, false))
     }
 }
 
-
 export default authReducer
+
+type ActionsTypes = InferActionsTypes<typeof actions>
+type ThunkType = CommonThunkType<ActionsTypes>;
+type ThunkTypeWithSubmit = CommonThunkType<ActionsTypes | ReturnType <typeof stopSubmit>>;

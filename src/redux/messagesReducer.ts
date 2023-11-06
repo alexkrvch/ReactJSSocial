@@ -1,3 +1,5 @@
+import {InferActionsTypes} from "@/redux/redux-store.ts";
+
 const SEND_MESSAGE = 'message/SEND-MESSAGE';
 
 type DialogDataType = {
@@ -34,7 +36,7 @@ let initialState:initialStateType = {
     ]
 }
 
-const messagesReducer = (state:initialStateType = initialState, action:any):initialStateType => {
+const messagesReducer = (state:initialStateType = initialState, action:ActionsTypes):initialStateType => {
     switch (action.type){
         case SEND_MESSAGE:
             let today:string = new Date().toLocaleDateString('en-GB');
@@ -48,7 +50,10 @@ const messagesReducer = (state:initialStateType = initialState, action:any):init
 
 }
 
-type sendMessageActionCreatorType = {type: typeof SEND_MESSAGE, newMessageText: string}
-export const sendMessageActionCreator = (newMessageText:string):sendMessageActionCreatorType => ({type: SEND_MESSAGE, newMessageText})
+
+type ActionsTypes = InferActionsTypes<typeof actions>
+export const actions = {
+    sendMessageActionCreator: (newMessageText:string) => ({type: SEND_MESSAGE, newMessageText} as const)
+}
 
 export default messagesReducer
