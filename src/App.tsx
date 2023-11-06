@@ -1,9 +1,9 @@
 import './App.css';
-import NavContainer from "./components/Nav/NavContainer";
+import NavContainer from "./components/Nav/NavContainer.tsx";
 import Content from "./components/Content/Content";
 import Footer from "./components/Footer/Footer";
 import {BrowserRouter} from "react-router-dom";
-import HeaderContainer from "./components/Header/HeaderContainer";
+import HeaderContainer from "./components/Header/HeaderContainer.tsx";
 import {Component} from "react";
 import {connect} from "react-redux";
 import {compose} from "redux";

@@ -1,8 +1,8 @@
-import User from "./User/User";
+import User from "./User/User.tsx";
 import s from "./Users.module.css";
 import React from "react";
 import Pagination from "../../Common/Pagination/Paginator";
-import {userType} from "@/redux/types.ts";
+import {userType} from "@/types/types.ts";
 
 type PropsType = {
     currentPage: number,

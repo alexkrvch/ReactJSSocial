@@ -1,9 +1,5 @@
+import {FriendType} from "@/types/types.ts";
 
-type FriendType = {
-    id: number;
-    name: string;
-    img: string;
-}
 
 type initialStateType = {
     Friends:FriendType[]

@@ -1,7 +1,20 @@
 import s from './User.module.css'
 import {NavLink} from "react-router-dom";
+import React from "react";
+import {photosType} from "@/types/types.ts";
 
-const User = ({id, photos, name, followed, follow, isFollowing, unFollow, status}) => {
+type OwnPropsType = {
+    id: number,
+    photos: photosType,
+    name: string,
+    followed: boolean,
+    status: string,
+    isFollowing: number[],
+    follow: (id:number) => void,
+    unFollow: (id:number) => void
+}
+
+const User:React.FC<OwnPropsType> = ({id, photos, name, followed, follow, isFollowing, unFollow, status}) => {
     return(
         <div className={s.user}>
             <NavLink to={`/profile/${id}`}>

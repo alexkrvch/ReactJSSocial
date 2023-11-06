@@ -1,6 +1,13 @@
 import s from './Message.module.css'
+import React from "react";
 
-const Messages = (props) => {
+type OwnPropsType = {
+    img: string,
+    text: string,
+    date: string
+}
+
+const Messages:React.FC<OwnPropsType> = (props) => {
     return (
         <div className={s.message_item}>
             <div className={s.message_img}>

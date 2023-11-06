@@ -40,3 +40,27 @@ export type userType = {
     status: string | null;
     followed: boolean;
 }
+
+export type DialogDataType = {
+    id: number;
+    name: string;
+}
+
+export type MessageDataType = {
+    id: number;
+    text: string;
+    date: string;
+    img: string;
+}
+
+export type FriendType = {
+    id: number;
+    name: string;
+    img: string;
+}
+
+export type NavType = {
+    id: number,
+    link: string,
+    text: string
+}
