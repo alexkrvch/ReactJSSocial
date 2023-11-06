@@ -28,34 +28,34 @@ let initialState:initialStateType = {
 
 const usersReducer = (state:initialStateType = initialState, action:ActionsTypes):initialStateType => {
     switch (action.type){
-        case 'FOLLOW_UNFOLLOW':
+        case 'users/FOLLOW_UNFOLLOW':
             return {
                 ...state,
                 UsersList: updateObjectInArray(state.UsersList, action.userId, 'id', {followed: action.status})
             }
-        case 'SET_USERS':
+        case 'users/SET_USERS':
             return {
                 ...state,
                 UsersList: action.users,
                 totalCount: action.totalCount
             }
-        case 'SET_CURRENT_PAGE':
+        case 'users/SET_CURRENT_PAGE':
             return {
                 ...state,
                 currentPage: action.page
             }
-        case 'CHANGE_FETCHING':
+        case 'users/CHANGE_FETCHING':
             return {
                 ...state,
                 isFetching: action.state
             }
-        case 'START_FOLLOWING': {
+        case 'users/START_FOLLOWING': {
             return {
                 ...state,
                 followingInProgress: [...state.followingInProgress, action.id]
             }
         }
-        case 'STOP_FOLLOWING': {
+        case 'users/STOP_FOLLOWING': {
             return {
                 ...state,
                 followingInProgress: state.followingInProgress.filter(id => id!==action.id)
@@ -67,23 +67,20 @@ const usersReducer = (state:initialStateType = initialState, action:ActionsTypes
 }
 
 
-type ActionsTypes = InferActionsTypes<typeof actions>
+
 
 export const actions = {
-    followUnfollow: (userId:number, status:boolean) => ({type: 'FOLLOW_UNFOLLOW', userId, status} as const),
-    setUsers: (users:userType[], totalCount:number) => ({type: 'SET_USERS', users, totalCount} as const),
-    setCurrentPage: (page:number) => ({type: 'SET_CURRENT_PAGE', page} as const),
-    changeIsFetching: (state:boolean) => ({type: 'CHANGE_FETCHING', state} as const),
-    startFollowing: (id:number) => ({type: 'START_FOLLOWING', id} as const),
-    stopFollowing: (id:number) => ({type: 'STOP_FOLLOWING', id} as const),
+    followUnfollow: (userId:number, status:boolean) => ({type: 'users/FOLLOW_UNFOLLOW', userId, status} as const),
+    setUsers: (users:userType[], totalCount:number) => ({type: 'users/SET_USERS', users, totalCount} as const),
+    setCurrentPage: (page:number) => ({type: 'users/SET_CURRENT_PAGE', page} as const),
+    changeIsFetching: (state:boolean) => ({type: 'users/CHANGE_FETCHING', state} as const),
+    startFollowing: (id:number) => ({type: 'users/START_FOLLOWING', id} as const),
+    stopFollowing: (id:number) => ({type: 'users/STOP_FOLLOWING', id} as const),
 }
 
-type GetStateType = () => AppStateType
-type DispatchType = Dispatch<ActionsTypes>
-type ThunkType = ThunkAction<Promise<void>, AppStateType, null, ActionsTypes>
 
 export const requestUsers = (currentPage:number, pageSize:number): ThunkType => {
-    return async (dispatch: DispatchType, getState: GetStateType) => {
+    return async (dispatch) => {
         dispatch(actions.changeIsFetching(true));
         const response = await usersAPI.getUsers(currentPage, pageSize)
         dispatch(actions.changeIsFetching(false))
@@ -113,3 +110,7 @@ export const unFollowUser = (userId:number):ThunkType => async (dispatch):Promis
 
 
 export default usersReducer
+
+type ActionsTypes = InferActionsTypes<typeof actions>
+type DispatchType = Dispatch<ActionsTypes>
+type ThunkType = ThunkAction<Promise<void>, AppStateType, null, ActionsTypes>
