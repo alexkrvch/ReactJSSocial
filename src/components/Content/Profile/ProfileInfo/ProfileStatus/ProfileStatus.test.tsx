@@ -3,32 +3,38 @@ import {create} from "react-test-renderer";
 
 describe('Status component', () => {
     test('it shows span with status', () => {
-        const component = create(<ProfileStatus status={'Current status'} />)
+        // @ts-ignore
+        const component = create(<ProfileStatus status={'Current status'} setProfileStatus={()=>{}} />)
         const instance = component.getInstance();
+        // @ts-ignore
         expect(instance.state.status).toBe('Current status')
     })
 
     test('show span after render with editMode false', () => {
-        const component = create(<ProfileStatus status={'Current status'} />)
+        // @ts-ignore
+        const component = create(<ProfileStatus status={'Current status'} setProfileStatus={()=>{}} />)
         const paragraph = component.root.findByType('p');
         expect(paragraph).not.toBeNull()
     })
 
     test('show input after render with editMode false', () => {
-        const component = create(<ProfileStatus status={'Current status'} />)
+        // @ts-ignore
+        const component = create(<ProfileStatus status={'Current status'}  setProfileStatus={()=>{}}/>)
         expect(() => {
             component.root.findByType('input')
         }).toThrow()
     })
 
     test('test current status in paragraph', () => {
-        const component = create(<ProfileStatus status={'Current status'} />)
+        // @ts-ignore
+        const component = create(<ProfileStatus status={'Current status'} setProfileStatus={()=>{}} />)
         const paragraph = component.root.findByType('p');
         expect(paragraph.children[0]).toBe('Current status')
     })
 
     test('input should be display in editMode', () => {
-        const component = create(<ProfileStatus status={'Current status'} />)
+        // @ts-ignore
+        const component = create(<ProfileStatus status={'Current status'} setProfileStatus={()=>{}}  />)
         const paragraph = component.root.findByType('p');
         paragraph.props.onDoubleClick()
         const input = component.root.findByType('input');
@@ -37,8 +43,10 @@ describe('Status component', () => {
 
     test('callback should be called', () => {
         const mockCallback = jest.fn()
+        // @ts-ignore
         const component = create(<ProfileStatus status={'Current status'} setProfileStatus={mockCallback} />)
         const instance = component.getInstance();
+        // @ts-ignore
         instance.deActivateChangeEditMode()
         expect(mockCallback.mock.calls.length).toBe(1);
     })
