@@ -13,25 +13,11 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import {InjectedFormProps, reduxForm} from "redux-form";
 import React, {useEffect} from "react";
-import {contactsType, profileType} from "@/types/types.ts";
+import {contactsType, ProfileFormValuesType, profileType} from "@/types/types.ts";
 
 
 type ProfileFormType = profileType
 
-type ProfileFormValuesType = {
-    FullName: string,
-    lookingForAJob: boolean,
-    LookingForAJobDescription: string,
-    AboutMe: string,
-    'contacts.facebook': string;
-    'contacts.website': string;
-    'contacts.vk': string;
-    'contacts.twitter': string;
-    'contacts.instagram': string;
-    'contacts.youtube': string;
-    'contacts.github': string;
-    'contacts.mainLink': string;
-}
 
 type OwnPropsType = {
     owner:boolean,

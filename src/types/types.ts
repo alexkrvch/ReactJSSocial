@@ -9,7 +9,7 @@ export type profileType = {
     lookingForAJob: boolean;
     lookingForAJobDescription: string;
     fullName: string;
-    userId: number;
+    userId: number | undefined;
     photos: null | photosType;
 }
 
@@ -77,4 +77,19 @@ export type PropsForRouter = {
         userId: number
     },
     navigate: (to:string, options?:{}) => void
+}
+
+export type ProfileFormValuesType = {
+    FullName: string,
+    lookingForAJob: boolean,
+    LookingForAJobDescription: string,
+    AboutMe: string,
+    'contacts.facebook': string;
+    'contacts.website': string;
+    'contacts.vk': string;
+    'contacts.twitter': string;
+    'contacts.instagram': string;
+    'contacts.youtube': string;
+    'contacts.github': string;
+    'contacts.mainLink': string;
 }

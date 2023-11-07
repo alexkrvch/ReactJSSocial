@@ -24,21 +24,17 @@ type MapStatePropsType = {
     profile: profileType,
     status: string,
     owner: boolean,
-    userId: number,
+    userId: number | undefined,
     profileUpSt: number
 }
 
 type MapDispatchPropsType = {
-    setProfileStatus: () => void,
+    setProfileStatus: (status: string) => void,
     savePhoto: (photo:File) => void,
-    saveProfile: (formData: ProfileFormValuesType, userId: number) => void
+    saveProfile: (formData: ProfileFormValuesType, userId: number | undefined) => void
 }
 
-type OwnPropsType = {
-    onEditForm: (value:boolean) => void
-}
-
-type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType;
+type PropsType = MapStatePropsType & MapDispatchPropsType;
 
 const Profile:React.FC<PropsType> = ({ profile: {photos, fullName, lookingForAJob, contacts, lookingForAJobDescription, aboutMe}, status, owner, setProfileStatus, savePhoto, saveProfile, userId, profileUpSt}) => {
 

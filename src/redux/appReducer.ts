@@ -1,5 +1,6 @@
 import {auth} from "./authReducer";
-import {InferActionsTypes} from "@/redux/redux-store.ts";
+import {AppStateType, InferActionsTypes} from "@/redux/redux-store.ts";
+import {ThunkAction} from "redux-thunk";
 
 
 export type initialStateType = {
@@ -29,7 +30,7 @@ export const actions = {
     initialProject: () => ({type: 'initApp/SET_INITIALIZED'})
 }
 
-export const initializeApp = () => async (dispatch:any):Promise<void> => {
+export const initializeApp = ():ThunkType => async (dispatch) => {
     let authPromise = dispatch(auth());
 
     Promise.all([authPromise]).then( ():void => {
@@ -38,3 +39,6 @@ export const initializeApp = () => async (dispatch:any):Promise<void> => {
 }
 
 export default appReducer
+
+
+type ThunkType = ThunkAction<Promise<void>, AppStateType, null, ActionsTypes>
