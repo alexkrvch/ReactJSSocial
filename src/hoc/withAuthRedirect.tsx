@@ -12,11 +12,11 @@ type MapPropsType = {
 }
 
 export function withAuthRedirect<WCP>(Component:React.ComponentType<WCP>) {
-    function RedirectComponent(props:MapPropsType) {
+    const RedirectComponent:React.FC<MapPropsType> = (props) => {
         let {isAuth, ...restProps} = props;
         if(!props.isAuth) { return <Navigate to={"/login"} />}
-        return <Component {...restProps as unknown as WCP} />
+        return <Component {...restProps as WCP} />
     }
 
-    return connect<mapStateToPropsRed, {}, WCP, AppStateType>(mapStateToPropsRed, {})(RedirectComponent);
+    return connect<MapPropsType, {}, WCP, AppStateType>(mapStateToPropsRed, {})(RedirectComponent);
 }
