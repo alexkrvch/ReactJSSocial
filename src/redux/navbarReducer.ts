@@ -1,4 +1,5 @@
 import {FriendType} from "@/types/types.ts";
+import {InferActionsTypes} from "@/redux/redux-store.ts";
 
 
 type initialStateType = {
@@ -13,13 +14,18 @@ let initialState:initialStateType = {
     ],
 }
 
-const navbarReducer = (state:initialStateType = initialState, action:any):initialStateType => {
+const navbarReducer = (state:initialStateType = initialState, action:ActionsTypes):initialStateType => {
 
     switch (action.type){
         default:
             return state
     }
 
+}
+
+type ActionsTypes = InferActionsTypes<typeof actions>
+export const actions = {
+    defaultAction: () => ({type: 'DEFAULT/NAVBAR'} as const)
 }
 
 export default navbarReducer

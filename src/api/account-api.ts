@@ -26,7 +26,7 @@ export const accountAPI = {
             captcha
         }).then(response => response.data)
     },
-    logout(): Promise<any> {
+    logout() {
         return instance.delete(`auth/login`).then(response => response.data);
     }
 }

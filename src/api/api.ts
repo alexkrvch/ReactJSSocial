@@ -1,7 +1,7 @@
 import axios, {AxiosInstance, CreateAxiosDefaults} from "axios";
 import {userType} from "@/types/types";
 
-interface ConfigAxiosType extends CreateAxiosDefaults<any> {
+interface ConfigAxiosType extends CreateAxiosDefaults {
     withCredentials: boolean;
     baseURL: string;
     headers: {

@@ -11,11 +11,13 @@ import {
 import WithRouter from "../../Common/WithRouter/WithRouter";
 import {compose} from "redux";
 import {AppStateType} from "@/redux/redux-store.ts";
-import {profileType, PropsForRouter} from "@/types/types.ts";
+import {ProfileFormValuesType, profileType, PropsForRouter} from "@/types/types.ts";
+
+
 
 type MapStatePropsType = {
     profile: profileType,
-    userId: number,
+    userId: number | undefined,
     isAuth: boolean,
     status: string,
     profileUpSt: number,
@@ -25,8 +27,8 @@ type MapDispatchPropsType = {
     getProfile: (userId:number) => void,
     getProfileStatus: (userId:number) => void,
     setProfileStatus: (status: string) => void,
-    savePhoto: (photo: string) => void,
-    saveProfile: profileType
+    savePhoto: (photo: File) => void,
+    saveProfile: (profile: ProfileFormValuesType, userId: number) => void
 }
 
 
