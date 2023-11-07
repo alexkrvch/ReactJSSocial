@@ -8,7 +8,7 @@ type OwnPropsType = {
     photos: photosType,
     name: string,
     followed: boolean,
-    status: string,
+    status: string | null,
     isFollowing: number[],
     follow: (id:number) => void,
     unFollow: (id:number) => void

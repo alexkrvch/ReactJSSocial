@@ -4,8 +4,9 @@ import {instance, ResponseType} from "../api/api";
 
 const config: AxiosRequestConfig = {
     headers: {
-        'Content-Type': 'ultipart/form-data'
-    }
+        "Content-Type": 'ultipart/form-data'
+    },
+    string: ''
 };
 
 
@@ -23,7 +24,7 @@ export const profileAPI = {
             status: status
         }).then(res => res.data)
     },
-    setPhoto(photo:string) {
+    setPhoto(photo:File) {
         const formData:FormData = new FormData();
         formData.append("image", photo);
         return instance.put<ResponseType<photosTypes>>(`profile/photo`, formData, config).then(res => res.data)

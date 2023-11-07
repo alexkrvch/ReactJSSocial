@@ -9,8 +9,17 @@ import {
     faWeibo,
     faYoutube
 } from "@fortawesome/free-brands-svg-icons";
+import {profileType} from "@/types/types.ts";
+import React from "react";
 
-const ProfileData = ({lookingForAJob, contacts, lookingForAJobDescription, aboutMe, owner, onEditForm, fullName}) => {
+type OwnPropsType = {
+    owner:boolean,
+    onEditForm:(editMode: boolean) => void
+}
+
+type PropsType = profileType & OwnPropsType
+
+const ProfileData:React.FC<PropsType> = ({lookingForAJob, contacts, lookingForAJobDescription, aboutMe, owner, onEditForm, fullName}) => {
     return (
         <div className={s.profile_content}>
             { owner && <div><button onClick={ () => {onEditForm(true)}}>Edit</button></div> }

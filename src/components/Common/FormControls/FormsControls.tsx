@@ -7,6 +7,8 @@ type FormControlPropsType = {
     children: React.ReactNode
 }
 
+export type GetStringKeys<T> = Extract<keyof T, string>
+
 const FormControl:React.FC<WrappedFieldProps & FormControlPropsType> = ({meta: {touched, error}, children}) => {
     const hasError = touched && error;
     return (
@@ -31,16 +33,6 @@ export const Input:React.FC<WrappedFieldProps> = (props) => {
         <FormControl {...props}><input {...input} {...restProps} /></FormControl>
     )
 }
-
-export type LoginFormValuesType = {
-    email: string,
-    password: string,
-    rememberMe: boolean,
-    captcha: string | null
-}
-
-type LoginFormPropertiesTypeKeys = keyof LoginFormValuesType
-
 
 export function createField<FormKeysType = string>(placeholder: string | undefined,
                             name: FormKeysType,
