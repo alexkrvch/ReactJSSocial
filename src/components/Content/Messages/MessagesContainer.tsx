@@ -1,7 +1,7 @@
 import {actions} from "../../../redux/messagesReducer";
 import Messages from "./Messages";
 import {connect} from "react-redux";
-import {withAuthRedirect} from "../../../hoc/withAuthRedirect.jsx";
+import {withAuthRedirect} from "../../../hoc/withAuthRedirect.js";
 import {compose} from "redux";
 import {AppStateType} from "@/redux/redux-store.ts";
 import {DialogDataType, MessageDataType} from "@/types/types.ts";

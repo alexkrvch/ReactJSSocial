@@ -1,4 +1,4 @@
-import {lazy} from "react";
+import React, {lazy} from "react";
 import s from './Content.module.css'
 import {Navigate, Route, Routes} from "react-router-dom";
 import News from "./News/News";
@@ -12,7 +12,7 @@ const ProfileContainer = withSuspense(lazy(()=> import("./Profile/ProfileContain
 const MessagesContainer = withSuspense(lazy(()=> import("./Messages/MessagesContainer")))
 
 
-const Content = (props) => {
+const Content:React.FC = (props) => {
     return (
         <div className={s.content_page}>
             <Routes>

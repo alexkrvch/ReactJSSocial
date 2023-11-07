@@ -7,9 +7,10 @@ import {
     savePhoto,
     saveProfile,
     setProfileStatus
-} from "../../../redux/profileReducer.ts";
+} from "../../../redux/profileReducer";
 import WithRouter from "../../Common/WithRouter/WithRouter";
 import {compose} from "redux";
+import {AppStateType} from "@/redux/redux-store.ts";
 
 class ProfileContainer extends React.Component {
 
@@ -44,7 +45,7 @@ class ProfileContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => ({
+let mapStateToProps = (state:AppStateType) => ({
     profile: state.ProfilePage.profile,
     userId: state.Auth.userId,
     isAuth: state.Auth.isAuth,
@@ -52,7 +53,7 @@ let mapStateToProps = (state) => ({
     profileUpSt: state.ProfilePage.profileUpdateStatus
 })
 
-export default compose(
+export default compose<React.ComponentType>(
     connect(mapStateToProps, {getProfile, getProfileStatus, setProfileStatus, savePhoto, saveProfile}),
     WithRouter
 )(ProfileContainer)
