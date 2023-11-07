@@ -16,6 +16,7 @@
     "@types/react-dom": "^18.2.14",
     "@types/react-redux": "^7.1.28",
     "@types/react-router-dom": "^5.3.3",
+    "@types/react-test-renderer": "^18.0.6",
     "@types/redux-form": "^8.3.8",
     "axios": "^1.5.1",
     "babel-preset-react-app": "^10.0.1",
