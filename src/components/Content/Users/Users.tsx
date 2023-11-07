@@ -1,4 +1,4 @@
-import User from "./User/User.tsx";
+import User from "./User/User";
 import s from "./Users.module.css";
 import React from "react";
 import Pagination from "../../Common/Pagination/Paginator";

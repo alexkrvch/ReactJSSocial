@@ -107,7 +107,7 @@ export const setProfileStatus = (status:string):ThunkType => async (dispatch) =>
     }
 }
 
-export const savePhoto = (photo:string):ThunkType => async (dispatch) => {
+export const savePhoto = (photo:File):ThunkType => async (dispatch) => {
     let response = await profileAPI.setPhoto(photo)
     if(response.resultCode === ResultCodesEnum.Success) {
         dispatch(actions.savePhotoSuccess(response.data.photos))

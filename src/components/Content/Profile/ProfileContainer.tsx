@@ -11,8 +11,31 @@ import {
 import WithRouter from "../../Common/WithRouter/WithRouter";
 import {compose} from "redux";
 import {AppStateType} from "@/redux/redux-store.ts";
+import {profileType, PropsForRouter} from "@/types/types.ts";
 
-class ProfileContainer extends React.Component {
+type MapStatePropsType = {
+    profile: profileType,
+    userId: number,
+    isAuth: boolean,
+    status: string,
+    profileUpSt: number,
+}
+
+type MapDispatchPropsType = {
+    getProfile: (userId:number) => void,
+    getProfileStatus: (userId:number) => void,
+    setProfileStatus: (status: string) => void,
+    savePhoto: (photo: string) => void,
+    saveProfile: profileType
+}
+
+
+type PropsType = MapStatePropsType & MapDispatchPropsType & PropsForRouter
+
+class ProfileContainer extends React.Component<PropsType> {
+    userId: number | undefined
+    currentID: number | undefined;
+    oldID: number | undefined;
 
     refreshProfile () {
         this.userId = !this.props.params.userId ? this.props.userId : this.props.params.userId
@@ -28,7 +51,7 @@ class ProfileContainer extends React.Component {
         this.refreshProfile()
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    componentDidUpdate(prevProps:PropsType) {
         this.currentID = !this.props.params.userId ? this.props.userId : this.props.params.userId;
         this.oldID = !prevProps.params.userId ? prevProps.userId : prevProps.params.userId;
         if(this.currentID!==this.oldID){

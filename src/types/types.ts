@@ -1,6 +1,6 @@
 export type photosType = {
-    small: string | null;
-    large: string | null;
+    small: string | undefined;
+    large: string | undefined;
 }
 
 export type profileType = {
@@ -63,4 +63,18 @@ export type NavType = {
     id: number,
     link: string,
     text: string
+}
+
+export type PropsForRouter = {
+    location: {
+        hash: string
+        key: string,
+        pathname: string,
+        search: string,
+        state: null | string
+    },
+    params: {
+        userId: number
+    },
+    navigate: (to:string, options?:{}) => void
 }

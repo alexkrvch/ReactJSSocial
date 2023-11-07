@@ -1,5 +1,5 @@
 import s from "../ProfileInfo.module.css";
-import {createField, Input, Textarea} from "../../../../Common/FormControls/FormsControls";
+import {createField, GetStringKeys, Input, Textarea} from "../../../../Common/FormControls/FormsControls";
 import {required} from "../../../../../utils/validators/validators";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
@@ -11,13 +11,41 @@ import {
     faWeibo,
     faYoutube
 } from "@fortawesome/free-brands-svg-icons";
-import {reduxForm} from "redux-form";
+import {InjectedFormProps, reduxForm} from "redux-form";
 import React, {useEffect} from "react";
+import {contactsType, profileType} from "@/types/types.ts";
 
 
-const ProfileForm = ({handleSubmit, lookingForAJob, contacts, lookingForAJobDescription, aboutMe, owner, fullName, initialize, error}) => {
+type ProfileFormType = profileType
+
+type ProfileFormValuesType = {
+    FullName: string,
+    lookingForAJob: boolean,
+    LookingForAJobDescription: string,
+    AboutMe: string,
+    'contacts.facebook': string;
+    'contacts.website': string;
+    'contacts.vk': string;
+    'contacts.twitter': string;
+    'contacts.instagram': string;
+    'contacts.youtube': string;
+    'contacts.github': string;
+    'contacts.mainLink': string;
+}
+
+type OwnPropsType = {
+    owner:boolean,
+    onEditForm:(editMode: boolean) => void
+}
+
+type MyFormProps = ProfileFormType & OwnPropsType
+
+type ProfileFormPropertiesTypeKeys = GetStringKeys<ProfileFormValuesType>
+
+
+const ProfileForm:React.FC<InjectedFormProps<ProfileFormValuesType, MyFormProps> & MyFormProps> = ({handleSubmit, lookingForAJob, contacts, lookingForAJobDescription, aboutMe, owner, fullName, initialize, error}) => {
     useEffect(() => {
-        const data = {
+        const data: {AboutMe: string, contacts: contactsType, lookingForAJob: boolean, LookingForAJobDescription: string, FullName: string} = {
             "AboutMe": aboutMe,
             "contacts": contacts,
             "lookingForAJob": lookingForAJob,
@@ -29,7 +57,7 @@ const ProfileForm = ({handleSubmit, lookingForAJob, contacts, lookingForAJobDesc
 
     let errorsList
     if(error) {
-        errorsList = error.map(error => `<p>Error: ${error}</p>`);
+        errorsList = `<p>Error: ${error}</p>`;
     }
 
 
@@ -37,26 +65,26 @@ const ProfileForm = ({handleSubmit, lookingForAJob, contacts, lookingForAJobDesc
         <form onSubmit={ handleSubmit } className={s.profile_content}>
             { owner && <div><button>Save</button></div> }
             <p>Введите имя</p>
-            {createField('Имя', 'FullName', [required], Input)}
+            {createField<ProfileFormPropertiesTypeKeys>('Имя', 'FullName', [required], Input, {type:'text'})}
             <p>В поиске работы</p>
-            {createField('В поиске работы', 'lookingForAJob', [], Input, {type:'checkbox'})}
+            {createField<ProfileFormPropertiesTypeKeys>('В поиске работы', 'lookingForAJob', [], Input, {type:'checkbox'})}
             <p>Мои скиллы</p>
-            {createField('Мои скилы', 'LookingForAJobDescription', [required], Input, {type:'text'})}
+            {createField<ProfileFormPropertiesTypeKeys>('Мои скилы', 'LookingForAJobDescription', [required], Input, {type:'text'})}
             <p>Обо мне</p>
-            {createField('Обо мне', 'AboutMe', [required], Textarea, {type:'text'})}
+            {createField<ProfileFormPropertiesTypeKeys>('Обо мне', 'AboutMe', [required], Textarea, {type:'text'})}
             <p>Имя: { fullName }</p>
             <p>Поиск работы: { lookingForAJob ? 'В поиске' : 'Не ищу работу' }</p>
             <p>Описание поиска работы: { lookingForAJobDescription && lookingForAJobDescription}</p>
             <p>About Me: { aboutMe && aboutMe}</p>
 
-            <div>{createField('facebook', 'contacts.facebook', [], Input, {type:'text'})}</div>
-            <div>{createField('github', 'contacts.github', [], Input, {type:'text'})}</div>
-            <div>{createField('instagram', 'contacts.instagram', [], Input, {type:'text'})}</div>
-            <div>{createField('twitter', 'contacts.twitter', [], Input, {type:'text'})}</div>
-            <div>{createField('vk', 'contacts.vk', [], Input, {type:'text'})}</div>
-            <div>{createField('website', 'contacts.website', [], Input, {type:'text'})}</div>
-            <div>{createField('youtube', 'contacts.youtube', [], Input, {type:'text'})}</div>
-            <div>{createField('mainLink', 'contacts.mainLink', [], Input, {type:'text'})}</div>
+            <div>{createField<ProfileFormPropertiesTypeKeys>('facebook', 'contacts.facebook', [], Input, {type:'text'})}</div>
+            <div>{createField<ProfileFormPropertiesTypeKeys>('github', 'contacts.github', [], Input, {type:'text'})}</div>
+            <div>{createField<ProfileFormPropertiesTypeKeys>('instagram', 'contacts.instagram', [], Input, {type:'text'})}</div>
+            <div>{createField<ProfileFormPropertiesTypeKeys>('twitter', 'contacts.twitter', [], Input, {type:'text'})}</div>
+            <div>{createField<ProfileFormPropertiesTypeKeys>('vk', 'contacts.vk', [], Input, {type:'text'})}</div>
+            <div>{createField<ProfileFormPropertiesTypeKeys>('website', 'contacts.website', [], Input, {type:'text'})}</div>
+            <div>{createField<ProfileFormPropertiesTypeKeys>('youtube', 'contacts.youtube', [], Input, {type:'text'})}</div>
+            <div>{createField<ProfileFormPropertiesTypeKeys>('mainLink', 'contacts.mainLink', [], Input, {type:'text'})}</div>
 
             <div className={s.social_block}>
 
@@ -77,7 +105,7 @@ const ProfileForm = ({handleSubmit, lookingForAJob, contacts, lookingForAJobDesc
     )
 }
 
-const ProfileReduxForm = reduxForm({
+const ProfileReduxForm = reduxForm<ProfileFormValuesType, MyFormProps>({
     form: 'profile'
 })(ProfileForm)
 
