@@ -6,7 +6,7 @@ import Music from "./Music/Music";
 import Settings from "./Settings/Settings";
 import UsersContainer from "./Users/UsersContainer";
 import Login from "./Login/Login";
-import {withSuspense} from "../../hoc/withSuspense";
+import {withSuspense} from "../../hoc/withSuspense.tsx";
 
 const ProfileContainer = withSuspense(lazy(()=> import("./Profile/ProfileContainer")))
 const MessagesContainer = withSuspense(lazy(()=> import("./Messages/MessagesContainer")))
