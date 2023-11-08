@@ -5,8 +5,9 @@ import {userType} from "@/types/types.ts";
 import {AppStateType, InferActionsTypes} from "@/redux/redux-store.ts";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
+import {ResponseType} from "@/api/api.ts";
 
-type initialStateType = {
+export type initialStateType = {
     UsersList: userType[];
     pageSize: number;
     totalCount: number;
@@ -89,7 +90,7 @@ export const requestUsers = (currentPage:number, pageSize:number): ThunkType => 
     }
 }
 
-export const followUnfollowFlow = async (dispatch:DispatchType, userId:number, apiMethod: Function, status:boolean) => {
+export const followUnfollowFlow = async (dispatch:DispatchType, userId:number, apiMethod: (userId: number) => Promise<ResponseType>, status:boolean) => {
     dispatch(actions.startFollowing(userId))
     const response = await apiMethod(userId)
     dispatch(actions.stopFollowing(userId))
