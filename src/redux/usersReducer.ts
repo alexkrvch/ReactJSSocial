@@ -93,10 +93,10 @@ export const requestUsers = (currentPage:number, pageSize:number): ThunkType => 
 export const followUnfollowFlow = async (dispatch:DispatchType, userId:number, apiMethod: (userId: number) => Promise<ResponseType>, status:boolean) => {
     dispatch(actions.startFollowing(userId))
     const response = await apiMethod(userId)
-    dispatch(actions.stopFollowing(userId))
     if(response.resultCode===0) {
         dispatch(actions.followUnfollow(userId, status))
     }
+    dispatch(actions.stopFollowing(userId))
 }
 
 
