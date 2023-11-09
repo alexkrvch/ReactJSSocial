@@ -6,6 +6,7 @@ import {AppStateType, InferActionsTypes} from "@/redux/redux-store.ts";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {ResponseType} from "@/api/api.ts";
+import * as stream from "stream";
 
 export type initialStateType = {
     UsersList: userType[];
@@ -15,6 +16,9 @@ export type initialStateType = {
     isFetching: boolean;
     partSize: number;
     followingInProgress: number[];
+    filter: {
+        term: string
+    }
 }
 
 let initialState:initialStateType = {
@@ -24,7 +28,10 @@ let initialState:initialStateType = {
     currentPage: 1,
     isFetching: true,
     partSize: 20,
-    followingInProgress: []
+    followingInProgress: [],
+    filter: {
+        term: ''
+    }
 }
 
 const usersReducer = (state:initialStateType = initialState, action:ActionsTypes):initialStateType => {
@@ -62,6 +69,12 @@ const usersReducer = (state:initialStateType = initialState, action:ActionsTypes
                 followingInProgress: state.followingInProgress.filter(id => id!==action.id)
             }
         }
+        case 'users/SET_FILTER': {
+            return {
+                ...state,
+                filter: action.payload
+            }
+        }
         default:
             return state
     }
@@ -77,16 +90,18 @@ export const actions = {
     changeIsFetching: (state:boolean) => ({type: 'users/CHANGE_FETCHING', state} as const),
     startFollowing: (id:number) => ({type: 'users/START_FOLLOWING', id} as const),
     stopFollowing: (id:number) => ({type: 'users/STOP_FOLLOWING', id} as const),
+    setFilter: (term: string) => ({type: 'users/SET_FILTER', payload: { term } } as const)
 }
 
 
-export const requestUsers = (currentPage:number, pageSize:number): ThunkType => {
+export const requestUsers = (currentPage:number, pageSize:number, term: string): ThunkType => {
     return async (dispatch) => {
         dispatch(actions.changeIsFetching(true));
-        const response = await usersAPI.getUsers(currentPage, pageSize)
+        dispatch(actions.setCurrentPage(currentPage))
+        dispatch(actions.setFilter(term));
+        const response = await usersAPI.getUsers(currentPage, pageSize, term)
         dispatch(actions.changeIsFetching(false))
         dispatch(actions.setUsers(response.items, response.totalCount))
-        dispatch(actions.setCurrentPage(currentPage))
     }
 }
 
@@ -115,3 +130,5 @@ export default usersReducer
 type ActionsTypes = InferActionsTypes<typeof actions>
 type DispatchType = Dispatch<ActionsTypes>
 type ThunkType = ThunkAction<Promise<void>, AppStateType, null, ActionsTypes>
+
+export type FilterType = typeof initialState.filter
