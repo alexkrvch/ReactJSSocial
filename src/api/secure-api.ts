@@ -1,4 +1,4 @@
-import {instance, ResponseType} from "../api/api";
+import {instance} from "../api/api";
 
 type getCaptchaUrlType = {
     url: string

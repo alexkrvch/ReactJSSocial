@@ -38,7 +38,6 @@ test('Confirm follow user', async () => {
 })
 
 test('Fail follow user', async () => {
-    // @ts-ignore
     FollowAPIMock.follow.mockReturnValue(Promise.resolve(resultFail));
     const thunk = followUser(2)
     await thunk(dispatchMock, getStateMock, null);
