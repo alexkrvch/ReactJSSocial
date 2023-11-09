@@ -17,7 +17,8 @@ export type initialStateType = {
     partSize: number;
     followingInProgress: number[];
     filter: {
-        term: string
+        term: string,
+        friend: null | boolean
     }
 }
 
@@ -30,7 +31,8 @@ let initialState:initialStateType = {
     partSize: 20,
     followingInProgress: [],
     filter: {
-        term: ''
+        term: '',
+        friend: null
     }
 }
 
@@ -90,16 +92,16 @@ export const actions = {
     changeIsFetching: (state:boolean) => ({type: 'users/CHANGE_FETCHING', state} as const),
     startFollowing: (id:number) => ({type: 'users/START_FOLLOWING', id} as const),
     stopFollowing: (id:number) => ({type: 'users/STOP_FOLLOWING', id} as const),
-    setFilter: (term: string) => ({type: 'users/SET_FILTER', payload: { term } } as const)
+    setFilter: (filter: FilterType) => ({type: 'users/SET_FILTER', payload: filter } as const)
 }
 
 
-export const requestUsers = (currentPage:number, pageSize:number, term: string): ThunkType => {
+export const requestUsers = (currentPage:number, pageSize:number, filter: FilterType): ThunkType => {
     return async (dispatch) => {
         dispatch(actions.changeIsFetching(true));
         dispatch(actions.setCurrentPage(currentPage))
-        dispatch(actions.setFilter(term));
-        const response = await usersAPI.getUsers(currentPage, pageSize, term)
+        dispatch(actions.setFilter(filter));
+        const response = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend)
         dispatch(actions.changeIsFetching(false))
         dispatch(actions.setUsers(response.items, response.totalCount))
     }

@@ -5,7 +5,7 @@ import Users from "./Users";
 import Preloader from "../../Common/Preloader/Preloader";
 import {compose} from "redux";
 import {
-    getCurrentPage,
+    getCurrentPage, getFilter,
     getIsFetching,
     getIsFollowing,
     getPageSize, getPartSize,
@@ -23,10 +23,11 @@ type MapStatePropsType = {
     isFetching: boolean,
     isFollowing: number[],
     partSize: number,
+    filter: FilterType
 }
 
 type MapDispatchPropsType = {
-    requestUsers: (currentPage: number, pageSize: number, term: string) => void,
+    requestUsers: (currentPage: number, pageSize: number, filter: FilterType) => void,
     unFollowUser: (id:number) => void,
     followUser: (id: number) => void
 }
@@ -39,8 +40,8 @@ type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType;
 
 class UsersContainer extends React.Component<PropsType> {
     componentDidMount() {
-        let {currentPage, pageSize} = this.props
-        this.props.requestUsers(currentPage, pageSize, '')
+        let {currentPage, pageSize, filter} = this.props
+        this.props.requestUsers(currentPage, pageSize, filter)
     }
 
     follow = (id:number):void => {
@@ -52,12 +53,11 @@ class UsersContainer extends React.Component<PropsType> {
     }
 
     onChangePage = (p:number):void => {
-        this.props.requestUsers(p, this.props.pageSize, '')
+        this.props.requestUsers(p, this.props.pageSize, this.props.filter)
     }
 
     onFilterChanged = (filter:FilterType):void => {
-        let {currentPage} = this.props
-        this.props.requestUsers(currentPage, this.props.pageSize, filter.term)
+        this.props.requestUsers(1, this.props.pageSize, filter)
     }
 
     render = () => {
@@ -84,7 +84,8 @@ let mapStateToProps = (state: AppStateType):MapStatePropsType => {
         currentPage: getCurrentPage(state),
         isFetching: getIsFetching(state),
         isFollowing: getIsFollowing(state),
-        partSize: getPartSize(state)
+        partSize: getPartSize(state),
+        filter: getFilter(state),
     }
 }
 
