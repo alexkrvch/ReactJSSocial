@@ -4,8 +4,8 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import News from "./News/News";
 import Music from "./Music/Music";
 import Settings from "./Settings/Settings";
-import UsersContainer from "./Users/UsersContainer";
-import Login from "./Login/Login";
+import {UsersPage} from "./Users/UsersPage";
+import {Login} from "./Login/Login";
 import {withSuspense} from "../../hoc/withSuspense";
 
 const ProfileContainer = withSuspense(lazy(()=> import("./Profile/ProfileContainer")))
@@ -19,7 +19,7 @@ const Content:React.FC = (props) => {
                 <Route path='/' element={<Navigate to={'/profile'} />} />
                 <Route path='/profile' element={<ProfileContainer />} />
                 <Route path='/profile/:userId' element={<ProfileContainer />} />
-                <Route path='/users' element={<UsersContainer pageTitle={'Самураи'} />} />
+                <Route path='/users' element={<UsersPage pageTitle={'Самураи'} />} />
                 <Route path='/messages' element={<MessagesContainer />} />
                 <Route path='/messages/:dialogid' element={<MessagesContainer />} />
                 <Route path='/news' element={<News />} />
