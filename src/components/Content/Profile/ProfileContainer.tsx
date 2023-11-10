@@ -40,14 +40,6 @@ const ProfilePage:React.FC<ProfilePageType> = (props) => {
         }
     }
 
-    const getProfileUser = (userId:number) => {
-        dispatch(getProfile(userId))
-    }
-
-    const getProfileStatusUser = (userId:number) => {
-        dispatch(getProfileStatus(userId))
-    }
-
     const setProfileStatusUser = (status:string) => {
         dispatch(setProfileStatus(status))
     }
@@ -67,7 +59,15 @@ const ProfilePage:React.FC<ProfilePageType> = (props) => {
 
     return(
         <div>
-            <Profile getProfileStatus={getProfileStatusUser} setProfileStatus={setProfileStatusUser} getProfile={getProfileUser} userId={userId} profile={profile} isAuth={isAuth} profileUpSt={profileUpSt} status={status}  owner={!params.userId} savePhoto={savePhotoUser} saveProfile={saveProfileUser} />
+            <Profile
+                setProfileStatus={setProfileStatusUser}
+                userId={userId}
+                profile={profile}
+                profileUpSt={profileUpSt}
+                status={status}
+                owner={!params.userId}
+                savePhoto={savePhotoUser}
+                saveProfile={saveProfileUser} />
         </div>
     )
 }

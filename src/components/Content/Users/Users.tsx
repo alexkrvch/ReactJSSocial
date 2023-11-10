@@ -15,6 +15,7 @@ import {
     getUsers
 } from "../../../redux/usersSelectors";
 import Preloader from "../../Common/Preloader/Preloader";
+import {useNavigate, useSearchParams} from "react-router-dom";
 
 type PropsType = {}
 
@@ -29,7 +30,19 @@ export const Users: React.FC<PropsType> = () => {
     const isFollowing = useSelector(getIsFollowing)
     const filter = useSelector(getFilter)
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const [location] = useSearchParams()
+
+    useEffect(() => {
+        navigate({
+            pathname: '/users',
+            search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
+        })
+    }, [filter, currentPage]);
+
+
 
     const onChangePage = (p: number) => {
         dispatch(requestUsers(p, pageSize, filter))
@@ -48,7 +61,23 @@ export const Users: React.FC<PropsType> = () => {
     }
 
     useEffect(() => {
-        dispatch(requestUsers(currentPage, pageSize, filter))
+
+        let currentLocation = {
+            term: location.get('term'),
+            friend: location.get('friend'),
+            page: location.get('page')
+        }
+
+        let actPage:number = currentPage
+
+
+        let actualFilter:FilterType = filter;
+        if(!!currentLocation.term){actualFilter.term = currentLocation.term as string}
+        if(!!currentLocation.page){actPage = parseInt(currentLocation.page) as number}
+        if(!!currentLocation.friend){actualFilter.friend = currentLocation.friend === 'true' ? true : currentLocation.friend === 'false' ? false : null}
+
+
+        dispatch(requestUsers(actPage, pageSize, actualFilter))
     }, [])
 
     let usersMap: React.JSX.Element[] = users.map(u => <User
