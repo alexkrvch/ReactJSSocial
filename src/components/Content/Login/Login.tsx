@@ -1,12 +1,13 @@
 import {InjectedFormProps, reduxForm} from "redux-form";
 import {createField, Input} from "../../Common/FormControls/FormsControls";
 import {required} from "../../../utils/validators/validators";
-import {connect, useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {login} from "../../../redux/authReducer";
 import {Navigate} from "react-router-dom";
 import s from "./Login.module.css"
 import React from "react";
 import {AppStateType} from "@/redux/redux-store";
+import {AnyAction, Dispatch} from "redux";
 
 type MyFormProps = {
     captcha: string | null
@@ -47,7 +48,7 @@ export const Login:React.FC = () => {
     const captcha = useSelector( (state:AppStateType) => state.Auth.captcha);
     const isAuth = useSelector( (state:AppStateType) => state.Auth.isAuth);
 
-    const dispatch = useDispatch()
+    const dispatch:Dispatch<AnyAction> = useDispatch()
 
     const onSubmit = (formData: LoginFormValuesType) => {
         if(!formData.captcha) {

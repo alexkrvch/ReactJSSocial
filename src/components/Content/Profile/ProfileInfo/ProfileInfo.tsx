@@ -24,14 +24,14 @@ type MapStatePropsType = {
     profile: profileType,
     status: string,
     owner: boolean,
-    userId: number | undefined,
+    userId: number | null,
     profileUpSt: number
 }
 
 type MapDispatchPropsType = {
     setProfileStatus: (status: string) => void,
     savePhoto: (photo:File) => void,
-    saveProfile: (formData: ProfileFormValuesType, userId: number | undefined) => void
+    saveProfile: (formData: ProfileFormValuesType, userId: number | null) => void
 }
 
 type PropsType = MapStatePropsType & MapDispatchPropsType;

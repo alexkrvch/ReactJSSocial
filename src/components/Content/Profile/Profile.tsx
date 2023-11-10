@@ -6,8 +6,8 @@ import React from "react";
 
 
 type MapStatePropsType = {
-    profile: profileType,
-    userId: number | undefined,
+    profile: profileType | null,
+    userId: number | null,
     isAuth: boolean,
     status: string,
     profileUpSt: number,
@@ -19,7 +19,7 @@ type MapDispatchPropsType = {
     getProfileStatus: (userId:number) => void,
     setProfileStatus: (status: string) => void,
     savePhoto: (photo: File) => void,
-    saveProfile: (profile: ProfileFormValuesType, userId: number | undefined) => void
+    saveProfile: (profile: ProfileFormValuesType, userId: number | null) => void
 }
 
 

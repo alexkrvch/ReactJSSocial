@@ -9,7 +9,7 @@ export type profileType = {
     lookingForAJob: boolean;
     lookingForAJobDescription: string;
     fullName: string;
-    userId: number | undefined;
+    userId: number | null;
     photos: null | photosType;
 }
 
