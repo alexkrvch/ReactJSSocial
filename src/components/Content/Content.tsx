@@ -7,6 +7,7 @@ import Settings from "./Settings/Settings";
 import {UsersPage} from "./Users/UsersPage";
 import {Login} from "./Login/Login";
 import {withSuspense} from "../../hoc/withSuspense";
+import {Button} from "@mui/material";
 
 const ProfilePage = withSuspense(lazy(()=> import("./Profile/ProfileContainer")))
 const MessagesContainer = withSuspense(lazy(()=> import("./Messages/MessagesContainer")))
@@ -26,7 +27,7 @@ const Content:React.FC = (props) => {
                 <Route path='/music' element={<Music />} />
                 <Route path='/settings' element={<Settings />} />
                 <Route path='/login' element={<Login />} />
-                <Route path='*' element={<div>Error 404</div>} />
+                <Route path='*' element={<div>Error 404<br /><Button variant={"contained"}>Ok</Button></div>} />
             </Routes>
         </div>
     );
