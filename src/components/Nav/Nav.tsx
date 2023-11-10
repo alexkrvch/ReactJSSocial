@@ -3,10 +3,9 @@ import Friend from "./Friend/Friend";
 import NavItem from "./NavItem/NavItem";
 import React from "react";
 import {FriendType, NavType} from "@/types/types.ts";
-import {Divider, ListItem, ListItemText, MenuItem, MenuList, Paper} from "@mui/material";
+import {Divider, ListItemText, MenuItem, MenuList, Paper} from "@mui/material";
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Check from '@mui/icons-material/Check';
-import Profile from "@/components/Content/Profile/Profile.tsx";
 
 type OwnPropsType = {
     friends: FriendType[],
