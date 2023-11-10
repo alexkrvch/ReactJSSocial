@@ -23,6 +23,10 @@ const Pagination: React.FC<PropsType> = React.memo(({totalCount, pageSize, onCha
     let leftPartPageNumber:number = (partCurrent - 1) * partSize +1;
     let rightPartPageNumber:number = partCurrent * partSize;
 
+    if(pages.length < 2) {
+        return <></>
+    }
+
     return(
         <div className={s.navigation}>
             { partCurrent > 1 && <button onClick={ () => { setPartCurrent(partCurrent-1) }}>Prev</button> }

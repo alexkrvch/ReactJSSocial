@@ -8,7 +8,7 @@ import {UsersPage} from "./Users/UsersPage";
 import {Login} from "./Login/Login";
 import {withSuspense} from "../../hoc/withSuspense";
 
-const ProfileContainer = withSuspense(lazy(()=> import("./Profile/ProfileContainer")))
+const ProfilePage = withSuspense(lazy(()=> import("./Profile/ProfileContainer")))
 const MessagesContainer = withSuspense(lazy(()=> import("./Messages/MessagesContainer")))
 
 
@@ -17,8 +17,8 @@ const Content:React.FC = (props) => {
         <div className={s.content_page}>
             <Routes>
                 <Route path='/' element={<Navigate to={'/profile'} />} />
-                <Route path='/profile' element={<ProfileContainer />} />
-                <Route path='/profile/:userId' element={<ProfileContainer />} />
+                <Route path='/profile' element={<ProfilePage />} />
+                <Route path='/profile/:userId' element={<ProfilePage />} />
                 <Route path='/users' element={<UsersPage pageTitle={'Самураи'} />} />
                 <Route path='/messages' element={<MessagesContainer />} />
                 <Route path='/messages/:dialogid' element={<MessagesContainer />} />

@@ -1,6 +1,8 @@
 import React from "react";
 import {Field, Form, Formik} from "formik";
 import {FilterType} from "@/redux/usersReducer.ts";
+import {useSelector} from "react-redux";
+import {AppStateType} from "@/redux/redux-store.ts";
 
 const usersFormValidate = (value: any) => {
     const errors = {};
@@ -31,10 +33,16 @@ const UsersForm: React.FC<PropsType> = React.memo(({onFilterChanged}) => {
         // }, 400);
     }
 
+    const initialValues:FilterType = useSelector((state:AppStateType) => state.Users.filter)
+    const initialValuesForm:FilterTypeString = {
+        term: initialValues.term,
+        friend: initialValues.friend === null ? 'null' : initialValues.friend === true ? 'true' : 'false'
+    }
+
     return (
         <div>
             <Formik
-                initialValues={{term: '', friend: 'null'}}
+                initialValues={initialValuesForm}
                 validate={usersFormValidate}
                 onSubmit={submit}>
                 {({isSubmitting}) => (

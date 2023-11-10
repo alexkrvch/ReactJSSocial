@@ -1,6 +1,6 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Profile from "./Profile";
-import {connect} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {
     getProfile,
     getProfileStatus,
@@ -8,77 +8,69 @@ import {
     saveProfile,
     setProfileStatus
 } from "../../../redux/profileReducer";
-import WithRouter from "../../Common/WithRouter/WithRouter";
-import {compose} from "redux";
 import {AppStateType} from "@/redux/redux-store.ts";
-import {ProfileFormValuesType, profileType, PropsForRouter} from "@/types/types.ts";
+import {profileType} from "@/types/types.ts";
+import {useNavigate, useParams} from "react-router-dom";
 
+type ProfilePageType = {
 
-
-type MapStatePropsType = {
-    profile: profileType,
-    userId: number | undefined,
-    isAuth: boolean,
-    status: string,
-    profileUpSt: number,
 }
 
-type MapDispatchPropsType = {
-    getProfile: (userId:number) => void,
-    getProfileStatus: (userId:number) => void,
-    setProfileStatus: (status: string) => void,
-    savePhoto: (photo: File) => void,
-    saveProfile: (profile: ProfileFormValuesType, userId: number) => void
-}
+const ProfilePage:React.FC<ProfilePageType> = (props) => {
+    const profile = useSelector((state:AppStateType) => state.ProfilePage.profile)
+    const userId = useSelector((state:AppStateType) => state.Auth.userId)
+    const isAuth = useSelector((state:AppStateType) => state.Auth.isAuth)
+    const status = useSelector((state:AppStateType) => state.ProfilePage.status)
+    const profileUpSt = useSelector((state:AppStateType) => state.ProfilePage.profileUpdateStatus)
 
+    const navigate = useNavigate();
+    const params = useParams();
 
-type PropsType = MapStatePropsType & MapDispatchPropsType & PropsForRouter
+    const dispatch = useDispatch();
 
-class ProfileContainer extends React.Component<PropsType> {
-    userId: number | undefined
-    currentID: number | undefined;
-    oldID: number | undefined;
+    let userIdOwn: typeof userId
 
-    refreshProfile () {
-        this.userId = !this.props.params.userId ? this.props.userId : this.props.params.userId
-        if(this.userId){
-            this.props.getProfile(this.userId)
-            this.props.getProfileStatus(this.userId)
+    const refreshProfile = () => {
+        userIdOwn = !params.userId ? userId : params.userId
+        if(userIdOwn){
+            dispatch(getProfile(userIdOwn))
+            dispatch(getProfileStatus(userIdOwn))
         }else{
-            this.props.navigate('/login');
+            navigate('/login');
         }
     }
 
-    componentDidMount() {
-        this.refreshProfile()
+    const getProfileUser = (userId:number) => {
+        dispatch(getProfile(userId))
     }
 
-    componentDidUpdate(prevProps:PropsType) {
-        this.currentID = !this.props.params.userId ? this.props.userId : this.props.params.userId;
-        this.oldID = !prevProps.params.userId ? prevProps.userId : prevProps.params.userId;
-        if(this.currentID!==this.oldID){
-            this.refreshProfile()
-        }
+    const getProfileStatusUser = (userId:number) => {
+        dispatch(getProfileStatus(userId))
     }
 
-    render() {
-        return (
-            <div>
-                <Profile {...this.props} userId={this.userId} owner={!this.props.params.userId} savePhoto={this.props.savePhoto} saveProfile={this.props.saveProfile} />
-            </div>
-        )
+    const setProfileStatusUser = (status:string) => {
+        dispatch(setProfileStatus(status))
     }
+
+    const saveProfileUser = (profile:profileType, userId:number) => {
+        debugger
+        dispatch(saveProfile(profile, userId))
+    }
+
+    const savePhotoUser = (photo:File) => {
+        dispatch(savePhoto(photo))
+    }
+
+    useEffect(() => {
+        refreshProfile()
+    }, [params.userId, userId])
+
+    return(
+        <div>
+            <Profile getProfileStatus={getProfileStatusUser} setProfileStatus={setProfileStatusUser} getProfile={getProfileUser} userId={userId} profile={profile} isAuth={isAuth} profileUpSt={profileUpSt} status={status}  owner={!params.userId} savePhoto={savePhotoUser} saveProfile={saveProfileUser} />
+        </div>
+    )
 }
 
-let mapStateToProps = (state:AppStateType) => ({
-    profile: state.ProfilePage.profile,
-    userId: state.Auth.userId,
-    isAuth: state.Auth.isAuth,
-    status: state.ProfilePage.status,
-    profileUpSt: state.ProfilePage.profileUpdateStatus
-})
 
-export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getProfile, getProfileStatus, setProfileStatus, savePhoto, saveProfile}),
-    WithRouter
-)(ProfileContainer)
+export default ProfilePage
