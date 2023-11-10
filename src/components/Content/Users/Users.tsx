@@ -16,6 +16,7 @@ import {
 } from "../../../redux/usersSelectors";
 import Preloader from "../../Common/Preloader/Preloader";
 import {useNavigate, useSearchParams} from "react-router-dom";
+import {stringify} from "querystring";
 
 type PropsType = {}
 
@@ -36,9 +37,14 @@ export const Users: React.FC<PropsType> = () => {
     const [location] = useSearchParams()
 
     useEffect(() => {
+        const query:any = {}
+        if(!!filter.term) query.term = filter.term
+        if(filter.friend !== null) query.friend = String(filter.friend)
+        if(currentPage !== 1) query.page = currentPage
+
         navigate({
             pathname: '/users',
-            search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
+            search: stringify(query)
         })
     }, [filter, currentPage]);
 

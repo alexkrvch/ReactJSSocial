@@ -42,6 +42,7 @@ const UsersForm: React.FC<PropsType> = React.memo(({onFilterChanged}) => {
     return (
         <div>
             <Formik
+                enableReinitialize
                 initialValues={initialValuesForm}
                 validate={usersFormValidate}
                 onSubmit={submit}>
