@@ -11,7 +11,7 @@ import {Button} from "@mui/material";
 
 const ProfilePage = withSuspense(lazy(()=> import("./Profile/ProfileContainer")))
 const MessagesContainer = withSuspense(lazy(()=> import("./Messages/MessagesContainer")))
-
+const ChatPage = withSuspense(lazy(()=> import("../../pages/chat/ChatPage")))
 
 const Content:React.FC = (props) => {
     return (
@@ -22,6 +22,7 @@ const Content:React.FC = (props) => {
                 <Route path='/profile/:userId' element={<ProfilePage />} />
                 <Route path='/users' element={<UsersPage pageTitle={'Самураи'} />} />
                 <Route path='/messages' element={<MessagesContainer />} />
+                <Route path='/chat' element={<ChatPage />} />
                 <Route path='/messages/:dialogid' element={<MessagesContainer />} />
                 <Route path='/news' element={<News />} />
                 <Route path='/music' element={<Music />} />
