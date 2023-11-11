@@ -31,7 +31,7 @@ const Messages:React.FC = () => {
     const [messagesItems, setMessages] = useState<ChatMessageType[]>([])
 
     useEffect(() => {
-        wsChanel.addEventListener('message', (e) => {
+        wsChanel.addEventListener('message', (e: MessageEvent) => {
             let newMessages = JSON.parse(e.data)
             setMessages((prevMessagesItems) =>[...prevMessagesItems, ...newMessages])
         })
@@ -55,11 +55,23 @@ const Message:React.FC<ChatMessageType> = ({userId, userName, photo, message}) =
 }
 
 const AddMessage:React.FC = (props) => {
+
+    let [message, setMessage] = useState('');
+
+    const sendMessage = () => {
+       if(!message) {
+           return
+       }
+
+        wsChanel.send(message)
+        setMessage('')
+    }
+
     return (
         <div>
             <hr />
-            <textarea></textarea><br/>
-            <button>send</button>
+            <textarea onChange={(e) => setMessage(e.currentTarget.value)} value={message}></textarea><br/>
+            <button onClick={sendMessage}>send</button>
         </div>
     )
 }
