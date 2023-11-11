@@ -21,6 +21,7 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/react-test-renderer": "^18.0.6",
     "@types/redux-form": "^8.3.8",
+    "antd": "^5.11.1",
     "axios": "^1.5.1",
     "babel-preset-react-app": "^10.0.1",
     "classname": "^0.0.0",
