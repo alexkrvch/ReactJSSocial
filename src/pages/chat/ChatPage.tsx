@@ -22,18 +22,29 @@ const Chat:React.FC = (props) => {
 
 
     useEffect(() => {
+        let ws: WebSocket
+
+        const closeHandler = () => {
+            console.log('Close channel')
+            setTimeout(createChannel, 3000)
+        }
+
         function createChannel () {
-            let ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
-            ws.addEventListener('close', () => {
-                console.log('Close channel')
-                setTimeout(createChannel, 3000)
-            })
+            ws?.removeEventListener('close', closeHandler)
+            ws?.close()
+
+            ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
+            ws.addEventListener('close', closeHandler)
 
             setWsChannel(ws)
         }
 
         createChannel();
 
+        return () => {
+            ws.removeEventListener('close', closeHandler)
+            ws.close()
+        }
     }, []);
 
     return (
@@ -49,11 +60,17 @@ const Messages:React.FC<{wsChannel: WebSocket | null}> = ({wsChannel}) => {
 
     const [messagesItems, setMessages] = useState<ChatMessageType[]>([])
 
+    const messageHandler = (e: MessageEvent) => {
+        let newMessages = JSON.parse(e.data)
+        setMessages((prevMessagesItems) =>[...prevMessagesItems, ...newMessages])
+    }
+
     useEffect(() => {
-        wsChannel?.addEventListener('message', (e: MessageEvent) => {
-            let newMessages = JSON.parse(e.data)
-            setMessages((prevMessagesItems) =>[...prevMessagesItems, ...newMessages])
-        })
+        wsChannel?.addEventListener('message', messageHandler)
+
+        return () => {
+            wsChannel?.removeEventListener('message', messageHandler)
+        }
     }, [wsChannel]);
     return (
         <div style={{ height:'400px', overflowX:"hidden", overflowY:'scroll'}}>
@@ -88,10 +105,15 @@ const AddMessage:React.FC<{wsChannel: WebSocket | null}> = ({wsChannel}) => {
         setMessage('')
     }
 
+    const openHandler = () => {
+        setReadyStatus('ready');
+    }
+
     useEffect(() => {
-        wsChannel?.addEventListener('open', () => {
-            setReadyStatus('ready');
-        })
+        wsChannel?.addEventListener('open', openHandler)
+        return() => {
+            wsChannel?.removeEventListener('open', openHandler)
+        }
     }, [wsChannel]);
 
     return (
