@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 
-const wsChanel = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
 
 export type ChatMessageType = {
     message: string,
@@ -14,28 +13,48 @@ const ChatPage:React.FC = (props) => {
         <div style={{width:'100%', alignItems:'start', textAlign:'left'}}>
             <h1>Chat</h1>
             <Chat />
-            <Messages />
-            <AddMessage />
         </div>
     )
 }
 
 const Chat:React.FC = (props) => {
+    const [wsChannel, setWsChannel] = useState<WebSocket | null>(null)
+
+
+    useEffect(() => {
+        function createChannel () {
+            let ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
+            ws.addEventListener('close', () => {
+                console.log('Close channel')
+                setTimeout(createChannel, 3000)
+            })
+
+            setWsChannel(ws)
+        }
+
+        createChannel();
+
+    }, []);
+
     return (
-        <div>Messages...</div>
+        <div>
+            <Messages wsChannel={wsChannel} />
+            <AddMessage wsChannel={wsChannel} />
+        </div>
     )
 }
 
-const Messages:React.FC = () => {
+const Messages:React.FC<{wsChannel: WebSocket | null}> = ({wsChannel}) => {
+
 
     const [messagesItems, setMessages] = useState<ChatMessageType[]>([])
 
     useEffect(() => {
-        wsChanel.addEventListener('message', (e: MessageEvent) => {
+        wsChannel?.addEventListener('message', (e: MessageEvent) => {
             let newMessages = JSON.parse(e.data)
             setMessages((prevMessagesItems) =>[...prevMessagesItems, ...newMessages])
         })
-    }, []);
+    }, [wsChannel]);
     return (
         <div style={{ height:'400px', overflowX:"hidden", overflowY:'scroll'}}>
             { messagesItems.map(((m:ChatMessageType, index) => <Message key={index} userId={m.userId} photo={m.photo} message={m.message} userName={m.userName} />)) }
@@ -54,24 +73,32 @@ const Message:React.FC<ChatMessageType> = ({userId, userName, photo, message}) =
     )
 }
 
-const AddMessage:React.FC = (props) => {
+const AddMessage:React.FC<{wsChannel: WebSocket | null}> = ({wsChannel}) => {
 
     let [message, setMessage] = useState('');
+
+    let [readyStatus, setReadyStatus] = useState<'pending'| 'ready'>('pending')
 
     const sendMessage = () => {
        if(!message) {
            return
        }
 
-        wsChanel.send(message)
+        wsChannel?.send(message)
         setMessage('')
     }
+
+    useEffect(() => {
+        wsChannel?.addEventListener('open', () => {
+            setReadyStatus('ready');
+        })
+    }, [wsChannel]);
 
     return (
         <div>
             <hr />
             <textarea onChange={(e) => setMessage(e.currentTarget.value)} value={message}></textarea><br/>
-            <button onClick={sendMessage}>send</button>
+            <button disabled={wsChannel===null || readyStatus !== 'ready'} onClick={sendMessage}>send</button>
         </div>
     )
 }
