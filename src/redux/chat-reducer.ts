@@ -1,11 +1,12 @@
 import {CommonThunkType, InferActionsTypes} from "@/redux/redux-store";
 import {chatAPI} from "../api/chat-api";
 import {Dispatch} from "redux";
+import {v1} from 'uuid';
 
 type statusType = 'pending' | 'ready' | 'error';
 
 type initialStateType = {
-    messages: ChatMessageType[],
+    messages: ChatMessageTypeWithId[],
     status: statusType
 }
 
@@ -20,13 +21,22 @@ const chatReducer = (state:initialStateType = initialState, action:ActionsTypes)
         case 'chat/MESSAGES_SET':
             return {
                 ...state,
-                messages: [...state.messages, ...action.payload.messages]
+                messages: [...state.messages, ...action.payload.messages.map(m => ({...m, id:v1()}))].filter((m, index, array) => index >= array.length - 10)
             };
         case 'chat/STATUS_CHANGED':
-            return {
-                ...state,
-                status: action.payload.status
+            if(action.payload.status === 'pending'){
+                return {
+                    ...state,
+                    status: action.payload.status,
+                    messages: []
+                }
+            } else {
+                return {
+                    ...state,
+                    status: action.payload.status
+                }
             }
+
         default:
             return state;
     }
@@ -92,3 +102,5 @@ export type ChatMessageType = {
     userId: number,
     userName: string
 }
+
+export type ChatMessageTypeWithId = ChatMessageType & {id: string}

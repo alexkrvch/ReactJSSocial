@@ -37,8 +37,10 @@ const notifySubscribersAboutStatus = (status: statusType) => {
 }
 
 const openHandler = () => {
-    console.log('ready')
     notifySubscribersAboutStatus('ready')
+    // setTimeout(()=>{
+    //     ws?.close()
+    // }, 10000)
 }
 
 function createChannel () {
