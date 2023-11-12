@@ -8,6 +8,7 @@ let subscribers = {
 let ws: WebSocket | null = null
 
 const messageHandler = (e: MessageEvent) => {
+    console.log('get message');
     const newMessages = JSON.parse(e.data)
     subscribers["message-received"].forEach(s => s(newMessages));
 }
@@ -21,8 +22,8 @@ const closeHandler = () => {
 const cleanUp = () => {
     ws?.removeEventListener('close', closeHandler)
     ws?.removeEventListener('message', messageHandler)
-    ws?.addEventListener('open', openHandler)
-    ws?.addEventListener('error', errorHandler)
+    ws?.removeEventListener('open', openHandler)
+    ws?.removeEventListener('error', errorHandler)
 }
 
 const errorHandler = () => {
