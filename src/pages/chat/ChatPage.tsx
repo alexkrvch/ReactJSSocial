@@ -21,7 +21,7 @@ const ChatPage:React.FC = (props) => {
 }
 
 const Chat:React.FC = (props) => {
-
+    const status = useSelector((state:AppStateType) => state.Chat.status)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -30,6 +30,8 @@ const Chat:React.FC = (props) => {
             dispatch(stopMessagesListening())
         }
     }, []);
+
+    if(status === 'error') return <div>Some error, Please refresh page</div>
 
     return (
         <div>
@@ -62,6 +64,7 @@ const Message:React.FC<ChatMessageType> = ({userId, userName, photo, message}) =
 
 const AddMessage:React.FC = () => {
     const [message, setMessage] = useState('')
+    const status = useSelector((state:AppStateType) => state.Chat.status)
 
     const dispatch = useDispatch()
 
@@ -77,7 +80,7 @@ const AddMessage:React.FC = () => {
         <div>
             <hr />
             <textarea onChange={(e) => setMessage(e.currentTarget.value)} value={message}></textarea><br/>
-            <button onClick={onSendMessage}>send</button>
+            <button disabled={status!=='ready'} onClick={onSendMessage}>send</button>
         </div>
     )
 }
