@@ -45,7 +45,6 @@ const ProfilePage:React.FC<ProfilePageType> = (props) => {
     }
 
     const saveProfileUser = (profile:profileType, userId:number) => {
-        debugger
         dispatch(saveProfile(profile, userId))
     }
 
