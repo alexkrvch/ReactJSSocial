@@ -76,7 +76,6 @@ const Messages:React.FC = () => {
 }
 
 const Message:React.FC<ChatMessageType> = React.memo(({userId, userName, photo, message}) => {
-    console.log('message')
     return (
         <div>
             <img style={{marginRight:'10px', display:'inline-block'}} src={photo} alt={userName} />
